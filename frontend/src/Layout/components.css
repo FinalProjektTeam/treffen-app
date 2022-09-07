@@ -1,0 +1,95 @@
+
+.nav-component{
+    padding: 0,7rem;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #EAE4D5;
+    
+}
+.nav-btn{
+    margin: 5px;
+    background-color: #D4E3FC;
+    box-shadow: 1px 1px 3px gray;
+}
+.nav-btn a{
+    text-decoration: none;
+    color: rgb(16, 16, 16);
+}
+
+/*------------------------------HOME--------------------------------------*/
+
+.home-bg-img-div{
+    width: 100vw;
+    height: 95vh;
+    /* background-image: url('/frontend/public/images/home-background.jpg'); */
+    background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80');
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-size:cover;
+}
+.home-explore-events-div{
+  background-color: rgba(0,0,0, 0.6); 
+  font-weight: bold;
+  border: 2px solid #EAE4D5;
+  border-radius: 15px;
+  position: absolute;
+  top: 93%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 40%;
+  padding: 20px;
+  text-align: center;
+}
+
+.home-explore-events-div a {
+    text-decoration: none;
+    color: #EAE4D5;
+}
+.home-explore-events-div a:hover{
+    color: orange;
+}
+
+
+/*------------------------------LOGIN--------------------------------------*/
+
+.login-form{
+    border: 1px solid gray;
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 30%;
+    padding: 30px;
+    padding-bottom: 50px;
+    background-color: rgb(234, 228, 213, 0.5);
+}
+
+.login-bg-img-div{
+    width: 100vw;
+    height: 95vh;
+    /* background-image: url('/frontend/public/images/home-background.jpg'); */
+    background: url('/home/user/Desktop/Unterricht/Final Project/treffen-app/frontend/public/images/login-background.jpg');
+    background-position: top center;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-size:cover;
+}
+
+.regist-bg-img-div{
+    width: 100vw;
+    height: 95vh;
+    /* background-image: url('/frontend/public/images/home-background.jpg'); */
+    background: url('/home/user/Desktop/Unterricht/Final Project/treffen-app/frontend/public/images/regist-background.jpg');
+
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-size:cover;
+    filter: grayscale(10%);
+}

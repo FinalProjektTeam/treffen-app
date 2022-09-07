@@ -1,11 +1,17 @@
-<<<<<<< HEAD
 import React from 'react'
 
 export default function Register() {
+
   return (
-    <div>Register Route</div>
+    <div className="regist-bg-img-div">
+      <div className="login-form">
+          <h2>Registration</h2>
+              <form action="">
+                <input type="text" placeholder='noch nicht fertig'/>
+              </form>
+
+      </div>
+
+    </div>
   )
 }
-=======
-
->>>>>>> 7b62de3b824d990f1beaf3700566bb9cb8de4db7

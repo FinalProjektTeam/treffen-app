@@ -1,10 +1,12 @@
 import './App.css';
+import React , {useState , useEffect , useContext} from "react";
 import {BrowserRouter as Router , Routes , Route} from 'react-router-dom'
 import Home from './components/Home'
 import Navigation from './components/Navigation'
 import Login from './components/Login'
 import Register from './components/Register'
 import UserAccount from './components/UserAccount'
+import EventsList from './components/EventsList';
 
 
 
@@ -14,7 +16,6 @@ function App() {
       <div className="App">
         <header>
           <Navigation>
-              <h1>Treffen App</h1>
             <div>
             <Routes>
                 <Route path = '/' 
@@ -25,6 +26,8 @@ function App() {
                           element = {<Register/>}/>
                 <Route path = '/user/:id' 
                           element = {<UserAccount/>}/>
+                <Route path = 'events-list' 
+                          element = {<EventsList/>}/>
  
             </Routes>
             </div>

@@ -1,30 +1,35 @@
-import React from 'react'
+import React , {useState , useEffect , useContext} from "react";
+import ReactDOM from 'react-dom/client';
+import '../Layout/components.css'
+
 
 export default function Login() {
-<<<<<<< HEAD
-  return (
-    <div>
-        <h2>Login Route</h2>
-        <img src="https://images.unsplash.com/photo-1661956600684-97d3a4320e45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" />
-=======
+    const [email, setEmail] = useState('');
+    const [password , setPassword] = useState('');
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        alert(`Ihre Daten wurden geschickt`)
+      }
 
   return (
-    <div>
-        <h2>Login Formular</h2>
-        <div className="img">
-          <img src="" alt="profile-img" />
+    <div className="login-bg-img-div">
+        <div className="login-form">
+          <h2>Login</h2>
+            <form onSubmit={handleSubmit} className="container">
+
+                <label htmlFor="email" className="m-2"><b>Email </b></label><br/>
+                <input type="email" placeholder="Your Email" className="m-2"
+                        value={email} onChange={(e)=> setEmail(e.target.value)} /><br/>
+
+                <label htmlFor="password" className="m-2"><b>Password </b></label><br/>
+                <input type="password" placeholder="Password" className="m-2"
+                        value={password} onChange={(e)=> setPassword(e.target.value)} /><br/>
+            
+                <input type="submit" className="m-2"/>
+            </form>
+
         </div>
-
-        <form action="">
-          <input type="email" name="" id="" placeholder='E-Mail'/>
-          <br />
-          <input type="password" name="" id="" placeholder='Password' />
-
-          <button>Login</button>
-        </form>
-
->>>>>>> 7b62de3b824d990f1beaf3700566bb9cb8de4db7
     </div>
   )
 }
