@@ -5,7 +5,8 @@
     justify-content:space-around;
     align-items: center;
     border: 1px solid black;
-    background-color: #EAE4D5;
+    background: rgb(247,247,203);
+    background: linear-gradient(130deg, rgba(247,247,203,1) 0%, rgba(230,180,180,1) 43%, rgba(176,194,222,1) 100%);
     
 }
 .nav-btn{

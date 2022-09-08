@@ -4,7 +4,7 @@ import '../Layout/components.css'
 
 export default function Navigation(props) {
   return (
-    <div >
+    
       <div className='nav-component'>
         <img src="images/first-logo.png" alt="logo" style={{width:'70px',height:'60px'}} />
         <h2>Treffen App</h2>
@@ -23,7 +23,7 @@ export default function Navigation(props) {
           <span>👨</span>
           {/* <img src="" alt="profilePhoto" style={{width:'25px',height:'25px'}} /> */}
       </div>
-    </div>
+    
         {props.children}
         
     </div>
