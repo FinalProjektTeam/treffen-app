@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 export default function EventsList() {
@@ -9,4 +10,3 @@ export default function EventsList() {
     </div>
   )
 }
-
