@@ -70,18 +70,14 @@ exports.logout = async(req, res, next)=>{
 
 exports.getCurrentUser = async(req, res, next)=>{
     const {id} = req.params
-
-    const user = await User.findById(id, '-')
+    const user = await User.findById(id)
 
     if(!user){
         const error = new Error('User nicht gefunden!')
         error.status = 400
         return next(error)
     }
-
     await user.save()
 
     res.status(200).send(user)
-
-
 }
