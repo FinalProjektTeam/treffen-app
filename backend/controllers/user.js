@@ -46,17 +46,24 @@ exports.getUsers = async(req, res, next) =>{
     res.status(200).send(users)
 }
 
-exports.logout = async(req, res, next)=>{
+exports.getSingleUser = async (req, res, next)=>{
+    const {id} = req.params
+    const user = await User.findById(id)
+    if(!user){
+        const error = new Error('User not found')
+        error.status = 400
+        return next(error)
+    }
+    res.status(200).send(user)
+}
 
+exports.logout = async(req, res, next)=>{
     const token = req.token
     const user = await User.findOne().where('token').equals(token)
-
     if(!user){
         user.token = ''
         await user.save()
     }
-
     res.cookie('user-token', '', {minAge: 1, sameSite: 'strict', httpOnly: true})
-
     res.status(200).end()
 }

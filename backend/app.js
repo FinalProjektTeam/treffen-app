@@ -13,6 +13,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/user', require('./routes/user'))
+app.use('/event', require('./routes/events-list') )
 
 app.post('/drop-database', async(req, res, next)=>{
     await mongoose.connection.db.dropDatabase()
