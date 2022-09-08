@@ -6,7 +6,7 @@ exports.register = [
     body('password').isLength({min: 6}).withMessage('Das ist nicht dein Passwort!'),
     body('firstname').isAlpha().withMessage('Wir benötigen dene Nachname!'),
     body('lastname').isAlpha().withMessage('Wir benötigen dene Vorname!!'),
-    body('gender').exists().withMessage('Wir benötigen deine Geschlecht!'),
+    body('gender').notEmpty().isIn(["Male", "Female"]).withMessage('Wir benötigen deine Geschlecht!'),
     body('age').isNumeric().withMessage('Wir benötigen deine Alter!'),
 
     validator
