@@ -1,12 +1,37 @@
 
+/*------------------------------Layout--------------------------------------*/
+html{
+    border-style: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+html, body{
+    min-height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+/*------------------------------Navigation--------------------------------------*/
 .nav-component{
     padding: 0,7rem;
     display: flex;
+    flex-direction: column;
     justify-content:space-around;
     align-items: center;
     border: 1px solid black;
-    background-color: #EAE4D5;
+    background: rgb(247,247,203);
+    background: linear-gradient(130deg, rgba(247,247,203,1) 0%, rgba(230,180,180,1) 43%, rgba(176,194,222,1) 100%);
     
+}
+.nav{
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 .nav-btn{
     margin: 5px;

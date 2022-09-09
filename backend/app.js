@@ -7,7 +7,7 @@ const app = express()
 
 const {PORT, DB_URL, DB_PORT, DB_NAME} = process.env
 
-mongoose.connect(`mongodb://${DB_URL}:27017/treffen-app`)
+mongoose.connect(`mongodb://${DB_URL}:${DB_PORT}/${DB_NAME}`)
 
 app.use(express.json())
 app.use(cookieParser())
@@ -34,4 +34,4 @@ app.use( (error, req, res, next)=>{
     })
 })
 
-app.listen(4000, ()=> console.log('Server running on port: ', 4000))
+app.listen(PORT, ()=> console.log('Server running on port: ', PORT))
