@@ -28,16 +28,21 @@ exports.addEvent = async(req, res, next)=>{
     const event = new Event(req.body)
     // token kommt von auth middleware, so kennen wir den User
     event.user = user
+    user.events.push(event._id)
 
     await event.save()
-    res.status(200).send(event)
+    await user.save()
+    res.status(200).send({
+        EVENT: event,
+        USER: user
+    })
 }
 
 exports.getSingleEvent = async(req, res, next)=>{
 
     const {id} = req.params
     
-    const event = await Event.findById(id, '-datum').populate('user','-password')
+    const event = await Event.findById(id, '-datum').populate('user','-password').populate('comment', '-event')
 
     if(!event){
         const error = new Error('Event are not available anymore!!')

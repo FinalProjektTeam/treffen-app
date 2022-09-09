@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, SchemaTypes} = require('mongoose')
 
 const userSchema = Schema({
     email: {type: String, required: true, unique: true},
@@ -7,7 +7,11 @@ const userSchema = Schema({
     lastname: {type: String, required: true},
     gender: {type: String, required: true},
     age: {type: String, required: true},
-    avatar: {type: String}
+    avatar: {type: String},
+    events: [{
+        type: SchemaTypes.ObjectId,
+        ref: 'Event'
+    }]
     
 })
 

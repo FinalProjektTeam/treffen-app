@@ -16,6 +16,10 @@ const eventSchema = Schema({
     adresse: {type: String, required: true},
     datum: {type: String, required: true},
     bild: {type: String},
+    comment: [{
+        type: SchemaTypes.ObjectId,
+        ref: 'Comment',
+    }]
 
     
 })
