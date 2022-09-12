@@ -12,7 +12,7 @@ module.exports = async(req, res, next)=>{
 
     const user = await User.findOne().where('token').equals(token)
 
-    console.log(user);
+    // console.log(user);
 
     if(!user){
         const error = new Error('Dein Token ist nicht meht gültig!')
