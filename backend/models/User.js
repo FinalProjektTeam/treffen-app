@@ -5,7 +5,11 @@ const userSchema = Schema({
     password: {type: String, required: true},
     firstname: {type: String, required: true},
     lastname: {type: String, required: true},
-    gender: {type: String, required: true},
+    gender: {
+        type: String, 
+        enum: ['Male', 'Female'],
+        required: true
+    },
     age: {type: String, required: true},
     avatar: {type: String},
     events: [{
