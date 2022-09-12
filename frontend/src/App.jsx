@@ -25,16 +25,15 @@ function App() {
                             element = {<Home/>}/>
                   <Route path = '/login' 
                             element = {<Login/>}/>
-                  <Route path = '/register' 
-                            element = {<Register/>}/>
+                  {/* <Route path = '/register' 
+                            element = {<Register/>}/> */}
                   <Route path = '/user/:id' 
                             element = {<UserAccount/>}/>
-                  <Route path = 'events-list' 
-                            element = {<EventsList/>}/>
-  
+                    
               </Routes>
               </div>
             </Navigation>
+            <EventsList/>
           </header>
         </div>
       </Router>
