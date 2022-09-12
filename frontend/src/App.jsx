@@ -1,6 +1,10 @@
 import './App.css';
 import React from "react";
+<<<<<<< HEAD
 import  {useState , useEffect , useContext} from 'react'
+=======
+// import  {useState , useEffect , useContext} from 'react'
+>>>>>>> 0449d763afc8b0c864dce940585f242d40691795
 import {BrowserRouter as Router , Routes , Route} from 'react-router-dom'
 import { UserProvider } from './hooks/useUser';
 import Home from './components/Home'
