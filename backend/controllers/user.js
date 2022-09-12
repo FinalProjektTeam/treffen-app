@@ -41,22 +41,43 @@ exports.login = async(req, res, next) =>{
 }
 
 exports.getUsers = async(req, res, next) =>{
-    const users = await User.find( {}, 'email token -_id')
-    console.log(users);
+    // const users = await User.find( {}, 'email token -_id')
+    const users = await User.find( )
     res.status(200).send(users)
 }
 
-exports.logout = async(req, res, next)=>{
+exports.getSingleUser = async (req, res, next)=>{
+    const {id} = req.params
+    const user = await User.findById(id)
+    if(!user){
+        const error = new Error('User not found')
+        error.status = 400
+        return next(error)
+    }
+    res.status(200).send(user)
+}
 
+exports.logout = async(req, res, next)=>{
     const token = req.token
     const user = await User.findOne().where('token').equals(token)
-
     if(!user){
         user.token = ''
         await user.save()
     }
-
     res.cookie('user-token', '', {minAge: 1, sameSite: 'strict', httpOnly: true})
-
     res.status(200).end()
+}
+
+exports.getCurrentUser = async(req, res, next)=>{
+    const {id} = req.params
+    const user = await User.findById(id)
+
+    if(!user){
+        const error = new Error('User nicht gefunden!')
+        error.status = 400
+        return next(error)
+    }
+    await user.save()
+
+    res.status(200).send(user)
 }

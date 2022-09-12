@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 const app = express()
 
@@ -12,7 +13,17 @@ mongoose.connect(`mongodb://${DB_URL}:${DB_PORT}/${DB_NAME}`)
 app.use(express.json())
 app.use(cookieParser())
 
+const corsConfig = {
+    origin: 'http://localhost:3000',
+    credentials: true
+}
+
+app.use(cors(corsConfig))
+app.options('*', cors(corsConfig))
+
 app.use('/user', require('./routes/user'))
+app.use('/events', require('./routes/events-list') )
+app.use('/comments', require('./routes/commnt'))
 
 app.post('/drop-database', async(req, res, next)=>{
     await mongoose.connection.db.dropDatabase()
