@@ -1,16 +1,25 @@
 
-import React , {useState , useEffect , useContext} from "react";
-import ReactDOM from 'react-dom/client';
 import '../Layout/components.css'
+import React , {useState , useEffect , useContext} from "react";
+import useUser from '../hooks/useUser';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password , setPassword] = useState('');
+    const user = useUser()
+    const navigate = useNavigate()
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        alert(`Ihre Daten wurden geschickt`)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const status = await user.login({
+          email: email,
+          password: password
+        })
+        if(status === 200){
+          navigate('/userAccount')
+        }
       }
 
   return (
