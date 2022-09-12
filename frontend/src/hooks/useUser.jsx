@@ -55,7 +55,9 @@ export function UserProvider (props){
                 const result = await res.json()
                 if(res.status === 200){
                     setUser(result)
+                    console.log(result)
                 }
+                
                 else if(result.errors){
                     setError(result.errors[0].msg)
                 }
@@ -64,14 +66,14 @@ export function UserProvider (props){
                 }
                 setIsFetching(false)
 
-                return res.status
+                return result
             },
 
             register: async(body)=>{
                 setError('')
                 setIsFetching(true)
                 const res = await fetch('http://localhost:4000/user/register', {
-                    mathod : "POST",
+                    method : "POST",
                     credentials : 'include',
                     headers: {
                         'Content-Type':'application/json'
@@ -90,7 +92,7 @@ export function UserProvider (props){
                 }
                 setIsFetching(false)
 
-                return res.status                
+                return result                
             },
 
             logout: async()=>{
