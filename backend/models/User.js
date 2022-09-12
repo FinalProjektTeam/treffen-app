@@ -15,8 +15,8 @@ const userSchema = Schema({
     events: [{
         type: SchemaTypes.ObjectId,
         ref: 'Event'
-    }]
-    
+    }],
+    token: {type: String},
 })
 
 module.exports = model('User', userSchema)

@@ -99,7 +99,7 @@ html, body{
     width: 100vw;
     height: 95vh;
     /* background-image: url('/frontend/public/images/home-background.jpg'); */
-    background: url('/home/user/Desktop/Final-Project/treffen-app/frontend/public/images/login-background.jpg');
+    background: url('../../public/images/login-background.jpg');
     background-position: top center;
     background-repeat: no-repeat;
     /* background-attachment: fixed; */
@@ -110,7 +110,7 @@ html, body{
     width: 100vw;
     height: 95vh;
     /* background-image: url('/frontend/public/images/home-background.jpg'); */
-    background: url('/home/user/Desktop/Final-Project/treffen-app/frontend/public/images/regist-background.jpg');
+    background: url('../../public/images/regist-background.jpg');
 
     background-position: center;
     background-repeat: no-repeat;
