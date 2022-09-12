@@ -48,7 +48,6 @@ html, body{
 .home-bg-img-div{
     width: 100vw;
     height: 95vh;
-    /* background-image: url('/frontend/public/images/home-background.jpg'); */
     background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80');
     background-position: center;
     background-repeat: no-repeat;
@@ -89,17 +88,17 @@ html, body{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
-    width: 30%;
+    width: 40%;
     padding: 30px;
     padding-bottom: 50px;
-    background-color: rgb(234, 228, 213, 0.5);
+    background-color: rgb(234, 228, 213, 0.6);
+    text-align: start;
 }
 
 .login-bg-img-div{
     width: 100vw;
     height: 95vh;
-    /* background-image: url('/frontend/public/images/home-background.jpg'); */
-    background: url('/home/user/Desktop/Final-Project/treffen-app/frontend/public/images/login-background.jpg');
+    background: url('../../public/images/login-background.jpg');
     background-position: top center;
     background-repeat: no-repeat;
     /* background-attachment: fixed; */
@@ -109,8 +108,7 @@ html, body{
 .regist-bg-img-div{
     width: 100vw;
     height: 95vh;
-    /* background-image: url('/frontend/public/images/home-background.jpg'); */
-    background: url('/home/user/Desktop/Final-Project/treffen-app/frontend/public/images/regist-background.jpg');
+    background: url('../../public/images/regist-background.jpg');
 
     background-position: center;
     background-repeat: no-repeat;
