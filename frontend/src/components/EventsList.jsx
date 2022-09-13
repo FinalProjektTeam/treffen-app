@@ -1,9 +1,5 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
 
-export default function EventsList() {
-  const navigate = useNavigate()
+import React from 'react'
 
   const [events, setEvents] = useState([])
   const [ready, setReady] = useState(true)

@@ -1,8 +1,16 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import '../Layout/components.css'
+import useUser from '../hooks/useUser';
+import {useParams} from "react-router-dom";
+
 
 export default function Navigation(props) {
+  const user = useUser()
+  console.log(user);
+  // let {id} = useParams()
+  
+
   return (
     
       <div className='nav-component'>
@@ -17,8 +25,9 @@ export default function Navigation(props) {
               <button className='btn nav-btn'>
                 <Link to= {'/login'}>login</Link>
               </button>
-              <span>👨</span>
-              {/* <img src="" alt="profilePhoto" style={{width:'25px',height:'25px'}} /> */}
+
+              <span><Link to= {'/user/'+user.data._id}><img src="images/profileBild.png" alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} /></Link></span>
+              
           </div>
       </div>
     
