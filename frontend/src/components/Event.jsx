@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export default function Event() {
     const {eventID} = useParams() 
@@ -13,15 +13,15 @@ export default function Event() {
 
     const [backendComment, setBackendComment] = useState('')
 
-    // const [userExist, setUserExist] = useState(false)
+    const [userExist, setUserExist] = useState(false)
 
  
     useEffect(()=>{
-        fetch('http://localhost:4000/events/'+ eventID)
+       fetch('http://localhost:4000/events/'+ eventID)
         .then(async res=>{
             if(res.status === 200){
                 const result = await res.json()
-                setEvent(result)
+                setEvent(result)    
                 console.log('EVENT is => ',result);
             }
         })
@@ -45,14 +45,15 @@ export default function Event() {
        if(res.status === 200){
             console.log(result);
             // console.log('USER EXIST => ', result.exist);
-            // setUserExist(result.exist)
-            // if(!result.exist){
-            //     alert('Danke! dass du teilgenommen hast')
-            // } else if(result.exist){
-            //     setTimeout(()=>{
-            //         setUserExist(false)
-            //     }, 3000)
-            // }
+
+            setUserExist(result.exist)
+            if(!result.exist){
+                alert('Danke! dass du teilgenommen hast')
+            } else if(result.exist){
+                setTimeout(()=>{
+                    setUserExist(false)
+                }, 3000)
+            }
             setBackendComment(result)
        }
 
@@ -65,6 +66,7 @@ export default function Event() {
     }
 
     const handleAddComment = async(e)=>{
+        e.preventDefault()
         setError('')
 
         const res = await fetch('http://localhost:4000/comments', {
@@ -81,8 +83,8 @@ export default function Event() {
         const result = await res.json()
 
         if(res.status === 200){
-            console.log(result);
-            window.location.reload()
+            console.log('Comment is=> ',result);
+            
         }
 
         else if(result.error){
@@ -90,24 +92,28 @@ export default function Event() {
             console.log(result.error);
         }
         else if(result.errors){
-            setErrors(result.errors)
+            setErrors(result.errors.map(e=><h2>{e.msg}</h2>))
             console.log(result.errors);
         }
         console.log('RES is: ',res);
         console.log('RESULT is: ',result);
 
-        // window.location.reload()
+        setTimeout(()=>{
+            window.location.reload()
+        },2000)
     }
 
   return (
     <div className='Event'>
         <h1>{event.title}</h1>
         {error && <h3 style={{color:'red'}}>{error}</h3> }
+        {errors && <h3 style={{color:'red'}}>{error}</h3> }
+
         <div className="event-image">
             <img src="" alt="" />
             <button onClick={handleJoinEvent} >Join</button>
         </div>
-            {/* {userExist && <h1 style={{color:'orangered'}}>Du bist schon in Team!</h1>} */}
+            {userExist && <h1 style={{color:'orangered'}}>Du bist schon in Team!</h1>}
         <div className="description-map">
             <div className="info">
                 <ul>
@@ -135,7 +141,7 @@ export default function Event() {
             <ul>
                 {
                 event.comments?.map(comment=>(
-                    <li key={comment._id}>{comment.comment} ==== {comment.user}</li> 
+                    <li key={comment._id}>{comment.comment} ==== {comment.user.lastname}</li> 
                 ))
                 }
             </ul>

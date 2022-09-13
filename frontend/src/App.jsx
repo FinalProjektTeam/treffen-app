@@ -11,6 +11,7 @@ import Register from './components/Register'
 import UserAccount from './components/UserAccount'
 import EventsList from './components/EventsList';
 import Event from './components/Event';
+import NewEvent from './components/NewEvent';
 
 
 
@@ -30,12 +31,14 @@ function App() {
                             element = {<Login/>}/>
                   <Route path = '/register' 
                             element = {<Register/>}/>
-                  <Route path = '/user/:id' 
-                            element = {<UserAccount/>}/>
+                  {/* <Route path = '/user/:id' 
+                            element = {<UserAccount/>}/> */}
                   <Route path = '/events-list' 
                             element = {<EventsList/>}/>
                   <Route path = '/events-list/:eventID' 
                             element = {<Event/>}/>
+                  <Route path = '/create-event' 
+                            element = {<NewEvent/>}/>
               </Routes>
               </div>
           </header>

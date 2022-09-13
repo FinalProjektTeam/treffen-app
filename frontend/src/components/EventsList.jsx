@@ -30,24 +30,13 @@ export default function EventsList() {
   }, [] )
 
 
-  const [eventParam, setEventParam] = useState('')
-
-  console.log(eventParam);
-  const handleSingleEvent = (event)=>{
-    return  e =>{
-      e.preventDefault()
-      e.stopPropagation()
-
-       setEventParam(event._id)
-      }
-  }
-
-    console.log(eventParam);
 
   if(ready){
     return (
       <div className='Events-List'>
-        <h2>Events-list {eventParam} </h2>
+        <Link to={'/create-event'}>Create new Event</Link>
+
+        <h2>Events-list </h2>
         {/* <p>noch nicht fertig</p>
         <img src="images/eventsList.png" alt="Events-list" /> */}
   

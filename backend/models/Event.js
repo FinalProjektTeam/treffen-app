@@ -25,9 +25,7 @@ const eventSchema = Schema({
         ref: 'User',
         // user ID über sein Token/Cookie || if he logged in or he cant join
     }],
-    
     exist: {type: Boolean}
-    
 })
 
 module.exports = model('Event', eventSchema)

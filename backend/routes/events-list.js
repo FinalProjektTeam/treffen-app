@@ -11,7 +11,7 @@ app.post( '/', auth , validation.newEvent, controller.addEvent )
 
 app.post('/join', auth, controller.joinEvent)
 
-app.get('/:id', controller.getSingleEvent )
+app.get('/:id',  controller.getSingleEvent )
 
 
 module.exports = app

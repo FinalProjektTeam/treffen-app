@@ -18,7 +18,8 @@ export default function Login() {
           password: password
         })
         if(status === 200){
-          navigate('/userAccount')
+          // navigate('/user/'+user.data._id)
+          console.log(user.data);
         }
       }
 
@@ -38,6 +39,8 @@ export default function Login() {
             
                 <input type="submit" className="m-2"/>
             </form>
+
+            {user.error && <h1>{user.error}</h1>}
 
         </div>
     </div>
