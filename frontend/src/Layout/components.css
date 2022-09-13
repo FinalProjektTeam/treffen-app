@@ -109,12 +109,12 @@ html, body{
     width: 100vw;
     height: 95vh;
     background: url('../../public/images/regist-background.jpg');
-
     background-position: center;
     background-repeat: no-repeat;
     /* background-attachment: fixed; */
     background-size:cover;
     filter: grayscale(10%);
+<<<<<<< HEAD
 }
 
 /*------------------------------user account------------------------------------*/
@@ -189,4 +189,6 @@ html, body{
 .map{
     padding: 50px;
     background-color: goldenrod;
+=======
+>>>>>>> 5c07f7a702ca2e65fe42d1fe2967b6b25b45f4f0
 }
