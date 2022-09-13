@@ -17,7 +17,7 @@ export function UserProvider (props){
     const [isFetching, setIsFetching] = useState(false)
     const [ready , setReady] = useState(false)
 
-    console.log('run');
+    console.log('useUser is working good');
     useEffect(()=>{
         fetch(`http://localhost:4000/user`,
             {
@@ -66,6 +66,7 @@ export function UserProvider (props){
                 }
                 setIsFetching(false)
 
+                console.log('result by useUser:',result);
                 return result
             },
 
