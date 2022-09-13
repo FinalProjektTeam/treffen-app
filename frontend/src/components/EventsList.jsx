@@ -50,7 +50,7 @@ export default function EventList() {
                 <h4> Title: {e.title}</h4>
                 <ul>
                   <li>Ort: {e.adresse}</li>
-                  <li>Owner: {e.user.firstname+' '+e.user.lastname}</li>
+                  {/* <li>Owner: {e.user.firstname+' '+e.user.lastname}</li> */}
                   <li>Category: {e.category}</li>
                   <li>Datum: {e.datum}</li>
                 </ul>
