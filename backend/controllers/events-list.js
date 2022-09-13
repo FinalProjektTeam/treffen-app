@@ -97,7 +97,7 @@ exports.joinEvent = async(req,res,next)=>{
         return next(error)
     } 
 
-    await event.team.push(user._id)
+    event.team.push(user)
 
     await user.save()
     await event.save()

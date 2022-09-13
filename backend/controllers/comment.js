@@ -27,7 +27,7 @@ exports.createComment = async(req, res, next)=>{
 
      event.comments.push(comment.id)
 
-     await comment.save()
+    await comment.save()
     await event.save()
 
     res.status(200).send(comment)
