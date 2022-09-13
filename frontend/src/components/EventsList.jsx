@@ -1,6 +1,8 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
+export default function EventList() {
   const [events, setEvents] = useState([])
   const [ready, setReady] = useState(true)
 
