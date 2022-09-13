@@ -78,7 +78,7 @@ html, body{
 }
 
 
-/*------------------------------LOGIN--------------------------------------*/
+/*------------------------------LOGIN + Regist------------------------------------*/
 
 .login-form{
     border: 1px solid gray;
@@ -117,7 +117,27 @@ html, body{
     filter: grayscale(10%);
 }
 
-/*____________________________________Events___________________*/
+/*------------------------------user account------------------------------------*/
+
+.userAccount_div{
+    margin: 0 auto;
+    text-align: center;
+}
+.userAccount_div p {
+   background-color: #fee7e7;
+   font-size: 1.3rem;
+}
+.userAccount_div ul{
+    text-align: left;
+}
+.sub-nav-list span{
+    display: flex;
+    justify-content:space-around;
+    align-items: start;
+    padding: 0.5rem;
+}
+
+/*------------------------------Events------------------------------------*/
 
 .Events-List > .cards-list{
     display: flex;
@@ -144,7 +164,8 @@ html, body{
     margin-top: 20px;
 }
 
-/*-------------EVENT--------------*/
+/*------------------------------new Event------------------------------------*/
+
 .event-image{
     padding: 100px;
     background-color: cornflowerblue;

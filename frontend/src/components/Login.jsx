@@ -1,4 +1,3 @@
-
 import '../Layout/components.css'
 import React , {useState , useEffect , useContext} from "react";
 import {Link} from 'react-router-dom'
@@ -21,6 +20,7 @@ export default function Login() {
         if(data){
           navigate('/user/'+data._id)
           console.log('you are angemeldet');
+          console.log('data by Login.jsx:',data);
         }
       }
 
