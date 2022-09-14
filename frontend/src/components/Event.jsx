@@ -25,10 +25,12 @@ export default function Event() {
                 console.log('EVENT is => ',result);
             }
         })
+        .catch((err)=> console.log(err) )
     }, [eventID])
 
     const handleJoinEvent = async() =>{
-
+        setError('')
+        setErrors([])
        const res = await fetch('http://localhost:4000/events/join', {
         method: 'POST',
         credentials: 'include',
@@ -59,15 +61,17 @@ export default function Event() {
 
        else if(result.error){
         console.log(result.error);
+        setError(result.error)
        }
        else if(result.errors){
-        console.log(result.errors[0].msg);
+        setErrors(result.errors.map(e=> <h3 style={{color:'red'}}>{e.msg}</h3>));
        }
     }
 
     const handleAddComment = async(e)=>{
         e.preventDefault()
         setError('')
+        setErrors([])
 
         const res = await fetch('http://localhost:4000/comments', {
             method:'POST',
@@ -84,7 +88,6 @@ export default function Event() {
 
         if(res.status === 200){
             console.log('Comment is=> ',result);
-            
         }
 
         else if(result.error){
@@ -100,14 +103,14 @@ export default function Event() {
 
         setTimeout(()=>{
             window.location.reload()
-        },2000)
+        },10000)
     }
 
   return (
     <div className='Event'>
         <h1>{event.title}</h1>
         {error && <h3 style={{color:'red'}}>{error}</h3> }
-        {errors && <h3 style={{color:'red'}}>{error}</h3> }
+        {errors && <h3 style={{color:'red'}}>{errors}</h3> }
 
         <div className="event-image">
             <img src="" alt="" />
@@ -119,6 +122,7 @@ export default function Event() {
                 <ul>
                     <li>Datum: {event.datum}</li>
                     {/* <li>Owner: {event.user.firstname} {event.user.lastname}</li> */}
+
                     <li>Category: {event.category}</li>
                 </ul>
 
@@ -145,6 +149,7 @@ export default function Event() {
                 ))
                 }
             </ul>
+            {error && <h3 style={{color:'red'}}>{error}</h3> }
             <input type="text"  onBlur={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
             <button onClick={handleAddComment}>Add Comment</button>
         </div>

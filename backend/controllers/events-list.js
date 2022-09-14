@@ -35,7 +35,9 @@ exports.addEvent = async(req, res, next)=>{
 
 exports.getSingleEvent = async(req, res, next)=>{
     const {id} = req.params
-    const event = await Event.findById(id).populate('comments').populate('team')
+    const event = await Event.findById(id).populate('comments').populate('team').populate('user')
+
+    // populate user !!! not working
 
     if(!event){
         const error = new Error('Event are not available anymore!!')
@@ -68,7 +70,7 @@ exports.joinEvent = async(req,res,next)=>{
 
     const eventID = req.body.id
 
-    const event = await Event.findById(eventID).populate('team')
+    const event = await Event.findById(eventID).populate('team').populate('user')
 
     if(!event){
         const error = new Error('Event ID failed')
@@ -85,10 +87,10 @@ exports.joinEvent = async(req,res,next)=>{
     // } )
 
     // const xList = x.includes(true)
-    const result = x.every(Boolean)
+    // const result = x.every(Boolean)
 
-    console.log(x);
-    console.log('result is:  ', result);
+    // console.log(x);
+    // console.log('result is:  ', result);
 
     const isInTeam = Boolean(event.team.find(member=> member._id.toString() === userID.toString()))
 
