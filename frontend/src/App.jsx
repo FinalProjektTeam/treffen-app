@@ -12,6 +12,7 @@ import Register from './components/Register'
 import UserAccount from './components/UserAccount'
 import EventsList from './components/EventsList';
 import Event from './components/Event';
+import NewEvent from './components/NewEvent';
 
 
 
@@ -38,6 +39,8 @@ function App() {
                             element = {<EventsList/>}/>
                   <Route path = '/events-list/:eventID' 
                             element = {<Event/>}/>
+                  <Route path = '/create-event' 
+                            element = {<NewEvent/>}/>
               </Routes>
               </div>
               

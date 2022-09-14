@@ -7,8 +7,12 @@ const userSchema = Schema({
     lastname: {type: String, required: true},
     gender: {type: String, required: true},
     age: {type: String, required: true},
-    avatar: {type: String}
-    
+    avatar: {type: String},
+    events: [{
+        type: SchemaTypes.ObjectId,
+        ref: 'Event'
+    }],
+    token: {type: String},
 })
 
 module.exports = model('user', userSchema)
