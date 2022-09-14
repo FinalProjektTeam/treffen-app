@@ -8,7 +8,7 @@ import {useParams} from "react-router-dom";
 export default function Navigation(props) {
   const user = useUser()
   console.log(user);
-  // let {id} = useParams()
+  let {id} = useParams()
   
 
   return (
