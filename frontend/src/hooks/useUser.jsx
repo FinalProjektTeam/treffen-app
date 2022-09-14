@@ -7,7 +7,7 @@ const Context = createContext({
     isFetching : false ,
     login: async()=>0,
     register: async()=>0,
-    lougout : async()=>0
+    logout : async()=>0
 
 })
 
@@ -16,6 +16,9 @@ export function UserProvider (props){
     const [error , setError] = useState('')
     const [isFetching, setIsFetching] = useState(false)
     const [ready , setReady] = useState(false)
+
+    const [eingeloggt , setEingeloggt] = useState(false)
+
 
     console.log('useUser is working good');
     useEffect(()=>{
@@ -56,6 +59,8 @@ export function UserProvider (props){
                 if(res.status === 200){
                     setUser(result)
                     console.log(result)
+                    setEingeloggt(true)
+
                 }
                 
                 else if(result.errors){

@@ -8,7 +8,7 @@ import {useParams} from "react-router-dom";
 export default function Navigation(props) {
   const user = useUser()
   console.log(user);
-  // let {id} = useParams()
+  let {id} = useParams()
   
 
   return (
@@ -26,7 +26,7 @@ export default function Navigation(props) {
                 <Link to= {'/login'}>login</Link>
               </button>
 
-              <span><Link to= {'/user/'+user.data._id}><img src="images/profileBild.png" alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} /></Link></span>
+              {/* <span><Link to= {'/user/'+user.data[2]._id}><img src="images/profileBild.png" alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} /></Link></span> */}
               
           </div>
       </div>

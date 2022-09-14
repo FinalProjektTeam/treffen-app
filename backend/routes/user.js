@@ -5,7 +5,7 @@ const auth = require('../lib/middelwares/auth')
 const app = express.Router()
 
 app.route('/')
-    .get( controller.getUsers )
+    .get( controller.getCurrentUser )
  
 app.post('/register', controller.register )
 app.post('/login', controller.login )
