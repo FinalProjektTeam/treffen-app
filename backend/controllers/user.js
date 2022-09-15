@@ -69,15 +69,22 @@ exports.logout = async(req, res, next)=>{
 }
 
 exports.getCurrentUser = async(req, res, next)=>{
-    const {id} = req.params
-    const user = await User.findById(id)
+ 
+    const token = req.cookies.token
+
+    if(!token){
+    
+        res.status(200).json(null)
+        return
+    }
+    const user = await User.findOne().where('token').equals(token)
 
     if(!user){
-        const error = new Error('User nicht gefunden!')
-        error.status = 400
-        return next(error)
+      
+        res.status(200).json(null)
+        return
     }
-    await user.save()
 
     res.status(200).send(user)
 }
+

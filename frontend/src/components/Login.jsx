@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password , setPassword] = useState('');
+    const [eingeloggt , setEingeloggt] = useState(false);
+
     const user = useUser()
     const navigate = useNavigate()
 
@@ -17,10 +19,16 @@ export default function Login() {
           email: email,
           password: password
         })
-        if(data){
+        
+        if(data._id){ 
           navigate('/user/'+data._id)
+          setEingeloggt(true)
           console.log('you are angemeldet');
           console.log('data by Login.jsx:',data);
+        }
+        else{
+          console.log(data);
+          setEingeloggt(false)
         }
       }
 
@@ -28,6 +36,7 @@ export default function Login() {
     <div className="login-bg-img-div ">
         <div className="login-form">
           <h2>Login</h2>
+          {!eingeloggt && <h3>you have to registrate</h3>}
             <form onSubmit={handleSubmit} className="container">
 
                 <label htmlFor="email" className="m-2 form-label "><b>Email </b></label><br/>

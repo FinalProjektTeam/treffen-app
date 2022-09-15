@@ -35,9 +35,7 @@ export default function EventList() {
         <Link to={'/create-event'}>Create new Event</Link>
 
         <h2>Events-list </h2>
-        {/* <p>noch nicht fertig</p>
-        <img src="images/eventsList.png" alt="Events-list" /> */}
-  
+          
         <h2>Events entdecken</h2>
 
         <div className="cards-list">

@@ -22,8 +22,8 @@ app.use(cors(corsConfig))
 app.options('*', cors(corsConfig))
 
 app.use('/user', require('./routes/user'))
-//app.use('/events', require('./routes/events-list') )
-//app.use('/comments', require('./routes/commnt'))
+app.use('/events', require('./routes/events-list') )
+//app.use('/comments', require('./routes/comment'))
 
 app.post('/drop-database', async(req, res, next)=>{
     await mongoose.connection.db.dropDatabase()

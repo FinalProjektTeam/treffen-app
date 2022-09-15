@@ -55,7 +55,7 @@ export function UserProvider (props){
                 const result = await res.json()
                 if(res.status === 200){
                     setUser(result)
-                    console.log(result)
+                    
                 }
                 
                 else if(result.errors){
@@ -65,6 +65,7 @@ export function UserProvider (props){
                     setError(result.error)
                 }
                 setIsFetching(false)
+                
 
                 console.log('result by useUser:',result);
                 return result

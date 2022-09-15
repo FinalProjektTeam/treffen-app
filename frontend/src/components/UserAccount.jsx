@@ -34,14 +34,14 @@ export default function UserAccount() {
       <div className="border m-3">
         <p className="border p-2 ">Deine Events</p>
         <ul className="sub-nav-list">
-              {userData.events && userData.events.map(event=><li className="sub-item"><Link to={"/events-list/:eventID"}>{event}</Link></li>)}
+              {userData.events && userData.events.map(event=><li className="sub-item"><Link to={"/events-list/"+event._id}>{event}</Link></li>)}
               <span><li>Event 1</li> <li className="text-secondary">Roll : Inhaber</li></span>
               <span><li>Event 2</li> <li className="text-secondary">Roll : Teilnehmer</li></span>
               <span><li>Event 3</li> <li className="text-secondary">Roll : Teilnehmer</li></span>
         </ul>
       </div>
       <div>
-      <Link to={"/user/newEvent"}><button type="button" class="btn btn-warning btn-lg">Neues Event erstellen</button></Link>
+      <Link to={"/create-event"}><button type="button" class="btn btn-warning btn-lg">Neues Event erstellen</button></Link>
       
       </div>
        
