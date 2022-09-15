@@ -18,9 +18,9 @@ export default function Login() {
           password: password
         })
         if(data){
-          navigate('/user/'+data._id)
           console.log('you are angemeldet');
           console.log('data by Login.jsx:',data);
+          navigate('/user/'+data._id)
         }
       }
 

@@ -6,6 +6,7 @@ require('express-async-errors')
 
 exports.getEvents = async(req, res, next) =>{
     const events = await Event.find().populate('user')
+
     res.status(200).send(events)
 }
 
@@ -77,20 +78,6 @@ exports.joinEvent = async(req,res,next)=>{
         error.status = 400
         return next(error)
     }
-
-
-    // const x = event.team.map( member => {
-    //     console.log('memberID is : ',JSON.stringify(member._id));
-    //     console.log('userID is: ', JSON.stringify(userID) );
-    //     console.log('Result: ', (userID === member._id));
-    //     return JSON.stringify(member._id) === JSON.stringify(userID)
-    // } )
-
-    // const xList = x.includes(true)
-    // const result = x.every(Boolean)
-
-    // console.log(x);
-    // console.log('result is:  ', result);
 
     const isInTeam = Boolean(event.team.find(member=> member._id.toString() === userID.toString()))
 

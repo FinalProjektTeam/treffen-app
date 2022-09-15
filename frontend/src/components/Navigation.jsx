@@ -2,14 +2,11 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import '../Layout/components.css'
 import useUser from '../hooks/useUser';
-import {useParams} from "react-router-dom";
 
 
 export default function Navigation(props) {
   const user = useUser()
   console.log(user);
-  let {id} = useParams()
-  
 
   return (
     
@@ -27,12 +24,16 @@ export default function Navigation(props) {
               </button>
 
               {/* <span><Link to= {'/user/'+user.data[2]._id}><img src="images/profileBild.png" alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} /></Link></span> */}
-              
+              <button className='btn nav-btn'>
+                <Link to= {'/create-event'}>create Event</Link>
+              </button>
+
+             {user.data && <p className='btn nav-btn'>
+                <Link to= {'/user/'+user.data._id}>User Account</Link>
+              </p>}
           </div>
       </div>
-    
-        {props.children}
-        
+        {/* {props.children} */}
     </div>
   )
 }

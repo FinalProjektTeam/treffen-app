@@ -48,12 +48,13 @@ exports.getUsers = async(req, res, next) =>{
 
 exports.getSingleUser = async (req, res, next)=>{
     const {id} = req.params
-    const user = await User.findById(id)
+    const user = await User.findById(id).populate('events')
     if(!user){
         const error = new Error('User not found')
         error.status = 400
         return next(error)
     }
+    // await Promise.all(user.events.map((e)=>e.populate('events')))
     res.status(200).send(user)
 }
 
@@ -70,17 +71,17 @@ exports.logout = async(req, res, next)=>{
 
 exports.getCurrentUser = async(req, res, next)=>{
  
-    const token = req.cookies.token
+    const token = req.cookies['user-token']
 
     if(!token){
-    
-        res.status(200).json(null)
+        console.log('token failed');
+        res.status(200).json('null')
         return
     }
     const user = await User.findOne().where('token').equals(token)
 
     if(!user){
-      
+        console.log('user failed');
         res.status(200).json(null)
         return
     }

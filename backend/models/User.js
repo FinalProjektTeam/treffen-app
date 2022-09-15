@@ -1,5 +1,7 @@
 const {Schema, model, SchemaTypes} = require('mongoose')
 
+
+
 const userSchema = Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
@@ -8,7 +10,7 @@ const userSchema = Schema({
     gender: {
         type: String, 
         enum: ['Male', 'Female'],
-        required: true
+        
     },
     age: {type: String, required: true},
     avatar: {type: String},

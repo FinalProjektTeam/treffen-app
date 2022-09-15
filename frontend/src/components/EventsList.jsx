@@ -14,13 +14,12 @@ export default function EventList() {
       credentials: 'include'
     })
     .then(async res=>{
-
       if(res.status === 200){
         const result = await res.json()
         setEvents(result)
-        setTimeout(()=>{
-          // setReady(true)
-        }, 3000 )
+        // setTimeout(()=>{
+        //   // setReady(true)
+        // }, 3000 )
         console.log('Events result is => ', result);
       } 
     })
@@ -61,8 +60,6 @@ export default function EventList() {
             ))
           }
         </div>
-  
-  
       </div>
     )
   }

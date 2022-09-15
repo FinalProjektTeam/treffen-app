@@ -1,5 +1,7 @@
 import React , {useState , useEffect , useContext, createContext } from "react";
+
 import { unstable_HistoryRouter } from "react-router-dom";
+
 
 const Context = createContext({
     data : null ,
@@ -28,15 +30,16 @@ export function UserProvider (props){
             credentials : 'include',
             })
             .then(async res =>{
+                const result = await res.json()
                 if(res.status === 200){
-                    const result = await res.json()
                     setUser(result)
+                    console.log('Use Effect', result);
                 }
             })
             .finally(()=>{
                 setReady(true)
+                console.log(user);
             })
-        
         },[])
 
         const data = {
@@ -58,11 +61,8 @@ export function UserProvider (props){
                 const result = await res.json()
                 if(res.status === 200){
                     setUser(result)
-                    console.log(result)
                     setEingeloggt(true)
-
                 }
-                
                 else if(result.errors){
                     setError(result.errors[0].msg)
                 }
@@ -71,7 +71,7 @@ export function UserProvider (props){
                 }
                 setIsFetching(false)
 
-                console.log('result by useUser:',result);
+                console.log('Result by useUser:',result);
                 return result
             },
 

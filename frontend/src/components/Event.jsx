@@ -71,7 +71,7 @@ export default function Event() {
     const handleAddComment = async(e)=>{
         e.preventDefault()
         setError('')
-        setErrors([])
+        setErrors('')
 
         const res = await fetch('http://localhost:4000/comments', {
             method:'POST',
@@ -103,7 +103,7 @@ export default function Event() {
 
         setTimeout(()=>{
             window.location.reload()
-        },10000)
+        },1000)
     }
 
   return (
