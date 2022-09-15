@@ -61,12 +61,16 @@ exports.getSingleUser = async (req, res, next)=>{
 exports.logout = async(req, res, next)=>{
     const token = req.token
     const user = await User.findOne().where('token').equals(token)
-    if(!user){
+
+    if(!token){
+        return res.status(200).send('Token not found')
+    }
+    if(user){
         user.token = ''
         await user.save()
     }
     res.cookie('user-token', '', {minAge: 1, sameSite: 'strict', httpOnly: true})
-    res.status(200).end()
+    res.status(200).json(null)
 }
 
 exports.getCurrentUser = async(req, res, next)=>{

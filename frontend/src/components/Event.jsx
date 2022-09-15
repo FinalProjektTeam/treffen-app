@@ -121,7 +121,7 @@ export default function Event() {
             <div className="info">
                 <ul>
                     <li>Datum: {event.datum}</li>
-                    {/* <li>Owner: {event.user.firstname} {event.user.lastname}</li> */}
+                    {event.user && <li>Owner: {event.user.firstname+' '+event.user.lastname}</li>}
 
                     <li>Category: {event.category}</li>
                 </ul>

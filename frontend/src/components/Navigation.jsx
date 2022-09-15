@@ -8,6 +8,11 @@ export default function Navigation(props) {
   const user = useUser()
   console.log(user);
 
+  const handleLogout = async()=>{
+    
+
+  }
+
   return (
     
       <div className='nav-component'>
@@ -19,9 +24,9 @@ export default function Navigation(props) {
                 <Link to= {'/'}>🏠 Home</Link>
               </button>
 
-              <button className='btn nav-btn'>
+             {!user.data &&  <button className='btn nav-btn'>
                 <Link to= {'/login'}>login</Link>
-              </button>
+              </button>}
 
               {/* <span><Link to= {'/user/'+user.data[2]._id}><img src="images/profileBild.png" alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} /></Link></span> */}
               <button className='btn nav-btn'>
@@ -31,6 +36,10 @@ export default function Navigation(props) {
              {user.data && <p className='btn nav-btn'>
                 <Link to= {'/user/'+user.data._id}>User Account</Link>
               </p>}
+
+              {user.data && <button className='btn nav-btn' oncklick={handleLogout}>
+                <Link to= {'/'}>Log out</Link>
+              </button>}
           </div>
       </div>
         {/* {props.children} */}

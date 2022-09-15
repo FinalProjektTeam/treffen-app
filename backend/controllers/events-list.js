@@ -46,8 +46,7 @@ exports.getSingleEvent = async(req, res, next)=>{
         return next(error)
     }
     
-    // how to populate user in a single comment
-
+ 
     await Promise.all( event.comments.map((e)=>e.populate('user')) )
 
     await event.save()
