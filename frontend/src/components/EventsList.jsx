@@ -18,9 +18,9 @@ export default function EventList() {
       if(res.status === 200){
         const result = await res.json()
         setEvents(result)
-        setTimeout(()=>{
-          // setReady(true)
-        }, 3000 )
+        // setTimeout(()=>{
+        //   // setReady(true)
+        // }, 3000 )
         console.log('Events result is => ', result);
       } 
     })

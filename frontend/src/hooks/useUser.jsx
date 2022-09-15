@@ -1,5 +1,4 @@
 import React , {useState , useEffect , useContext, createContext } from "react";
-import { unstable_HistoryRouter } from "react-router-dom";
 
 const Context = createContext({
     data : null ,
@@ -7,7 +6,7 @@ const Context = createContext({
     isFetching : false ,
     login: async()=>0,
     register: async()=>0,
-    lougout : async()=>0
+    logout : async()=>0
 
 })
 

@@ -31,6 +31,9 @@ export default function Register() {
           navigate('/user/'+data._id)
           console.log('submit klappt');
         }
+        else{
+           navigate('/user/login')  
+        }
       }
 
   return (
@@ -41,19 +44,19 @@ export default function Register() {
 
                 <label htmlFor="email" className="m-2 form-label "><b>Email </b></label>
                 <input type="email" placeholder="Your Email" className="m-2 form-control w-75"
-                        value={email} onChange={(e)=> setEmail(e.target.value)} />
+                        value={email} onChange={(e)=> setEmail(e.target.value) } required/>
 
                 <label htmlFor="password" className="m-2 form-label"><b>Password </b></label>
                 <input type="password" placeholder="Password" className="m-2 form-control w-75"
-                        value={password} onChange={(e)=> setPassword(e.target.value)} />
+                        value={password} onChange={(e)=> setPassword(e.target.value)} required/>
 
                 <label htmlFor="firstname" className="m-2 form-label"><b>Vorname : </b></label>
                 <input type="text" placeholder="Firstname" className="m-2 form-control w-75"
-                        value={firstname} onChange={(e)=> setFirstname(e.target.value)} />
+                        value={firstname} onChange={(e)=> setFirstname(e.target.value)} required/>
 
                 <label htmlFor="lastname" className="m-2 form-label"><b>Nachname : </b></label>
                 <input type="text" placeholder="lastname" className="m-2 form-control w-75"
-                        value={lastname} onChange={(e)=> setLastname(e.target.value)} />
+                        value={lastname} onChange={(e)=> setLastname(e.target.value)} required/>
 
 
                 <label htmlFor="gender" className="m-2 form-label"><b>Geschlicht : </b></label>

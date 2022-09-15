@@ -136,6 +136,14 @@ html, body{
     padding: 0.5rem;
 }
 
+.avatar_img{
+    width: 210px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: fill;
+
+}
+
 /*------------------------------Events------------------------------------*/
 
 .Events-List > .cards-list{

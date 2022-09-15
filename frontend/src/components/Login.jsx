@@ -27,7 +27,6 @@ export default function Login() {
           console.log('data by Login.jsx:',data);
         }
         else{
-          console.log(data);
           setEingeloggt(false)
         }
       }

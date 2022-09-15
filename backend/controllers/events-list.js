@@ -37,7 +37,6 @@ exports.getSingleEvent = async(req, res, next)=>{
     const {id} = req.params
     const event = await Event.findById(id).populate('comments').populate('team').populate('user')
 
-    // populate user !!! not working
 
     if(!event){
         const error = new Error('Event are not available anymore!!')
@@ -78,19 +77,6 @@ exports.joinEvent = async(req,res,next)=>{
         return next(error)
     }
 
-
-    // const x = event.team.map( member => {
-    //     console.log('memberID is : ',JSON.stringify(member._id));
-    //     console.log('userID is: ', JSON.stringify(userID) );
-    //     console.log('Result: ', (userID === member._id));
-    //     return JSON.stringify(member._id) === JSON.stringify(userID)
-    // } )
-
-    // const xList = x.includes(true)
-    // const result = x.every(Boolean)
-
-    // console.log(x);
-    // console.log('result is:  ', result);
 
     const isInTeam = Boolean(event.team.find(member=> member._id.toString() === userID.toString()))
 
