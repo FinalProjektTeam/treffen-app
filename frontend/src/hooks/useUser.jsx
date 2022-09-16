@@ -1,8 +1,5 @@
 import React , {useState , useEffect , useContext, createContext } from "react";
 
-import { unstable_HistoryRouter } from "react-router-dom";
-
-
 const Context = createContext({
     data : null ,
     error : '',
@@ -78,14 +75,22 @@ export function UserProvider (props){
             register: async(body)=>{
                 setError('')
                 setIsFetching(true)
+
+                const formData = new FormData()
+                formData.append("email", body.email)
+                formData.append("password", body.password)
+                formData.append("firstname", body.firstname)
+                formData.append("lastname", body.lastname)
+                formData.append("gender", body.gender)
+                formData.append("age", body.age)
+                formData.append("avatar", body.avatar)
+
                 const res = await fetch('http://localhost:4000/user/register', {
                     method : "POST",
                     credentials : 'include',
-                    headers: {
-                        'Content-Type':'application/json'
-                    },
-                    body : JSON.stringify(body)
+                    body : formData
                 })
+
                 const result = await res.json()
                 if(res.status === 200){
                     setUser(result)

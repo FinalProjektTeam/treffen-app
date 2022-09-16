@@ -9,8 +9,7 @@ export default function Navigation(props) {
   console.log(user);
 
   const handleLogout = async()=>{
-    
-
+    await user.logout()
   }
 
   return (
@@ -28,7 +27,7 @@ export default function Navigation(props) {
                 <Link to= {'/login'}>login</Link>
               </button>}
 
-              {/* <span><Link to= {'/user/'+user.data[2]._id}><img src="images/profileBild.png" alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} /></Link></span> */}
+           
               <button className='btn nav-btn'>
                 <Link to= {'/create-event'}>create Event</Link>
               </button>
@@ -37,8 +36,8 @@ export default function Navigation(props) {
                 <Link to= {'/user/'+user.data._id}>User Account</Link>
               </p>}
 
-              {user.data && <button className='btn nav-btn' oncklick={handleLogout}>
-                <Link to= {'/'}>Log out</Link>
+              {user.data && <button className='btn nav-btn' onClick={handleLogout}>
+                <Link to= {'/login'}>Log out</Link>
               </button>}
           </div>
       </div>

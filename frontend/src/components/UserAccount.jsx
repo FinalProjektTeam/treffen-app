@@ -31,20 +31,21 @@ export default function UserAccount() {
           <img src='https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80' alt="avatar" style={{width:'230px',height:'260px', borderRadius:'50%'}}  className="p-3" />
           <h2>Hallo <span className="text-danger">{userData.firstname}</span></h2>
       </div>
-      <div className="border m-3">
         <p className="border p-2 ">Deine Events</p>
+      <div className="border m-3 d-flex justify-content-around">
         <ul className="sub-nav-list">
               {
                 userData.events && userData.events.map((event)=><li key={event._id} className="sub-item"><Link to={"/events-list/"+event._id} >{event.title}</Link></li>)
               }
 
-              <div>
-                <span><li>Event 1</li> <li className="text-secondary">Roll : Inhaber</li></span>
-                <span><li>Event 2</li> <li className="text-secondary">Roll : Teilnehmer</li></span>
-                <span><li>Event 3</li> <li className="text-secondary">Roll : Teilnehmer</li></span>
-              </div>
-           
         </ul>
+
+        { userData.eventslist &&                  
+              <ul>
+                  <h3>Joined Events</h3>
+                  {userData.eventslist.map(e=> <li key={e._id}><Link to={"/events-list/"+e._id} >{e.title}</Link></li>)}
+              </ul>   
+        }
       </div>
       <div>
       <Link to={"/create-event"}><button type="button" className="btn btn-warning btn-lg">Neues Event erstellen</button></Link>

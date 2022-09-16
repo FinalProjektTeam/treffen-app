@@ -28,9 +28,11 @@ export default function Register() {
           avatar:avatar
         })
         
-        if(data._id){
-          navigate('/user/'+data._id)
+        if(data ){
           console.log('submit klappt');
+          navigate('/user/'+data._id)
+        } else{
+          navigate('/user/login')
         }
       }
 
@@ -73,14 +75,14 @@ export default function Register() {
 
                 <label htmlFor="avatar" className="m-2 form-label"><b>Profilebild : </b></label>
                 <input type="file" className="m-2 form-control w-75"
-                        value={avatar} onChange={(e)=> setAvatar(e.target.value)} />
-            
+                        accept='image/*' onChange={(e)=> setAvatar(e.target.files[0])} />
+                
                 <input type="submit" className="m-2 btn btn-warning"/>
             </form>
             <p className="m-3">haben Sie shoch ein Account ? <br/>
             <button className='btn btn-outline-dark m-3'><Link to= {'/login'}>zum Login</Link></button></p>
 
-            {user.error && <h3>{user.error}</h3>}
+            {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
       </div>
 
     </div>

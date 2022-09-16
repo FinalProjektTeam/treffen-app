@@ -87,7 +87,20 @@ export default function Event() {
         const result = await res.json()
 
         if(res.status === 200){
+            // setComment('')
             console.log('Comment is=> ',result);
+
+            //  fetch('http:localhost:4000/events/'+eventID, {
+            //     method: 'GET',
+            //     credentials: 'include',
+            //  })
+            //  .then(async(res)=>{
+            //     const result = await res.json()
+            //     console.log(result);
+            //     if(res.status === 200){
+            //         setEvent(result)
+            //     }
+            //  })
         }
 
         else if(result.error){
@@ -98,8 +111,6 @@ export default function Event() {
             setErrors(result.errors.map(e=><h2>{e.msg}</h2>))
             console.log(result.errors);
         }
-        console.log('RES is: ',res);
-        console.log('RESULT is: ',result);
 
         setTimeout(()=>{
             window.location.reload()
@@ -150,7 +161,7 @@ export default function Event() {
                 }
             </ul>
             {error && <h3 style={{color:'red'}}>{error}</h3> }
-            <input type="text"  onBlur={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
+            <input type="text" value={comment} onChange={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
             <button onClick={handleAddComment}>Add Comment</button>
         </div>
     </div>

@@ -38,17 +38,13 @@ exports.getSingleEvent = async(req, res, next)=>{
     const {id} = req.params
     const event = await Event.findById(id).populate('comments').populate('team').populate('user')
 
-    // populate user !!! not working
-
     if(!event){
         const error = new Error('Event are not available anymore!!')
         error.status = 400
         return next(error)
     }
-    
  
     await Promise.all( event.comments.map((e)=>e.populate('user')) )
-
     await event.save()
 
     res.status(200).send(event)
@@ -67,7 +63,6 @@ exports.joinEvent = async(req,res,next)=>{
         error.status = 401
         return next(error)
     }
-
     const eventID = req.body.id
 
     const event = await Event.findById(eventID).populate('team').populate('user')
@@ -85,7 +80,7 @@ exports.joinEvent = async(req,res,next)=>{
     if(!isInTeam){
         console.log('Danke für die Teilnahme');
         event.team.push(user)
-
+        user.eventslist.push(eventID)
         event.exist = false
     } else if(isInTeam) {
         console.log('you are already in team!!');
