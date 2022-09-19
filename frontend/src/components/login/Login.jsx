@@ -1,7 +1,7 @@
-import '../Layout/components.css'
-import React , {useState , useEffect , useContext} from "react";
+import '../../Layout/components.css'
+import React , {useState} from "react";
 import {Link} from 'react-router-dom'
-import useUser from '../hooks/useUser';
+import useUser from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -43,7 +43,9 @@ export default function Login() {
             <p className="m-3">haben Sie noch kein Account ? <br/>
             <button className='btn btn-outline-secondary m-3'><Link to= {'/register'}>zum Registration</Link></button></p>
 
-            {user.error && <h3>{user.error}</h3>}
+               {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
+               { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>*- {e.msg}</h4>)}</h3>}
+
         </div>
     </div>
   )

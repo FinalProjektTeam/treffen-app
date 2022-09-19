@@ -9,6 +9,7 @@ export default function Layot(props){
 
     return (
         <div className="Layout">
+            LAyout Component
             <Navigation/>
             <main>{props.children}</main>
         </div>

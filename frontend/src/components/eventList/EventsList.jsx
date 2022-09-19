@@ -1,11 +1,9 @@
-
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function EventList() {
   const [events, setEvents] = useState([])
-  const [ready, setReady] = useState(true)
-
+  const [ready, setReady] = useState(false)
 
   useEffect( ()=>{
     // setReady(false)
@@ -17,16 +15,13 @@ export default function EventList() {
       if(res.status === 200){
         const result = await res.json()
         setEvents(result)
-        // setTimeout(()=>{
-        //   // setReady(true)
-        // }, 3000 )
+        setTimeout(()=>{
+          setReady(true)
+        }, 2000 )
         console.log('Events result is => ', result);
       } 
     })
-
   }, [] )
-
-
 
   if(ready){
     return (

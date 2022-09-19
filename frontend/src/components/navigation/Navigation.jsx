@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import '../Layout/components.css'
-import useUser from '../hooks/useUser';
+// import '../../Layout/components.css'
+import useUser from '../../hooks/useUser';
 
 
 export default function Navigation(props) {
@@ -14,34 +14,38 @@ export default function Navigation(props) {
 
   return (
     
-      <div className='nav-component'>
+      <div className='Navigation'>
         <div className="nav">
             <img src="images/first-logo.png" alt="logo" style={{width:'70px',height:'65px', borderRadius:'50%'}} />
             <h2>Treffen App</h2>
             <div>
-              <button className='btn nav-btn'>
+              <button className='nav-buttons'>
                 <Link to= {'/'}>🏠 Home</Link>
               </button>
 
-             {!user.data &&  <button className='btn nav-btn'>
+             {!user.data &&  <button className='nav-buttons'>
                 <Link to= {'/login'}>login</Link>
               </button>}
 
            
-              <button className='btn nav-btn'>
-                <Link to= {'/create-event'}>create Event</Link>
+              <button className='nav-buttons'>
+                <Link to= {'/events-list'}>Explore Events</Link>
               </button>
 
-             {user.data && <p className='btn nav-btn'>
+             {user.data && <p className='nav-buttons'>
                 <Link to= {'/user/'+user.data._id}>User Account</Link>
               </p>}
 
-              {user.data && <button className='btn nav-btn' onClick={handleLogout}>
+              {user.data && <button className='nav-buttons' onClick={handleLogout}>
                 <Link to= {'/login'}>Log out</Link>
               </button>}
           </div>
       </div>
-        {/* {props.children} */}
+        {props.children}
+
+        <footer className="footer">
+          Here comes FOOTER
+        </footer>
     </div>
   )
 }

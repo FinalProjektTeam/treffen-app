@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
+import './event.scss'
 
 export default function Event() {
     const {eventID} = useParams() 
@@ -11,10 +11,9 @@ export default function Event() {
     const [error, setError] = useState('')
     const [errors, setErrors] = useState([])
 
-    const [backendComment, setBackendComment] = useState('')
+    // const [backendComment, setBackendComment] = useState('')
 
     const [userExist, setUserExist] = useState(false)
-
  
     useEffect(()=>{
        fetch('http://localhost:4000/events/'+ eventID)
@@ -56,7 +55,7 @@ export default function Event() {
                     setUserExist(false)
                 }, 3000)
             }
-            setBackendComment(result)
+            // setBackendComment(result)
        }
 
        else if(result.error){

@@ -1,25 +1,29 @@
-import React , {useState , useEffect , useContext, createContext } from "react";
+import React , {useState , useEffect , createContext } from "react";
 
 const Context = createContext({
     data : null ,
     error : '',
+    errors : [],
     isFetching : false ,
+    loggedIn: Boolean,
     login: async()=>0,
     register: async()=>0,
     logout : async()=>0
-
 })
 
 export function UserProvider (props){
     const [user , setUser] = useState(null)
     const [error , setError] = useState('')
+    const [errors , setErrors] = useState([])
+
     const [isFetching, setIsFetching] = useState(false)
     const [ready , setReady] = useState(false)
 
-    const [eingeloggt , setEingeloggt] = useState(false)
+    const [loggedIn , setLoggedIn] = useState(Boolean)
 
 
     console.log('useUser is working good');
+    
     useEffect(()=>{
         fetch(`http://localhost:4000/user`,
             {
@@ -42,9 +46,13 @@ export function UserProvider (props){
         const data = {
             data: user,
             error : error,
+            errors : errors,
             isFetching: isFetching,
+            loggedIn: loggedIn,
             login : async(body)=>{
                 setError('')
+                setErrors([])
+
                 setIsFetching(true)
                 const res = await fetch('http://localhost:4000/user/login' , {
                     method: "POST",
@@ -58,10 +66,10 @@ export function UserProvider (props){
                 const result = await res.json()
                 if(res.status === 200){
                     setUser(result)
-                    setEingeloggt(true)
+                    setLoggedIn(true)
                 }
                 else if(result.errors){
-                    setError(result.errors[0].msg)
+                    setErrors(result.errors)
                 }
                 else if (result.error){
                     setError(result.error)
@@ -74,6 +82,7 @@ export function UserProvider (props){
 
             register: async(body)=>{
                 setError('')
+                setErrors([])
                 setIsFetching(true)
 
                 const formData = new FormData()
@@ -94,10 +103,12 @@ export function UserProvider (props){
                 const result = await res.json()
                 if(res.status === 200){
                     setUser(result)
+                    setLoggedIn(true)
+
                     console.log(result);
                 }
                 else if(result.errors){
-                    setError(result.errors[0].msg)
+                    setErrors(result.errors)
                 }
                 else if (result.error){
                     setError(result.error)
@@ -113,6 +124,7 @@ export function UserProvider (props){
                     credentials: "include"
                 })
                 setUser(null)
+                setLoggedIn(false)
             }
         }
     

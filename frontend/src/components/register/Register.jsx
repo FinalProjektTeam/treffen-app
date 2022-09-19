@@ -1,7 +1,7 @@
-import '../Layout/components.css';
-import React , {useState , useEffect , useContext} from "react";
+import '../../Layout/components.css';
+import React , {useState} from "react";
 import {Link} from 'react-router-dom'
-import useUser from '../hooks/useUser';
+import useUser from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
@@ -30,11 +30,20 @@ export default function Register() {
         
         if(data ){
           console.log('submit klappt');
+          console.log('REGIST DATA: ',data);
+          console.log('USER DATA: ',user);
           navigate('/user/'+data._id)
         } else{
-          navigate('/user/login')
+        //   navigate('/user/login')
+        console.log('data not found');
         }
       }
+
+      setTimeout(() => {
+        user.error = ''
+        user.errors = []
+
+      }, 3000);
 
   return (
     <div className="regist-bg-img-div">
@@ -82,7 +91,9 @@ export default function Register() {
             <p className="m-3">haben Sie shoch ein Account ? <br/>
             <button className='btn btn-outline-dark m-3'><Link to= {'/login'}>zum Login</Link></button></p>
 
+         
             {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
+               { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>*- {e.msg}</h4>)}</h3>}
       </div>
 
     </div>

@@ -1,0 +1,24 @@
+.Home{
+    position: relative;
+    width: 100%;
+
+    .home-btn{
+
+        position: absolute;
+        top: 600px;
+        margin: 20px auto;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+
+        a{
+            text-decoration: double underline;
+            color: goldenrod;
+        
+            h1{
+                color: rgb(128, 121, 121);
+            }
+        }
+    }
+ 
+}
