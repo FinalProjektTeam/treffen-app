@@ -9,6 +9,7 @@ export default function NewEvent() {
     const [datum, setDatum] = useState('')
     const [description,setDescription] = useState('')
     const [category, setCategory] = useState('Allgemein')
+    const [eventBild , setEventBild] = useState('')
 
     const [event, setEvent] = useState(null)
     const [error, setError] = useState('')
@@ -24,20 +25,20 @@ export default function NewEvent() {
     const handleNewEvent = async(e)=>{
         e.preventDefault()
         setError('')
+        const formData = new FormData()
+        formData.append("title", title)
+        formData.append("adresse", adresse)
+        formData.append("category", category)
+        formData.append("datum", datum)
+        formData.append("description", description)
+        formData.append("eventBild", eventBild)
+       
 
         const res = await fetch('http://localhost:4000/events',{
             method: 'POST',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: title,
-                adresse: adresse,
-                datum: datum,
-                category: category,
-                description: description
-            })
+            
+            body:formData 
         })
         const data = await res.json()
         console.log('DATA => ',data);
@@ -75,7 +76,9 @@ export default function NewEvent() {
         <br />
         <input type="text" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
         <br />
-        {/* <input type="file" placeholder='Bild' onClick={''} /> */}
+        <label htmlFor="avatar" className="m-2 form-label"><b>Event Photo : </b></label>
+        <input type="file" className="m-2 form-control w-50"
+                        accept='image/*' onChange={(e)=> setEventBild(e.target.files[0])} />
         <br />
         <input type="text" placeholder='write a description' onBlur={e=> setDescription(e.target.value)} />
 
@@ -83,18 +86,15 @@ export default function NewEvent() {
 
 
         <br />
-{/* 
-        <label for="birthdaytime">Birthday (date and time):</label>
-        <input type="datetime-local" id="birthdaytime" name="birthdaytime"/> */}
 
-        <button type="submit">Create Event</button>
+        <button className='btn btn-outline-danger' type="submit">Create Event</button>
     </form>
 
 
-    <h1>{title+' '+adresse+' '+ datum} </h1>
+    <h2>{title+'\n'+adresse+'\n'+ datum} </h2>
 
 
-    <h2>Category: {category}</h2>
+    <h3>Category: {category}</h3>
 
 
         {error && <h1 style={{color: 'red'}} >{error}</h1>}

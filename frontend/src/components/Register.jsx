@@ -75,7 +75,7 @@ export default function Register() {
 
                 <label htmlFor="avatar" className="m-2 form-label"><b>Profilebild : </b></label>
                 <input type="file" className="m-2 form-control w-75"
-                        value={avatar} onChange={(e)=> setAvatar(e.target.value)} />
+                        accept='image/*' onChange={(e)=> setAvatar(e.target.files[0])} />
             
                 <input type="submit" className="m-2 btn btn-warning"/>
             </form>

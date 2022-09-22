@@ -11,7 +11,7 @@ export default function Event() {
     const [error, setError] = useState('')
     const [errors, setErrors] = useState([])
 
-    const [backendComment, setBackendComment] = useState('')
+    //const [backendComment, setBackendComment] = useState('')
 
     const [userExist, setUserExist] = useState(false)
 
@@ -54,7 +54,7 @@ export default function Event() {
                     setUserExist(false)
                 }, 3000)
             }
-            setBackendComment(result)
+            //setBackendComment(result)
        }
 
        else if(result.error){
@@ -110,21 +110,22 @@ export default function Event() {
         {errors && <h3 style={{color:'red'}}>{error}</h3> }
 
         <div className="event-image">
-            <img src="" alt="" />
+            <img src={event.bild.replace("uploads/","http://localhost:4000/")} alt="bild" />
             <button onClick={handleJoinEvent} >Join</button>
         </div>
-            {userExist && <h1 style={{color:'orangered'}}>Du bist schon in Team!</h1>}
-        <div className="description-map">
+            {userExist && <h1 style={{color:'orangered'}}>You are already in this Team!</h1>}
+            <div className="description-map">
             <div className="info">
                 <ul>
-                    <li>Datum: {event.datum}</li>
-                    {/* <li>Owner: {event.user.firstname} {event.user.lastname}</li> */}
-                    <li>Category: {event.category}</li>
+                <li><b>Date :</b> <span className='text-primary'>{event.datum}</span></li>
+                    {event.user && <li><b>Owner :</b> <span className='text-danger'>{event.user.firstname+' '+event.user.lastname}</span></li>}
+
+                    <li><b>Category :</b> <span className='text-success'>{event.category}</span></li>
                 </ul>
 
-                <div className="description">
+                <div className="description border p-3">
                     <h6>Description</h6>
-                    <p>{event.description}</p>
+                    <p className='text-secondary'>{event.description}</p>
                 </div>
             </div>
 
@@ -141,10 +142,12 @@ export default function Event() {
             <ul>
                 {
                 event.comments?.map(comment=>(
-                    <li key={comment._id}>{comment.comment} ==== {comment.user.lastname}</li> 
+                    <li key={comment._id}>{comment.comment} ==== {comment.user.firstname}</li> 
                 ))
                 }
             </ul>
+            {error && <h3 style={{color:'red'}}>{error}</h3> }
+
             <input type="text"  onBlur={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
             <button onClick={handleAddComment}>Add Comment</button>
         </div>

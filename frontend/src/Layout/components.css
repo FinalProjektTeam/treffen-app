@@ -160,10 +160,10 @@ html, body{
 }
 
 .card-image{
-    padding: 70px;
-    background-color: cornflowerblue;
+    padding: 1rem;
     margin-bottom: 25px;
-    margin-top: 15px;
+    margin-top: 1rem;
+    width: 50%;
 }
 
 .card > ul{
