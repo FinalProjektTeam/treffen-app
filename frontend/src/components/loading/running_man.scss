@@ -11,10 +11,10 @@ $crazy: 0.2;
 //   perspective: 500px;
 // }
 
-div {
-  position: absolute;
-  transform-style: preserve-3d;
-}
+// div {
+//   position: absolute;
+//   transform-style: preserve-3d;
+// }
 
 .paper_man_wrapper {
   animation: cameraY 7000ms linear infinite;
@@ -37,12 +37,12 @@ div {
     }
   }
   &_body {
-    transform-origin: 50% 100%;
-    transform: rotateX(-20deg);
-    width: 60px;
-    height: 100px;
-    animation: shake4 2000ms -100ms ease-in-out infinite;
-    margin-left: 50px;
+    // transform-origin: 50% 100%;
+    // transform: rotateX(-20deg);
+    // width: 60px;
+    // height: 100px;
+    // animation: shake4 2000ms -100ms ease-in-out infinite;
+    // margin-left: 50px;
   }
   &_head {
     transform-origin: 50% 100%;

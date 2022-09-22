@@ -137,13 +137,13 @@ export default function Event() {
                 </ul>
 
                 <div className="description">
-                    <h6>Description</h6>
+                    <h4>Description</h4>
                     <p>{event.description}</p>
                 </div>
             </div>
 
             <div className="map">
-                <h6>Adresse: {event.adresse}</h6>
+                <h4>Adresse: {event.adresse}</h4>
                 <div className="google-map"  >
                 map comes here
                 </div>

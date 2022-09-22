@@ -1,0 +1,47 @@
+.Navigation{
+
+    position: relative;
+    height: 100%;
+    width: 100vw;
+
+    .nav-container{
+
+        width: 100%;
+        display: flex;
+
+        justify-content: space-around;
+        gap: 25px;
+
+        .nav-buttons{
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            .nav-button{
+                background-color: grey;
+                height: 2.5rem;
+                font-size: 1rem;
+                font-weight: bolder;
+                padding: 0 .5rem;
+                min-width: 5rem;
+
+                a{
+                    color: whitesmoke;
+                    text-decoration: none;
+
+                }
+            }
+        }
+    }
+
+    .components-body{
+      min-height: 70vh;
+      background-color: grey;
+    }
+
+    footer{
+        background-color: darkslateblue;
+        color: whitesmoke;
+        height: 20vh;
+        margin-top: 2vh;
+    }
+}

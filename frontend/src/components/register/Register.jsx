@@ -49,7 +49,7 @@ export default function Register() {
     <div className="regist-bg-img-div">
       <div className="login-form">
           <h2>Registration</h2>
-              <form onSubmit={handleSubmit} className="container">
+              <form onSubmit={handleSubmit} className="register-container">
 
                 <label htmlFor="email" className="m-2 form-label "><b>Email </b></label>
                 <input type="email" placeholder="Your Email" className="m-2 form-control w-75"

@@ -28,7 +28,7 @@ export default function Login() {
     <div className="login-bg-img-div ">
         <div className="login-form">
           <h2>Login</h2>
-            <form onSubmit={handleSubmit} className="container">
+            <form onSubmit={handleSubmit} className="login-container">
 
                 <label htmlFor="email" className="m-2 form-label "><b>Email </b></label><br/>
                 <input type="email" placeholder="Your Email" className="m-2 form-control w-75"

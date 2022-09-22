@@ -1,5 +1,82 @@
-// .Event{
-//     background-color: red !important;
-//     display: flex;
-    
-// }
+.Event{
+   background-color: lightblue;
+
+    .event-image{
+
+        background-color: lightcyan;
+        height: 30vh;
+        width: 100%;
+        margin: 2rem auto;
+        position: relative;
+
+        button{
+            padding: .5rem 1rem;
+            border-radius: 3rem;
+            transform: translate(450%, 500%);
+
+        }
+
+    }
+
+    .description-map{
+
+        background-color: whitesmoke;
+
+        display: flex;
+        justify-content: space-between;
+
+        padding:3rem 2rem;
+
+        .info{
+
+            background-color: lightblue;
+            padding: 3rem 0;
+
+            ul{
+                line-height: 2.5;
+                list-style: none;
+                li{
+
+                }
+            }
+
+            .description{
+                margin-top: 2rem;
+
+            }
+        }
+
+        .map{
+            background-color: lightblue;
+            width: 35rem;
+
+            .google-map{
+
+            }
+        }
+
+    }
+
+    .comments{
+        padding: 4rem 0;
+
+        h3{
+            text-decoration: double underline goldenrod;
+        }
+
+        ul{
+            margin: 2rem;
+            background-color: lightgray;
+            max-height: 40vh;
+            overflow:auto;
+            list-style: none;
+
+            li{
+                margin: .5rem auto;
+                padding: .5rem;
+                width: fit-content;
+                border: 2px solid darkblue;
+            }
+        }
+    } 
+}

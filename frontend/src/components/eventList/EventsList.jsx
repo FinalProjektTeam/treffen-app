@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import "./eventsList.scss"
 
 export default function EventList() {
   const [events, setEvents] = useState([])
