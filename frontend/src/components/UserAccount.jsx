@@ -72,6 +72,9 @@ export default function UserAccount() {
       <div>
         <Link to={"/create-event"}><button type="button" class="btn btn-warning btn-lg">create new Event</button></Link>
       </div>
+      <div>
+        <Link to={"/events-list"}><button type="button" class="btn btn-info btn-lg">Explore Events</button></Link>
+      </div>
        
     </div>
   )

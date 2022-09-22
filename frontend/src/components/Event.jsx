@@ -98,9 +98,7 @@ export default function Event() {
         console.log('RES is: ',res);
         console.log('RESULT is: ',result);
 
-        setTimeout(()=>{
-            window.location.reload()
-        },2000)
+        window.location.reload()
     }
 
   return (
@@ -110,7 +108,7 @@ export default function Event() {
         {errors && <h3 style={{color:'red'}}>{error}</h3> }
 
         <div className="event-image">
-            <img src={event.bild.replace("uploads/","http://localhost:4000/")} alt="bild" />
+            <img src={event.bild && event.bild.replace("uploads/","http://localhost:4000/")} alt="bild" width='25%' height='25%'/>
             <button onClick={handleJoinEvent} >Join</button>
         </div>
             {userExist && <h1 style={{color:'orangered'}}>You are already in this Team!</h1>}
@@ -141,7 +139,7 @@ export default function Event() {
             <h3>Comments</h3>
             <ul>
                 {
-                event.comments?.map(comment=>(
+                event.comments?.filter(comment=>comment.user).map(comment=>(
                     <li key={comment._id}>{comment.comment} ==== {comment.user.firstname}</li> 
                 ))
                 }
@@ -150,6 +148,9 @@ export default function Event() {
 
             <input type="text"  onBlur={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
             <button onClick={handleAddComment}>Add Comment</button>
+        </div>
+        <div>
+            <Link to={"/events-list"}><button type="button" class="btn btn-info btn-lg">Explore Events</button></Link>
         </div>
     </div>
   )
