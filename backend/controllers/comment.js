@@ -22,7 +22,6 @@ exports.createComment = async(req, res, next)=>{
         return next(error)
     }
     
-
     event.comments.push(comment.id)
 
     await comment.save()
@@ -32,3 +31,29 @@ exports.createComment = async(req, res, next)=>{
 }
 
 
+exports.deleteComment = async(req, res, next)=>{
+
+    const comment = await Comment.findById(req.body.id).populate('user')
+
+    
+    const event = await Event.findById(req.body.event).populate('user').populate('comments')
+
+    console.log(comment.user._id.toString());
+    console.log(req.user._id.toString());
+
+    if( !(comment.user._id.toString() === req.user._id.toString())){
+       
+        res.status(200).send('Its not your comment')
+        return
+    } 
+    
+    event.comments.filter( e => e !== req.body.id )
+    await Promise.all( event.comments.map((e)=>e.populate('user')) )
+
+    await comment.remove()
+
+    event.comments.remove(req.body.id)
+    await event.save()
+
+    res.status(200).send(event)
+}

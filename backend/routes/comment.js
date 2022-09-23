@@ -7,4 +7,6 @@ const app = express.Router()
 
 app.post('/', auth, controller.createComment)
 
+app.delete('/', auth,  controller.deleteComment)
+
 module.exports = app

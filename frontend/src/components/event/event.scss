@@ -24,11 +24,11 @@
 
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
 
         padding:3rem 2rem;
 
         .info{
-
             background-color: lightblue;
             padding: 3rem 0;
 
@@ -49,6 +49,7 @@
         .map{
             background-color: lightblue;
             width: 35rem;
+            min-height: 20rem;
 
             .google-map{
 

@@ -89,19 +89,22 @@ export default function Event() {
             // setComment('')
             console.log('Comment is=> ',result);
 
-            //  fetch('http:localhost:4000/events/'+eventID, {
-            //     method: 'GET',
-            //     credentials: 'include',
-            //  })
-            //  .then(async(res)=>{
-            //     const result = await res.json()
-            //     console.log(result);
-            //     if(res.status === 200){
-            //         setEvent(result)
-            //     }
-            //  })
+             fetch('http://localhost:4000/events/'+eventID, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+             })
+             .then(async(res)=>{
+                const result = await res.json()
+                console.log(result);
+                if(res.status === 200){
+                    setEvent(result)
+                    setComment('')
+                }
+             })
         }
-
         else if(result.error){
             setError(result.error)
             console.log(result.error);
@@ -111,9 +114,32 @@ export default function Event() {
             console.log(result.errors);
         }
 
-        setTimeout(()=>{
-            window.location.reload()
-        },1000)
+        // window.location.reload()
+        console.log(result);
+    }
+
+    const handleDeleteComment = async(e)=>{
+        e.preventDefault()
+
+        const res = await fetch('http://localhost:4000/comments', {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: e.target.id,
+                event: eventID
+            })
+        })
+
+        const result = await res.json()
+        console.log(result);
+        console.log(e.target.id);
+        setEvent(result) 
+        setError(result.error)   
+
+
     }
 
   return (
@@ -145,8 +171,11 @@ export default function Event() {
             <div className="map">
                 <h4>Adresse: {event.adresse}</h4>
                 <div className="google-map"  >
-                map comes here
+                
+                    {/* <iframe src="https://www.google.com/maps/place/hamburg%E2%80%AD/@53.5584902,10.0679021,11z/data=!3m1!4b1!4m5!3m4!1s0x47b161837e1813b9:0x4263df27bd63aa0!8m2!3d53.5510682!4d9.9936962" width="600" height="450" frameborder="0" style={{border:0}} allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> */}
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d151677.40893341295!2d10.067902121415445!3d53.55849017274688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b161837e1813b9%3A0x4263df27bd63aa0!2z2YfYp9mF2KjZiNix2Lo!5e0!3m2!1sar!2sde!4v1663853178323!5m2!1sar!2sde" width="600" height="450" style={{border:"0"}} allowFullscreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                 </div>
+                <a href="https://google.com/maps/place/" >map</a>
             </div>
         </div>
 
@@ -155,7 +184,11 @@ export default function Event() {
             <ul>
                 {
                 event.comments?.map(comment=>(
-                    <li key={comment._id}>{comment.comment} ==== {comment.user.lastname}</li> 
+                   comment && 
+                    <li key={comment._id}>{comment.comment} ==== {comment.user.lastname} 
+                        <button id={comment._id} style={{marginLeft: "25px"}} onClick={handleDeleteComment} >X</button> 
+                    
+                    </li> 
                 ))
                 }
             </ul>

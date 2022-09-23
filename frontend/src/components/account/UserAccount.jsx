@@ -28,7 +28,7 @@ export default function UserAccount() {
             }
         }
         fetchData();
-    }, [])
+    }, [id])
   
    
   return (
