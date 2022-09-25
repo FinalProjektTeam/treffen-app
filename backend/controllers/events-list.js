@@ -25,9 +25,11 @@ exports.addEvent = async(req, res, next)=>{
         return next(error)
     }
     const event = new Event(req.body)
+    event.team.push(userID)
     // token kommt von auth middleware, so kennen wir den User
     event.user = user
     user.events.push(event._id)
+
 
     await event.save()
     await user.save()
@@ -92,4 +94,28 @@ exports.joinEvent = async(req,res,next)=>{
     await event.save()
 
     res.status(200).send(event)
+}
+
+exports.deleteEvent = async (req,res,next)=>{
+
+    const event = await Event.findById(req.body.id)
+
+    const user = await User.findById(req.user._id)
+
+
+    if(!user){
+        const error = new Error('Authorization failed bro!')
+        error.status = 401
+        return next(error)
+    }
+
+    console.log(event);
+    console.log(user);
+
+    user.events.filter(e => e !== event._id)
+
+    await event.remove()
+    await user.save()
+
+    res.status(200).send(user)
 }

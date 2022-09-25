@@ -176,7 +176,7 @@ export default function Event() {
                 <div className="google-map"  >
                 
                     {/* <iframe src="https://www.google.com/maps/place/hamburg%E2%80%AD/@53.5584902,10.0679021,11z/data=!3m1!4b1!4m5!3m4!1s0x47b161837e1813b9:0x4263df27bd63aa0!8m2!3d53.5510682!4d9.9936962" width="600" height="450" frameborder="0" style={{border:0}} allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> */}
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d151677.40893341295!2d10.067902121415445!3d53.55849017274688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b161837e1813b9%3A0x4263df27bd63aa0!2z2YfYp9mF2KjZiNix2Lo!5e0!3m2!1sar!2sde!4v1663853178323!5m2!1sar!2sde" width="600" height="450" style={{border:"0"}} allowFullscreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d151677.40893341295!2d10.067902121415445!3d53.55849017274688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b161837e1813b9%3A0x4263df27bd63aa0!2z2YfYp9mF2KjZiNix2Lo!5e0!3m2!1sar!2sde!4v1663853178323!5m2!1sar!2sde" width="600" height="450" style={{border:"0"}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <a href="https://google.com/maps/place/" >map</a>
             </div>
