@@ -37,32 +37,41 @@ export default function UserAccount() {
       <div className="avatar">
         {
           userData.avatar && 
-          <img src={userData.avatar} alt="avatar" style={{width:'230px',height:'260px', borderRadius:'50%'}}  className="p-3" />
-          
+          <img src={userData.avatar} alt="avatar" style={{width:'230px',height:'260px', borderRadius:'50%'}} />
         }
        
-       { !userData.avatar && <img src={defaultAvatar} alt="avatar" style={{width:'230px',height:'260px', borderRadius:'50%'}}  className="p-3"/>} 
+       { !userData.avatar && <img src={defaultAvatar} alt="avatar" style={{width:'230px',height:'260px', borderRadius:'50%'}}/>} 
 
          
-          <h2>Hallo <span className="text-danger">{userData.firstname}</span></h2>
+          <h2>Hallo <span >{userData.firstname}</span></h2>
       </div>
-        <h3>Your Events</h3>
       <div className="events">
-        <ul className="created-events">
-                <h3>Created Events</h3>
-              { 
-                userData.events && 
-                userData.events.map((event)=><li key={event._id} ><Link to={"/events-list/"+event._id} >{event.title}</Link></li>)
-              }
+              <ul className="created-events">
+                      { userData.events?.length > 0 ? 
+                            <h3>Created Events</h3>
+                            : 
+                            <h3>You dont't have Events yet</h3>
+                      }
 
-        </ul>
+                    { 
+                      userData.events && 
+                        userData.events.map((event)=>
+                            <li key={event._id} >
+                                  <Link to={"/events-list/"+event._id} >{event.title}</Link>
+                                  <p>{event.datum}</p>
+                            </li>
+                        )
+                    }
+
+              </ul>
 
               <ul>
                   <h3>Joined Events</h3>
               { userData.eventslist &&                  
-                    userData.eventslist.map(e=> 
-                        <li key={e._id}>
-                            <Link to={"/events-list/"+e._id} >{e.title}</Link>
+                    userData.eventslist.map(event=> 
+                        <li key={event._id}>
+                            <Link to={"/events-list/"+event._id} >{event.title}</Link>
+                            <p>{event.datum}</p>
                         </li>
                     )
               }
@@ -71,7 +80,12 @@ export default function UserAccount() {
       
       <div className="new-event">
         <Link to={"/create-event"}>
-            <button>Neues Event erstellen</button>
+            <button>Create new Event</button>
+        </Link>
+      </div>
+      <div>
+        <Link to={"/events-list"}>
+            <button>Explore Events</button>
         </Link>
       </div>
        

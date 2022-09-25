@@ -70,9 +70,15 @@ export function UserProvider (props){
                 }
                 else if(result.errors){
                     setErrors(result.errors)
+                    setTimeout(() => {
+                        setErrors('')
+                    }, 2000);
                 }
                 else if (result.error){
                     setError(result.error)
+                    setTimeout(() => {
+                        setError('')
+                    }, 2000);
                 }
                 setIsFetching(false)
 
@@ -82,7 +88,7 @@ export function UserProvider (props){
 
             register: async(body)=>{
                 setError('')
-                setErrors([])
+                setErrors("")
                 setIsFetching(true)
 
                 const formData = new FormData()
@@ -109,11 +115,18 @@ export function UserProvider (props){
                 }
                 else if(result.errors){
                     setErrors(result.errors)
+                    setTimeout(() => {
+                        setErrors("")
+                    }, 2000);
                 }
                 else if (result.error){
                     setError(result.error)
+                    setTimeout(() => {
+                        setError('')
+                    }, 2000);
                 }
                 setIsFetching(false)
+
 
                 return result                
             },
@@ -133,7 +146,6 @@ export function UserProvider (props){
           {ready && props.children}
         </Context.Provider>
       )
-  
 }
 
 export default function useUser(){

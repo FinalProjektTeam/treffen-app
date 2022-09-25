@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import useUser from '../../hooks/useUser'
 import "./eventsList.scss"
 
 export default function EventList() {
   const [events, setEvents] = useState([])
   const [ready, setReady] = useState(false)
+  const user = useUser()
 
   useEffect( ()=>{
     // setReady(false)
@@ -27,7 +29,11 @@ export default function EventList() {
   if(ready){
     return (
       <div className='Events-List'>
-        <Link to={'/create-event'}>Create new Event</Link>
+
+        {
+          user.data && 
+          <Link to={'/create-event'}>Create new Event</Link>
+        }
 
         <h2>Events-list </h2>
         {/* <p>noch nicht fertig</p>

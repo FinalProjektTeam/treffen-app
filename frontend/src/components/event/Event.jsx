@@ -11,7 +11,8 @@ export default function Event() {
     const [error, setError] = useState('')
     const [errors, setErrors] = useState([])
 
-    // const [backendComment, setBackendComment] = useState('')
+    const [commentDeleted, setCommentDeleted] = useState(false)
+    const [ commentError, setCommentError] = useState(false)
 
     const [userExist, setUserExist] = useState(false)
  
@@ -120,6 +121,7 @@ export default function Event() {
 
     const handleDeleteComment = async(e)=>{
         e.preventDefault()
+        setError('')
 
         const res = await fetch('http://localhost:4000/comments', {
             method: 'DELETE',
@@ -134,11 +136,12 @@ export default function Event() {
         })
 
         const result = await res.json()
-        console.log(result);
-        console.log(e.target.id);
-        setEvent(result) 
-        setError(result.error)   
 
+        if(res.status === 200){
+            setEvent(result) 
+            console.log(result);
+            console.log("Comment deleted");
+        }
 
     }
 
@@ -193,6 +196,7 @@ export default function Event() {
                 }
             </ul>
             {error && <h3 style={{color:'red'}}>{error}</h3> }
+            {commentError && <h3 style={{color: 'red'}}> It's not your Comment!</h3>}
             <input type="text" value={comment} onChange={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
             <button onClick={handleAddComment}>Add Comment</button>
         </div>

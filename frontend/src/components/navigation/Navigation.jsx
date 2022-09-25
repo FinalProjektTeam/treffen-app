@@ -18,10 +18,12 @@ export default function Navigation(props) {
     
       <div className='Navigation'>
         <div className="nav-container">
-
             <img src={logo} alt="logo" style={{width:'70px',height:'65px', borderRadius:'50%'}} />
 
             <h2>Treffen App</h2>
+
+            {user.data && <p>Hallo {user.data.firstname}</p>}
+
 
             <div className='nav-buttons'>
               <button className='nav-button'>
@@ -42,9 +44,20 @@ export default function Navigation(props) {
                   <Link to= {'/user/'+user.data._id}>User Account</Link>
                 </button>}
 
-              {user.data && <button className='nav-buttonn' onClick={handleLogout}>
-                <Link to= {'/login'}>Log out</Link>
-              </button>}
+              {user.data && 
+                  <button className='nav-buttonn' onClick={handleLogout}>
+                    <Link to= {'/login'}>Log out</Link>
+                  </button>
+              }
+
+              {user.data && 
+                  <div className='user-avatar' >
+                      <Link to= {'/user/'+user.data._id}>
+                          <img src= {user.data.avatar} alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} />
+                      </Link>
+                  </div>
+              }
+
           </div>
 
       </div>

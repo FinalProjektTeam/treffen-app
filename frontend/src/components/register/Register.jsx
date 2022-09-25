@@ -3,6 +3,7 @@ import React , {useState} from "react";
 import {Link} from 'react-router-dom'
 import useUser from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
+import "./register.scss"
 
 export default function Register() {
     const [email, setEmail] = useState('');
@@ -46,54 +47,73 @@ export default function Register() {
       }, 3000);
 
   return (
-    <div className="regist-bg-img-div">
-      <div className="login-form">
+    <div className="Register">
+      <div className="register-form">
           <h2>Registration</h2>
               <form onSubmit={handleSubmit} className="register-container">
 
-                <label htmlFor="email" className="m-2 form-label "><b>Email </b></label>
-                <input type="email" placeholder="Your Email" className="m-2 form-control w-75"
+                <div className="element">
+                        <label htmlFor="email" className="label">Email :</label>
+                        <input type="email" placeholder="Your Email" className="input"
                         value={email} onChange={(e)=> setEmail(e.target.value)} />
+                </div>
 
-                <label htmlFor="password" className="m-2 form-label"><b>Password </b></label>
-                <input type="password" placeholder="Password" className="m-2 form-control w-75"
+                <div className="element">
+                        <label htmlFor="password" className="label">Password :</label>
+                        <input type="password" placeholder="Password" className="input"
                         value={password} onChange={(e)=> setPassword(e.target.value)} />
+                </div>
 
-                <label htmlFor="firstname" className="m-2 form-label"><b>Vorname : </b></label>
-                <input type="text" placeholder="Firstname" className="m-2 form-control w-75"
+                <div className="element">
+                        <label htmlFor="firstname" className="label">Vorname : </label>
+                        <input type="text" placeholder="Firstname" className="input"
                         value={firstname} onChange={(e)=> setFirstname(e.target.value)} />
+                </div>
 
-                <label htmlFor="lastname" className="m-2 form-label"><b>Nachname : </b></label>
-                <input type="text" placeholder="lastname" className="m-2 form-control w-75"
+                <div className="element">
+                        <label htmlFor="lastname" className="label">Nachname :</label>
+                        <input type="text" placeholder="lastname" className="input"
                         value={lastname} onChange={(e)=> setLastname(e.target.value)} />
+                </div>
 
-
-                <label htmlFor="gender" className="m-2 form-label"><b>Geschlicht : </b></label>
-                <input className=" m-2 form-check-input" type="radio" name='gender'
-                        value={gender} onClick={(e)=> setGender('Male')} />
-                        <label className="form-check-label" htmlFor="gender">Male</label>
-
-                <input className="m-2 form-check-input" type="radio" name='gender'
-                        value={gender} onClick={(e)=> setGender('Female')} />
-                        <label className="form-check-label" htmlFor="gender">Female</label><br/>
-
-
-                <label htmlFor="age" className="m-2 form-label"><b>Alter : </b></label>
-                <input type="number" placeholder="Age" className="m-2 form-control w-75"
+                <div className="element">
+                        <label htmlFor="age" className="label">Alter : </label>
+                        <input type="number" placeholder="Age" className="input"
                         onBlur={(e)=> setAge(e.target.value)} />
+                </div>
 
-                <label htmlFor="avatar" className="m-2 form-label"><b>Profilebild : </b></label>
-                <input type="file" className="m-2 form-control w-75"
+                <div className="element">
+                        <label htmlFor="gender" className="label">Geschlicht : </label>
+
+                        <div className="gender">
+                                <input className="input" type="radio" name='gender' value={gender} onClick={(e)=> setGender('Male')} />
+                                <label className="label" htmlFor="gender">Male</label>
+                        </div>
+
+                        <div className="gender">
+                                <input className="input" type="radio" name='gender' value={gender} onClick={(e)=> setGender('Female')} />
+                                <label className="label" htmlFor="gender">Female</label><br/>
+                        </div>
+                </div>
+
+                <div className="element">                        
+                        <label htmlFor="avatar" className="label">Profilebild : </label>
+                        <input type="file" className="input"
                         accept='image/*' onChange={(e)=> setAvatar(e.target.files[0])} />
+                </div>
                 
-                <input type="submit" className="m-2 btn btn-warning"/>
+                <input type="submit" className="submit"/>
             </form>
-            <p className="m-3">haben Sie shoch ein Account ? <br/>
-            <button className='btn btn-outline-dark m-3'><Link to= {'/login'}>zum Login</Link></button></p>
 
-         
+            <div className="para-login">
+                <p>haben Sie shoch einen Account ?</p> 
+                <button className='login-btn'>
+                        <Link to= {'/login'}>zum Login</Link>
+                </button>
+            </div>
+
             {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
-               { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>*- {e.msg}</h4>)}</h3>}
+            {user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>*- {e.msg}</h4>)}</h3>}
       </div>
 
     </div>
