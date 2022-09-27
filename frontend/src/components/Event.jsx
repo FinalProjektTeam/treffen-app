@@ -111,12 +111,13 @@ export default function Event() {
 
         <div className="event-image bg-warning bg-opacity-50">
             <img src={event.bild && event.bild.replace("uploads/","http://localhost:4000/")} alt="bild" />
-            {user.data && <button onClick={handleJoinEvent} >Join</button>}
+            {user.data && <button onClick={handleJoinEvent} >🇯​​​​​🇴​​​​​🇮​​​​​🇳​​​​​</button>}
         </div>
             {userExist && <h1 style={{color:'orangered'}}>You are already in this Team!</h1>}
+            <h2 className='border w-50 p-2 m-auto my-3 text-primary'>Event Details</h2>
             <div className="description-map">
-                <div className="info border p-5 bg-warning bg-opacity-25">
-                    <ul style={{fontSize:'1.5rem'}}>
+                <div className="info border mx-3 p-5 bg-warning bg-opacity-25">
+                    <ul style={{fontSize:'1.3rem'}}>
                     <li><b>Date :</b> <span className='text-primary'>{event.datum}</span></li>
                         {event.user && <li><b>Owner :</b> <span className='text-danger'>{event.user.firstname+' '+event.user.lastname}</span></li>}
 
@@ -130,16 +131,19 @@ export default function Event() {
                 </div>
 
                 <div className="map">
-                    <h6 className='p-2 border bg-white'><span className='m-3 text-danger'>Adresse:</span><br/>{event.adresse}</h6>
-                    <div className="google-map my-3"  >
+                    <div className='p-2 border bg-white text-secondary'><span className='my-3 text-danger fs-5'>Adresse:</span><br/><span>{event.adresse}</span><br/>
+                    <a href={encodeURI("https://www.google.com/maps/place/"+event.adresse) } target='_blank' rel="noreferrer"> 👉 Get Location</a>
+                    </div>
+
+                    <div className="google-map">
                 
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5131481.678620352!2d14.928379913698086!3d51.09727310845369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479a721ec2b1be6b%3A0x75e85d6b8e91e55b!2z2KPZhNmF2KfZhtmK2Kc!5e0!3m2!1sar!2sde!4v1663926445941!5m2!1sar!2sde" width="600" height="450" style={{border:"1px gray solid", borderRadius: '15px'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5131481.678620352!2d14.928379913698086!3d51.09727310845369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479a721ec2b1be6b%3A0x75e85d6b8e91e55b!2z2KPZhNmF2KfZhtmK2Kc!5e0!3m2!1sar!2sde!4v1663926445941!5m2!1sar!2sde" width="600" height="350" style={{border:"1px gray solid", borderRadius: '15px'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
 
         <div className="comments">
-            <h3>Comments</h3>
+            <h3 className='w-50 p-2 m-auto my-3 text-success'>Comments</h3>
             <ul className='container'>
                 {
                 event.comments?.filter(comment=>comment.user).map(comment=>(

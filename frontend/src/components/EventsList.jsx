@@ -6,7 +6,6 @@ export default function EventList() {
   const [events, setEvents] = useState([])
   const [ready, setReady] = useState(true)
   const [filterEvent , setFilterEvent] = useState([])
-  const [searchInput , setSearchInput] = useState('')
   const user = useUser()
 
   useEffect( ()=>{
@@ -36,9 +35,8 @@ export default function EventList() {
     }
 
     const searchFunction = (value)=>{
-      const searchResult = events.find(e=>e.title.includes(value)|| e.adresse.includes(value))
-      setSearchInput(searchResult)
-      //setFilterEvent(searchResult)
+      const searchResult = events.filter(e=>e.title.toLowerCase().includes(value.toLowerCase())|| e.adresse.toLowerCase().includes(value.toLowerCase()))
+      setFilterEvent(searchResult)
       console.log('searchResult',searchResult);
     }
 
@@ -47,9 +45,6 @@ export default function EventList() {
       <div className='Events-List container'>
        {user.data && <button className='btn btn-outline-danger m-4'><Link to={'/create-event'}>Create new Event</Link></button>}
        
-
-        
-
         <h2 className='m-3 '>Discover our Events</h2>
 
          <div className='d-flex justify-content-around mb-5'>

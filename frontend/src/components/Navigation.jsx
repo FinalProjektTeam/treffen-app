@@ -15,9 +15,9 @@ export default function Navigation(props) {
       <div className='nav-component'>
         <div className="nav">
             <img src="images/first-logo.png" alt="logo" style={{width:'70px',height:'65px', borderRadius:'50%'}} />
-            <h2>Treffen App</h2>
+            <h4>𝕋𝕣𝕖𝕗𝕗𝕖𝕟 𝔸𝕡𝕡​​​​​</h4>
 
-            {user.data && <p>Hallo {user.data.firstname}</p>}
+            {user.data && <p>Hallo <span style={{color: 'violet'}}>{user.data.firstname}</span></p>}
           
             <div>
               <button className='btn nav-btn'>
