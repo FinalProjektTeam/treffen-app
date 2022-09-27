@@ -1,9 +1,11 @@
-
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import useUser from '../hooks/useUser';
 
 export default function Event() {
+    const user = useUser()
+    console.log('user is :',user);
     const {eventID} = useParams() 
 
     const [event, setEvent] = useState('')
@@ -100,57 +102,62 @@ export default function Event() {
 
         window.location.reload()
     }
-
+            console.log('single Event:',event);
   return (
     <div className='Event'>
-        <h1>{event.title}</h1>
+        <h1 className='my-3 text-danger text-opacity-75'>{event.title}</h1>
         {error && <h3 style={{color:'red'}}>{error}</h3> }
         {errors && <h3 style={{color:'red'}}>{error}</h3> }
 
-        <div className="event-image">
-            <img src={event.bild && event.bild.replace("uploads/","http://localhost:4000/")} alt="bild" width='25%' height='25%'/>
-            <button onClick={handleJoinEvent} >Join</button>
+        <div className="event-image bg-warning bg-opacity-50">
+            <img src={event.bild && event.bild.replace("uploads/","http://localhost:4000/")} alt="bild" />
+            {user.data && <button onClick={handleJoinEvent} >Join</button>}
         </div>
             {userExist && <h1 style={{color:'orangered'}}>You are already in this Team!</h1>}
             <div className="description-map">
-            <div className="info">
-                <ul>
-                <li><b>Date :</b> <span className='text-primary'>{event.datum}</span></li>
-                    {event.user && <li><b>Owner :</b> <span className='text-danger'>{event.user.firstname+' '+event.user.lastname}</span></li>}
+                <div className="info border p-5 bg-warning bg-opacity-25">
+                    <ul style={{fontSize:'1.5rem'}}>
+                    <li><b>Date :</b> <span className='text-primary'>{event.datum}</span></li>
+                        {event.user && <li><b>Owner :</b> <span className='text-danger'>{event.user.firstname+' '+event.user.lastname}</span></li>}
 
-                    <li><b>Category :</b> <span className='text-success'>{event.category}</span></li>
-                </ul>
+                        <li><b>Category :</b> <span className='text-success'>{event.category}</span></li>
+                    </ul>
 
-                <div className="description border p-3">
-                    <h6>Description</h6>
-                    <p className='text-secondary'>{event.description}</p>
+                    <div className="description border p-3 bg-white" style={{fontSize:'1.5rem'}}>
+                        <h4>Description</h4>
+                        <p className='text-secondary'>{event.description}</p>
+                    </div>
+                </div>
+
+                <div className="map">
+                    <h6 className='p-2 border bg-white'><span className='m-3 text-danger'>Adresse:</span><br/>{event.adresse}</h6>
+                    <div className="google-map my-3"  >
+                
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5131481.678620352!2d14.928379913698086!3d51.09727310845369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479a721ec2b1be6b%3A0x75e85d6b8e91e55b!2z2KPZhNmF2KfZhtmK2Kc!5e0!3m2!1sar!2sde!4v1663926445941!5m2!1sar!2sde" width="600" height="450" style={{border:"1px gray solid", borderRadius: '15px'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                 </div>
             </div>
-
-            <div className="map">
-                <h6>Adresse: {event.adresse}</h6>
-                <div className="google-map"  >
-                map comes here
-                </div>
-            </div>
-        </div>
 
         <div className="comments">
             <h3>Comments</h3>
-            <ul>
+            <ul className='container'>
                 {
                 event.comments?.filter(comment=>comment.user).map(comment=>(
-                    <li key={comment._id}>{comment.comment} ==== {comment.user.firstname}</li> 
+                    <li className='border p-2 ' key={comment._id}>{comment.comment} .......... <span className='text-danger'>{comment.user.firstname}</span> </li>
                 ))
                 }
             </ul>
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                    
+                </div>
             {error && <h3 style={{color:'red'}}>{error}</h3> }
 
-            <input type="text"  onBlur={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
-            <button onClick={handleAddComment}>Add Comment</button>
+            <div className='container'>{user.data && <input className="m-2 form-control w-50" type="text"  onBlur={(e)=> setComment(e.target.value)} placeholder='Write a comment' />}
+            {user.data &&<button className='btn nav-btn' onClick={handleAddComment}>Add Comment</button>}</div>
         </div>
         <div>
-            <Link to={"/events-list"}><button type="button" class="btn btn-info btn-lg">Explore Events</button></Link>
+            <Link to={"/events-list"}><button type="button" class="btn btn-info btn-lg my-3">Explore Events</button></Link>
         </div>
     </div>
   )

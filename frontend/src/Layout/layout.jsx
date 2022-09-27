@@ -9,6 +9,9 @@ export default function Layout(props){
         <div className="Layout">
             <Navigation/>
             <main>{props.children}</main>
+            <footer>
+          <div>test footer</div>
+        </footer>
         </div>
     )
 }
