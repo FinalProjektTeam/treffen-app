@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import {  useParams } from 'react-router-dom'
+import useUser from '../../hooks/useUser'
 import './event.scss'
 
 export default function Event() {
     const {eventID} = useParams() 
+    const user = useUser()
 
     const [event, setEvent] = useState('')
     const [comment, setComment] = useState('')
@@ -114,9 +116,6 @@ export default function Event() {
             setErrors(result.errors.map(e=><h2>{e.msg}</h2>))
             console.log(result.errors);
         }
-
-        // window.location.reload()
-        console.log(result);
     }
 
     const handleDeleteComment = async(e)=>{
@@ -142,18 +141,17 @@ export default function Event() {
             console.log(result);
             console.log("Comment deleted");
         }
-
     }
 
   return (
     <div className='Event'>
         <h1>{event.title}</h1>
         {error && <h3 style={{color:'red'}}>{error}</h3> }
-        {errors && <h3 style={{color:'red'}}>{errors}</h3> }
+        {errors && <div style={{color:'red'}}>{errors}</div> }
 
         <div className="event-image">
-            <img src="" alt="" />
-            <button onClick={handleJoinEvent} >Join</button>
+          {event.bild &&  <img src={event.bild.replace("uploads/", "http://localhost:4000/")} alt="bild" />}
+        { user.data && <button onClick={handleJoinEvent} >Join</button>}
         </div>
             {userExist && <h1 style={{color:'orangered'}}>Du bist schon in Team!</h1>}
         <div className="description-map">
@@ -182,6 +180,15 @@ export default function Event() {
             </div>
         </div>
 
+        <hr/>
+        
+        <div className='border w-25 m-auto p-2 my-5 bg-primary bg-opacity-10'>
+                <h3 className='text-primary'>Who is coming ?</h3><hr/>
+                <ul className='m-auto text-secondary'>
+                     { event.team && event.team.length>0 ? event.team.map(member=><li key={member._id}>{member.firstname}</li>): <p>Be the first who will join this event .</p>}
+                </ul>
+        </div>
+
         <div className="comments">
             <h3>Comments</h3>
             <ul>
@@ -196,8 +203,10 @@ export default function Event() {
                 }
             </ul>
             {error && <h3 style={{color:'red'}}>{error}</h3> }
+            {errors && <div style={{color:'red'}}>{errors}</div> }
+
             {commentError && <h3 style={{color: 'red'}}> It's not your Comment!</h3>}
-            <input type="text" value={comment} onChange={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
+            <input type="text" value={comment} onChange={(e)=> setComment(e.target.value)} placeholder='Write a comment'/>
             <button onClick={handleAddComment}>Add Comment</button>
         </div>
     </div>

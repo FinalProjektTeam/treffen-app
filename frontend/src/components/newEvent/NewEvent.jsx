@@ -9,6 +9,8 @@ export default function NewEvent() {
     const [datum, setDatum] = useState('')
     const [description,setDescription] = useState('')
     const [category, setCategory] = useState('Allgemein')
+    const [eventBild , setEventBild] = useState('')
+
 
     const [event, setEvent] = useState(null)
     const [error, setError] = useState('')
@@ -25,19 +27,19 @@ export default function NewEvent() {
         e.preventDefault()
         setError('')
 
+        const formData = new FormData()
+        formData.append("title", title)
+        formData.append("adresse", adresse)
+        formData.append("category", category)
+        formData.append("datum", datum)
+        formData.append("description", description)
+        formData.append("eventBild", eventBild)
+
         const res = await fetch('http://localhost:4000/events',{
             method: 'POST',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: title,
-                adresse: adresse,
-                datum: datum,
-                category: category,
-                description: description
-            })
+            
+            body:formData 
         })
         const data = await res.json()
         console.log('DATA => ',data);
@@ -51,7 +53,6 @@ export default function NewEvent() {
         else if(data.errors){
             setErrors(data.errors.map(e=><h2>{e.msg}</h2>))
         }
-
     }
   
 
@@ -75,7 +76,8 @@ export default function NewEvent() {
         <br />
         <input type="text" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
         <br />
-        {/* <input type="file" placeholder='Bild' onClick={''} /> */}
+        {/* <input type="file" accept='image/*' placeholder='Bild' onChange={(e)=> setEventBild(e.target.files[0])} /> */}
+        <input type="file" accept='image/*' onChange={(e)=> setEventBild(e.target.files[0])} />
         <br />
         <input type="text" placeholder='write a description' onBlur={e=> setDescription(e.target.value)} />
 
@@ -98,7 +100,7 @@ export default function NewEvent() {
 
 
         {error && <h1 style={{color: 'red'}} >{error}</h1>}
-        {errors && <h1 style={{color: 'red'}} >{errors}</h1>}
+        {errors && <div style={{color: 'red'}} >{errors}</div>}
 
     </div>
   )

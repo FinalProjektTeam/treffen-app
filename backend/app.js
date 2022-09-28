@@ -25,6 +25,8 @@ app.use('/user', require('./routes/user'))
 app.use('/events', require('./routes/events-list') )
 app.use('/comments', require('./routes/comment'))
 
+app.use(express.static('uploads'))
+
 app.post('/drop-database', async(req, res, next)=>{
     await mongoose.connection.db.dropDatabase()
     res.status(200).send('Database dropped successfully')

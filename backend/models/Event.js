@@ -23,7 +23,6 @@ const eventSchema = Schema({
     team:[{
         type: SchemaTypes.ObjectId,
         ref: 'User',
-        // user ID über sein Token/Cookie || if he logged in or he cant join
     }],
     exist: {type: Boolean}
 })

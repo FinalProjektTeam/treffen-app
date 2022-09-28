@@ -89,6 +89,10 @@ export default function UserAccount() {
       
 
     }
+
+    const handleEditUser = ()=>{
+      alert('Edit')
+    }
    
   return (
 
@@ -105,6 +109,7 @@ export default function UserAccount() {
 
          
           <h2>Hallo {userData.firstname+' '+userData.lastname} </h2>
+          <button onClick={handleEditUser} >Edit</button>
       </div>
       <div className="events">
               <ul className="created-events">

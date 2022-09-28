@@ -3,10 +3,8 @@ const User = require("../models/User")
 const Comment = require('../models/Comment')
 require('express-async-errors')
 
-
 exports.getEvents = async(req, res, next) =>{
     const events = await Event.find().populate('user')
-
     res.status(200).send(events)
 }
 
@@ -26,10 +24,10 @@ exports.addEvent = async(req, res, next)=>{
     }
     const event = new Event(req.body)
     event.team.push(userID)
-    // token kommt von auth middleware, so kennen wir den User
     event.user = user
     user.events.push(event._id)
 
+    event.bild = req.file.path
 
     await event.save()
     await user.save()
@@ -87,6 +85,7 @@ exports.joinEvent = async(req,res,next)=>{
     } else if(isInTeam) {
         console.log('you are already in team!!');
 
+        // user.team.filter()
         event.exist = true
     }
 
@@ -101,7 +100,6 @@ exports.deleteEvent = async (req,res,next)=>{
     const event = await Event.findById(req.body.id)
 
     const user = await User.findById(req.user._id)
-
 
     if(!user){
         const error = new Error('Authorization failed bro!')

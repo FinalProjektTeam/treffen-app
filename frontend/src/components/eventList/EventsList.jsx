@@ -42,11 +42,13 @@ export default function EventList() {
         <h2>Events entdecken</h2>
 
         <div className="cards-list">
+
+          
           {
             events.map(e => (
-              <div className="card" key={e._id}  >
+              <div className="card" key={e._id} >
                 <div className='card-image'>
-                  {/* <img src="" alt="Event-Image" /> */}
+                 { e.bild && <img src={e.bild.replace("uploads/", "http://localhost:4000/")} alt="Event-Image" />}
                 </div>
                 <h4> Title: {e.title}</h4>
                 <ul>
