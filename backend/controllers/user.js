@@ -2,16 +2,28 @@ const User = require("../models/User")
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 
+const fs = require('fs/promises')
+const path = require('path')
+
 
 exports.register = async(req, res, next)=>{
     const user = new User(req.body)
     user.password = await bcrypt.hash(user.password, 10)
     user.token = crypto.randomBytes(64).toString('hex')
 
+    if(req.file){
+        const filename = path.join(process.cwd(), req.file.path)
+        const buffer = await fs.readFile(filename);
+        const image = `data:${req.file.mimetype};base64,${buffer.toString("base64")}`;
+        user.avatar = image;
+        await fs.unlink(filename);
+    }
+
+    console.log(user);
     await user.save()
     res.cookie('user-token', user.token, {maxAge: 9999999, sameSite: 'strict', httpOnly: true})
 
-    res.status(200).send(user)
+    res.status(200).json(user)
 }
 
 exports.login = async(req, res, next) =>{
@@ -48,42 +60,46 @@ exports.getUsers = async(req, res, next) =>{
 
 exports.getSingleUser = async (req, res, next)=>{
     const {id} = req.params
-    const user = await User.findById(id)
+    const user = await User.findById(id).populate('events').populate('eventslist')
     if(!user){
         const error = new Error('User not found')
         error.status = 400
         return next(error)
     }
+
+    // await Promise.all(user.events.map((e)=>e.populate('events')))
     res.status(200).send(user)
 }
 
 exports.logout = async(req, res, next)=>{
-    const token = req.token
+    const token = req.cookies['user-token']
     const user = await User.findOne().where('token').equals(token)
-    if(!user){
+
+    if(!token){
+        return res.status(200).send('Token not found')
+    }
+    if(user){
         user.token = ''
         await user.save()
     }
     res.cookie('user-token', '', {minAge: 1, sameSite: 'strict', httpOnly: true})
-    res.status(200).end()
+    res.status(200).json(null)
 }
 
 exports.getCurrentUser = async(req, res, next)=>{
  
-    const token = req.cookies.token
+    const token = req.cookies['user-token']
 
     if(!token){
-    
-        res.status(200).json(null)
-        return
+        console.log('token failed');
+        return res.status(200).json(null)
     }
+
     const user = await User.findOne().where('token').equals(token)
-
     if(!user){
-      
-        res.status(200).json(null)
-        return
+        console.log('user failed');
+        return res.status(200).json(null)
     }
 
-    res.status(200).send(user)
+    res.status(200).json(user)
 }

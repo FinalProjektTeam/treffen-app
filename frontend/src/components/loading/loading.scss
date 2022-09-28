@@ -1,0 +1,185 @@
+section.loading-container{
+    background: #171819;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 400px;
+  }
+  
+//   div {
+//     transform-style: preserve-3d;
+//     position: absolute;
+//   }
+  
+//   .container {
+//     position: relative;
+//     display: grid;
+//     grid-template-rows: repeat(20, 5vh);
+//     grid-template-columns: repeat(20, 5vw);
+//     transform-style: preserve-3d;
+    
+//     &::before {
+//       content: '';
+//       position: absolute;
+//       top: 50%;
+//       left: 50%;
+//       width: 400px;
+//       height: 400px;
+//       background: rgba(#000, 0.8);
+//       border-radius: 100%;
+//       transform: translate(-50%, -50%);
+//       box-shadow: 0 0 60px 50px rgba(#000, 1) inset;
+//     }
+//   }
+  
+  .monitor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform-style: preserve-3d;
+  }
+  
+  .trigger {
+    position: relative;
+    
+    @for $i from 1 through 20 {
+      @for $j from 1 through 20 {
+        $key: ($i - 1) * 20 + $j;
+        
+        &:nth-child(#{$key}) {
+          &:hover ~ .monitor {
+            .camera {
+              &.-x {
+                transform: rotateX(($i - 8) * 8deg - 32);
+              }
+              
+              &.-y {
+                transform: rotateY(($j - 8) * 8deg - 24);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .camera {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    transition: 500ms;
+    
+    &.-x {
+      transform: rotateX(0deg);
+    }
+    
+    &.-y {
+      transform: rotateY(0deg);
+    }
+  }
+  
+  .graphic {
+    top: -5px;
+    left: -15px;
+    width: 30px;
+    height: 10px;
+    clip-path: polygon(
+      0 0,
+      100% 50%,
+      0 100%
+    );
+    background: #fff;
+  }
+  
+  .panel {
+    transform: translateZ(200px);
+  }
+  
+  .line {
+    @for $i from 1 through 50 {
+      &:nth-child(#{$i}) {
+        transform: rotateX(1deg * $i - 20deg);
+        
+        .rotate {
+          animation-delay: random(10000) * -1ms;
+          animation-duration: random(3000) + 5000ms;
+        }
+        
+        .graphic {
+          animation: rotateX random(3000) + 3000ms random(6000) * -1ms linear infinite;
+        }
+      }
+    }
+  }
+  
+  .rotate {
+    animation: rotateY 5000ms linear infinite;
+  }
+  
+  .particle {
+    width: 1px;
+    height: 1px;
+    background: #fff;
+  
+    @for $i from 1 through 300 {
+      &:nth-child(#{$i}) {
+        $range: 2000;
+        $x1: (random($range) + random($range)) / 2;
+        $x2: (random($range) + random($range)) / 2;
+        $y1: (random($range) + random($range)) / 2;
+        $y2: (random($range) + random($range)) / 2;
+        $z1: (random($range) + random($range)) / 2;
+        $z2: (random($range) + random($range)) / 2;
+        
+        transform:
+          translate3d(
+            #{($x1 + $x2) / 2 - $range / 2}px,
+            #{($y1 + $y2) / 2 - $range / 2}px,
+            #{($z1 + $z2) / 2 - $range / 2}px
+          )
+          rotateY(
+            random(360) + 0deg
+          );
+        animation: flash 300ms random(10000) * -1ms infinite alternate;
+      }
+    }
+  }
+  
+  @keyframes rotateY {
+    0% {
+      transform: rotateY(0deg);
+    }
+    
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+  
+  @keyframes rotateX {
+    0% {
+      transform: rotateX(0deg);
+    }
+    
+    100% {
+      transform: rotateX(360deg);
+    }
+  }
+  
+  @keyframes flash {
+    0% {
+      opacity: 1;
+    }
+    
+    100% {
+      opacity: 0;
+    }
+  }
+  

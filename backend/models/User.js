@@ -1,5 +1,7 @@
 const {Schema, model, SchemaTypes} = require('mongoose')
 
+
+
 const userSchema = Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
@@ -8,7 +10,7 @@ const userSchema = Schema({
     gender: {
         type: String, 
         enum: ['Male', 'Female'],
-        required: true
+
     },
     age: {type: String, required: true},
     avatar: {type: String},
@@ -16,7 +18,17 @@ const userSchema = Schema({
         type: SchemaTypes.ObjectId,
         ref: 'Event'
     }],
+    // Joined Events in list
+    eventslist:[{
+        type: SchemaTypes.ObjectId,
+        ref: 'Event'
+    }],
     token: {type: String},
 })
+
+// userSchema.methods.toJSON = function(){
+//     const result = {firstname: this.firstname, lastname: this.lastname, email: this.email, avatar: this.avatar, age: this.age, _id: this._id}
+//     return result
+// }
 
 module.exports = model('User', userSchema)

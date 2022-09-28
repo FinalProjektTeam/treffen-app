@@ -3,7 +3,6 @@ const User = require("../models/User")
 const Comment = require('../models/Comment')
 require('express-async-errors')
 
-
 exports.getEvents = async(req, res, next) =>{
     const events = await Event.find().populate('user')
     res.status(200).send(events)
@@ -24,9 +23,11 @@ exports.addEvent = async(req, res, next)=>{
         return next(error)
     }
     const event = new Event(req.body)
-    // token kommt von auth middleware, so kennen wir den User
+    event.team.push(userID)
     event.user = user
     user.events.push(event._id)
+
+    event.bild = req.file.path
 
     await event.save()
     await user.save()
@@ -37,18 +38,13 @@ exports.getSingleEvent = async(req, res, next)=>{
     const {id} = req.params
     const event = await Event.findById(id).populate('comments').populate('team').populate('user')
 
-    // populate user !!! not working
-
     if(!event){
         const error = new Error('Event are not available anymore!!')
         error.status = 400
         return next(error)
     }
-    
-    // how to populate user in a single comment
-
+ 
     await Promise.all( event.comments.map((e)=>e.populate('user')) )
-
     await event.save()
 
     res.status(200).send(event)
@@ -67,7 +63,6 @@ exports.joinEvent = async(req,res,next)=>{
         error.status = 401
         return next(error)
     }
-
     const eventID = req.body.id
 
     const event = await Event.findById(eventID).populate('team').populate('user')
@@ -78,20 +73,6 @@ exports.joinEvent = async(req,res,next)=>{
         return next(error)
     }
 
-
-    // const x = event.team.map( member => {
-    //     console.log('memberID is : ',JSON.stringify(member._id));
-    //     console.log('userID is: ', JSON.stringify(userID) );
-    //     console.log('Result: ', (userID === member._id));
-    //     return JSON.stringify(member._id) === JSON.stringify(userID)
-    // } )
-
-    // const xList = x.includes(true)
-    // const result = x.every(Boolean)
-
-    // console.log(x);
-    // console.log('result is:  ', result);
-
     const isInTeam = Boolean(event.team.find(member=> member._id.toString() === userID.toString()))
 
     console.log(event.team);
@@ -99,11 +80,12 @@ exports.joinEvent = async(req,res,next)=>{
     if(!isInTeam){
         console.log('Danke für die Teilnahme');
         event.team.push(user)
-
+        user.eventslist.push(eventID)
         event.exist = false
     } else if(isInTeam) {
         console.log('you are already in team!!');
 
+        // user.team.filter()
         event.exist = true
     }
 
@@ -111,4 +93,27 @@ exports.joinEvent = async(req,res,next)=>{
     await event.save()
 
     res.status(200).send(event)
+}
+
+exports.deleteEvent = async (req,res,next)=>{
+
+    const event = await Event.findById(req.body.id)
+
+    const user = await User.findById(req.user._id)
+
+    if(!user){
+        const error = new Error('Authorization failed bro!')
+        error.status = 401
+        return next(error)
+    }
+
+    console.log(event);
+    console.log(user);
+
+    user.events.filter(e => e !== event._id)
+
+    await event.remove()
+    await user.save()
+
+    res.status(200).send(user)
 }

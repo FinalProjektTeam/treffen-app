@@ -1,13 +1,15 @@
-import '../Layout/components.css'
-import React , {useState , useEffect , useContext} from "react";
+import '../../Layout/components.css'
+import React , {useState} from "react";
 import {Link} from 'react-router-dom'
-import useUser from '../hooks/useUser';
+import useUser from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password , setPassword] = useState('');
+    const [eingeloggt , setEingeloggt] = useState(false);
+
     const user = useUser()
     const navigate = useNavigate()
 
@@ -17,10 +19,14 @@ export default function Login() {
           email: email,
           password: password
         })
-        if(data){
-          navigate('/user/'+data._id)
+        if(data._id){
           console.log('you are angemeldet');
           console.log('data by Login.jsx:',data);
+          setEingeloggt(true)
+          navigate('/user/'+data._id)
+        }
+        else{
+          setEingeloggt(false)
         }
       }
 
@@ -28,7 +34,10 @@ export default function Login() {
     <div className="login-bg-img-div ">
         <div className="login-form">
           <h2>Login</h2>
-            <form onSubmit={handleSubmit} className="container">
+
+          {!eingeloggt && <h3>you have to registrate</h3>}
+
+            <form onSubmit={handleSubmit} className="login-container">
 
                 <label htmlFor="email" className="m-2 form-label "><b>Email </b></label><br/>
                 <input type="email" placeholder="Your Email" className="m-2 form-control w-75"
@@ -43,7 +52,9 @@ export default function Login() {
             <p className="m-3">haben Sie noch kein Account ? <br/>
             <button className='btn btn-outline-secondary m-3'><Link to= {'/register'}>zum Registration</Link></button></p>
 
-            {user.error && <h3>{user.error}</h3>}
+               {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
+               { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>*- {e.msg}</h4>)}</h3>}
+
         </div>
     </div>
   )

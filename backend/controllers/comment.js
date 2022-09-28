@@ -5,10 +5,8 @@ exports.createComment = async(req, res, next)=>{
 
     const comment = await new Comment(req.body).populate('user')
     comment.user = req.user
-    // comment.event = req.body.event
-    // comment.comment = req.body.comment
 
-    await comment.populate('user')
+    // await comment.populate('user')
     
     if(!comment.user){
         const error = new Error('user not found!')
@@ -16,7 +14,6 @@ exports.createComment = async(req, res, next)=>{
         return next(error)
     }
     
-
     const event = await Event.findById(comment.event).populate('comments').populate('user')
 
     if(!event){
@@ -25,10 +22,7 @@ exports.createComment = async(req, res, next)=>{
         return next(error)
     }
     
-    // How to insert Event ID in a Comment? =>{ do it in frontend, req.body, it comes with body}!
-    // comment.event = 
-
-     event.comments.push(comment.id)
+    event.comments.push(comment.id)
 
     await comment.save()
     await event.save()
@@ -36,12 +30,24 @@ exports.createComment = async(req, res, next)=>{
     res.status(200).send(comment)
 }
 
-// "comment": "Hali Halo!",
-// "event": "6319e10928c27d4864dcb865"
 
-// {
-//     "password": "123456",
-//     "email": "ahmad@mail.de"
-//   }
+exports.deleteComment = async(req, res, next)=>{
 
+    const comment = await Comment.findById(req.body.id).populate('user')
+    
+    const event = await Event.findById(req.body.event).populate('user').populate('comments')
 
+    if( !(comment.user._id.toString() === req.user._id.toString())){  
+        return res.status(201).send('Its not your comment')
+    } 
+    
+    event.comments.filter( e => e !== req.body.id )
+    await Promise.all( event.comments.map((e)=>e.populate('user')) )
+
+    await comment.remove()
+
+    event.comments.remove(req.body.id)
+    await event.save()
+
+    res.status(200).send(event)
+}

@@ -1,0 +1,28 @@
+.Home{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: whitesmoke;
+
+    .home-btn{
+
+        margin: 25rem auto 5rem auto;
+        padding: 1rem 2rem;
+        border-radius: 3rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+
+        // transform: translate(0,50vh);
+
+        a{
+            text-decoration: double underline;
+            color: goldenrod;
+        
+            h1{
+                color: rgb(128, 121, 121);
+            }
+        }
+    }
+ 
+}

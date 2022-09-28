@@ -1,0 +1,53 @@
+.User-Account{
+
+
+    .avatar{
+        background-color: lightskyblue;
+        padding: 2rem;
+
+        img{
+            width:230px;
+            height:260px;
+            border-radius:50%;
+        }
+
+        h2{
+            text-decoration: underline double black ;
+            color:black;
+        }
+    }
+
+    > .events{
+
+        display: flex;
+        justify-content: space-evenly;
+        margin: 2rem auto;
+
+        > .created-events, >.joined-events{
+
+            list-style-type: none;
+        }
+
+        h3{
+            color: black;
+            margin-bottom: 1.5rem;
+        }
+        li {
+            color: white;
+            border: 4px solid black;
+            margin: 1rem;
+            padding: 1rem;
+
+            > a{
+                color: white;
+            }
+
+            > p{
+
+            }
+            > button{
+                margin-top: 2rem;
+            }
+        }
+    }
+}

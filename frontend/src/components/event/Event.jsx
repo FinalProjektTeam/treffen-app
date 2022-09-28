@@ -1,20 +1,22 @@
-
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
+import useUser from '../../hooks/useUser'
+import './event.scss'
 
 export default function Event() {
     const {eventID} = useParams() 
+    const user = useUser()
 
     const [event, setEvent] = useState('')
     const [comment, setComment] = useState('')
     const [error, setError] = useState('')
     const [errors, setErrors] = useState([])
 
-    const [backendComment, setBackendComment] = useState('')
+    const [commentDeleted, setCommentDeleted] = useState(false)
+    const [ commentError, setCommentError] = useState(false)
 
     const [userExist, setUserExist] = useState(false)
-
  
     useEffect(()=>{
        fetch('http://localhost:4000/events/'+ eventID)
@@ -56,7 +58,7 @@ export default function Event() {
                     setUserExist(false)
                 }, 3000)
             }
-            setBackendComment(result)
+            // setBackendComment(result)
        }
 
        else if(result.error){
@@ -71,7 +73,7 @@ export default function Event() {
     const handleAddComment = async(e)=>{
         e.preventDefault()
         setError('')
-        setErrors([])
+        setErrors('')
 
         const res = await fetch('http://localhost:4000/comments', {
             method:'POST',
@@ -87,9 +89,25 @@ export default function Event() {
         const result = await res.json()
 
         if(res.status === 200){
+            // setComment('')
             console.log('Comment is=> ',result);
-        }
 
+             fetch('http://localhost:4000/events/'+eventID, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+             })
+             .then(async(res)=>{
+                const result = await res.json()
+                console.log(result);
+                if(res.status === 200){
+                    setEvent(result)
+                    setComment('')
+                }
+             })
+        }
         else if(result.error){
             setError(result.error)
             console.log(result.error);
@@ -98,46 +116,77 @@ export default function Event() {
             setErrors(result.errors.map(e=><h2>{e.msg}</h2>))
             console.log(result.errors);
         }
-        console.log('RES is: ',res);
-        console.log('RESULT is: ',result);
+    }
 
-        setTimeout(()=>{
-            window.location.reload()
-        },10000)
+    const handleDeleteComment = async(e)=>{
+        e.preventDefault()
+        setError('')
+
+        const res = await fetch('http://localhost:4000/comments', {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: e.target.id,
+                event: eventID
+            })
+        })
+
+        const result = await res.json()
+
+        if(res.status === 200){
+            setEvent(result) 
+            console.log(result);
+            console.log("Comment deleted");
+        }
     }
 
   return (
     <div className='Event'>
         <h1>{event.title}</h1>
         {error && <h3 style={{color:'red'}}>{error}</h3> }
-        {errors && <h3 style={{color:'red'}}>{errors}</h3> }
+        {errors && <div style={{color:'red'}}>{errors}</div> }
 
         <div className="event-image">
-            <img src="" alt="" />
-            <button onClick={handleJoinEvent} >Join</button>
+          {event.bild &&  <img src={event.bild.replace("uploads/", "http://localhost:4000/")} alt="bild" />}
+        { user.data && <button onClick={handleJoinEvent} >Join</button>}
         </div>
             {userExist && <h1 style={{color:'orangered'}}>Du bist schon in Team!</h1>}
         <div className="description-map">
             <div className="info">
                 <ul>
                     <li>Datum: {event.datum}</li>
-                    {/* <li>Owner: {event.user.firstname} {event.user.lastname}</li> */}
+                    {event.user && <li>Owner: {event.user.firstname+' '+event.user.lastname}</li>}
 
                     <li>Category: {event.category}</li>
                 </ul>
 
                 <div className="description">
-                    <h6>Description</h6>
+                    <h4>Description</h4>
                     <p>{event.description}</p>
                 </div>
             </div>
 
             <div className="map">
-                <h6>Adresse: {event.adresse}</h6>
+                <h4>Adresse: {event.adresse}</h4>
                 <div className="google-map"  >
-                map comes here
+                
+                    {/* <iframe src="https://www.google.com/maps/place/hamburg%E2%80%AD/@53.5584902,10.0679021,11z/data=!3m1!4b1!4m5!3m4!1s0x47b161837e1813b9:0x4263df27bd63aa0!8m2!3d53.5510682!4d9.9936962" width="600" height="450" frameborder="0" style={{border:0}} allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> */}
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d151677.40893341295!2d10.067902121415445!3d53.55849017274688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b161837e1813b9%3A0x4263df27bd63aa0!2z2YfYp9mF2KjZiNix2Lo!5e0!3m2!1sar!2sde!4v1663853178323!5m2!1sar!2sde" width="600" height="450" style={{border:"0"}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                 </div>
+                <a href="https://google.com/maps/place/" >map</a>
             </div>
+        </div>
+
+        <hr/>
+        
+        <div className='border w-25 m-auto p-2 my-5 bg-primary bg-opacity-10'>
+                <h3 className='text-primary'>Who is coming ?</h3><hr/>
+                <ul className='m-auto text-secondary'>
+                     { event.team && event.team.length>0 ? event.team.map(member=><li key={member._id}>{member.firstname}</li>): <p>Be the first who will join this event .</p>}
+                </ul>
         </div>
 
         <div className="comments">
@@ -145,12 +194,19 @@ export default function Event() {
             <ul>
                 {
                 event.comments?.map(comment=>(
-                    <li key={comment._id}>{comment.comment} ==== {comment.user.lastname}</li> 
+                   comment && 
+                    <li key={comment._id}>{comment.comment} ==== {comment.user.lastname} 
+                        <button id={comment._id} style={{marginLeft: "25px"}} onClick={handleDeleteComment} >X</button> 
+                    
+                    </li> 
                 ))
                 }
             </ul>
             {error && <h3 style={{color:'red'}}>{error}</h3> }
-            <input type="text"  onBlur={(e)=> setComment(e.target.value)} placeholder='Write a comment' />
+            {errors && <div style={{color:'red'}}>{errors}</div> }
+
+            {commentError && <h3 style={{color: 'red'}}> It's not your Comment!</h3>}
+            <input type="text" value={comment} onChange={(e)=> setComment(e.target.value)} placeholder='Write a comment'/>
             <button onClick={handleAddComment}>Add Comment</button>
         </div>
     </div>

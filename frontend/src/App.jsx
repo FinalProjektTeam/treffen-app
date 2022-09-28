@@ -1,30 +1,27 @@
 import './App.css';
 import React from "react";
 
-import  {useState , useEffect , useContext} from 'react'
-
 import {BrowserRouter as Router , Routes , Route} from 'react-router-dom'
 import { UserProvider } from './hooks/useUser';
-import Home from './components/Home'
-import Navigation from './components/Navigation'
-import Login from './components/Login'
-import Register from './components/Register'
-import UserAccount from './components/UserAccount'
-import EventsList from './components/EventsList';
-import Event from './components/Event';
-import NewEvent from './components/NewEvent';
-
-
+import Home from './components/home/Home'
+import Navigation from './components/navigation/Navigation'
+import Login from './components/login/Login'
+import Register from './components/register/Register'
+import UserAccount from './components/account/UserAccount'
+import EventsList from './components/eventList/EventsList';
+import Event from './components/event/Event';
+import NewEvent from './components/newEvent/NewEvent';
+import Loading from './components/loading/Loading';
+import RunningMan from './components/loading/RunningMan';
 
 
 function App() {
    return (
     <UserProvider>
       <Router>
-        <div className="App">
-          <header>
-            <Navigation/>
-              <div>
+        <div className="App"> 
+            <Navigation>
+           
               <Routes>
                   <Route path = '/' 
                             element = {<Home/>}/>
@@ -41,10 +38,13 @@ function App() {
                             element = {<Event/>}/>
                   <Route path = '/create-event' 
                             element = {<NewEvent/>}/>
+                  <Route path = '/loading' 
+                            element = {<Loading/>}/>
+                  <Route path = '/run' 
+                            element = {<RunningMan/>}/>
               </Routes>
-              </div>
-              
-          </header>
+             
+              </Navigation>
         </div>
       </Router>
     </UserProvider>
