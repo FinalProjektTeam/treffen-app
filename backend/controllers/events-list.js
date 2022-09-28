@@ -25,6 +25,7 @@ exports.addEvent = async(req, res, next)=>{
         return next(error)
     }
     const event = new Event(req.body)
+    event.team.push(userID)
     // token kommt von auth middleware, so kennen wir den User
     event.user = user
     user.events.push(event._id)

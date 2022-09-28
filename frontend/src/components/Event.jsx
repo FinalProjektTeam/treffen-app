@@ -13,7 +13,8 @@ export default function Event() {
     const [error, setError] = useState('')
     const [errors, setErrors] = useState([])
 
-    //const [backendComment, setBackendComment] = useState('')
+    const [commentDeleted, setCommentDeleted] = useState(false)
+    const [ commentError, setCommentError] = useState(false)
 
     const [userExist, setUserExist] = useState(false)
 
@@ -27,10 +28,12 @@ export default function Event() {
                 console.log('EVENT is => ',result);
             }
         })
+        .catch((err)=>console.log(err))
     }, [eventID])
 
     const handleJoinEvent = async() =>{
-
+        setError('')
+        setErrors([])
        const res = await fetch('http://localhost:4000/events/join', {
         method: 'POST',
         credentials: 'include',
@@ -56,20 +59,22 @@ export default function Event() {
                     setUserExist(false)
                 }, 3000)
             }
-            //setBackendComment(result)
        }
 
+       
        else if(result.error){
         console.log(result.error);
+        setError(result.error)
        }
        else if(result.errors){
-        console.log(result.errors[0].msg);
+        setErrors(result.errors.map(e=> <h3 style={{color:'red'}}>{e.msg}</h3>));
        }
     }
 
     const handleAddComment = async(e)=>{
         e.preventDefault()
         setError('')
+        setErrors('')
 
         const res = await fetch('http://localhost:4000/comments', {
             method:'POST',
@@ -87,8 +92,23 @@ export default function Event() {
         if(res.status === 200){
             console.log('Comment is=> ',result);
             
+        
+            fetch('http://localhost:4000/events/'+eventID, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+             })
+             .then(async(res)=>{
+                const result = await res.json()
+                console.log(result);
+                if(res.status === 200){
+                    setEvent(result)
+                    setComment('')
+                }
+             })
         }
-
         else if(result.error){
             setError(result.error)
             console.log(result.error);
@@ -97,12 +117,35 @@ export default function Event() {
             setErrors(result.errors.map(e=><h2>{e.msg}</h2>))
             console.log(result.errors);
         }
-        console.log('RES is: ',res);
-        console.log('RESULT is: ',result);
-
-        window.location.reload()
     }
-            console.log('single Event:',event);
+
+    const handleDeleteComment = async(e)=>{
+        e.preventDefault()
+        setError('')
+
+        const res = await fetch('http://localhost:4000/comments', {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: e.target.id,
+                event: eventID
+            })
+        })
+
+        const result = await res.json()
+
+        if(res.status === 200){
+            setEvent(result) 
+            console.log(result);
+            console.log("Comment deleted");
+        }
+
+    }
+            
+
   return (
     <div className='Event'>
         <h1 className='my-3 text-danger text-opacity-75'>{event.title}</h1>
@@ -114,7 +157,7 @@ export default function Event() {
             {user.data && <button onClick={handleJoinEvent} >🇯​​​​​🇴​​​​​🇮​​​​​🇳​​​​​</button>}
         </div>
             {userExist && <h1 style={{color:'orangered'}}>You are already in this Team!</h1>}
-            <h2 className='border w-50 p-2 m-auto my-3 text-primary'>Event Details</h2>
+            <h2 className='border w-50 p-2 m-auto my-3 text-primary bg-white'>Event Details</h2>
             <div className="description-map">
                 <div className="info border mx-3 p-5 bg-warning bg-opacity-25">
                     <ul style={{fontSize:'1.3rem'}}>
@@ -142,12 +185,30 @@ export default function Event() {
                 </div>
             </div>
 
+            <hr/><div className='border w-25 m-auto p-2 my-5 bg-primary bg-opacity-10'>
+                <h3 className='text-primary'>Who is coming ?</h3><hr/>
+                <ul className='m-auto text-secondary'>
+                     { event.team && event.team.length>0 ? event.team.map(member=><li>{member.firstname}</li>): <p>Be the first who will join this event .</p>}
+                </ul>
+            </div>
+
         <div className="comments">
-            <h3 className='w-50 p-2 m-auto my-3 text-success'>Comments</h3>
+            <h3 className='w-75 p-2 m-auto my-3 border bg-white text-success'>Comments</h3>
             <ul className='container'>
                 {
                 event.comments?.filter(comment=>comment.user).map(comment=>(
-                    <li className='border p-2 ' key={comment._id}>{comment.comment} .......... <span className='text-danger'>{comment.user.firstname}</span> </li>
+                    <div className='border p-2 my-2 d-flex justify-content-between align-item-start'>
+                        <li className='w-25' key={comment._id}>{comment.comment}</li>
+                        <div className='w-25'>
+                        {comment.user._id === user.data?._id && <button id={comment._id} className='btn btn-outline-secondary' onClick={handleDeleteComment}>delete</button>}
+                        </div>
+                        <div className="div w-25">
+                            <span className='text-danger'>{comment.user.firstname} </span>
+                            <img src={comment.user.avatar} alt="userBild" style={{width:'50px',height:'50px', borderRadius:'50%'}} />
+                        </div>
+                        
+                    </div>
+                       
                 ))
                 }
             </ul>
@@ -157,7 +218,7 @@ export default function Event() {
                 </div>
             {error && <h3 style={{color:'red'}}>{error}</h3> }
 
-            <div className='container'>{user.data && <input className="m-2 form-control w-50" type="text"  onBlur={(e)=> setComment(e.target.value)} placeholder='Write a comment' />}
+            <div className='container'>{user.data && <input value={comment} className="my-3 m-auto form-control w-50" type="text"  onChange={(e)=> setComment(e.target.value)} placeholder='Write a comment' />}
             {user.data &&<button className='btn nav-btn' onClick={handleAddComment}>Add Comment</button>}</div>
         </div>
         <div>
