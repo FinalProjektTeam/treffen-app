@@ -188,7 +188,7 @@ export default function Event() {
             <hr/><div className='border w-25 m-auto p-2 my-5 bg-primary bg-opacity-10'>
                 <h3 className='text-primary'>Who is coming ?</h3><hr/>
                 <ul className='m-auto text-secondary'>
-                     { event.team && event.team.length>0 ? event.team.map(member=><li>{member.firstname}</li>): <p>Be the first who will join this event .</p>}
+                     { event.team && event.team.length>0 ? event.team.map(member=><li key={member._id}>{member.firstname}</li>): <p>Be the first who will join this event .</p>}
                 </ul>
             </div>
 

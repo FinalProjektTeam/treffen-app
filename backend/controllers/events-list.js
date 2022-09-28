@@ -87,8 +87,9 @@ exports.joinEvent = async(req,res,next)=>{
         event.exist = false
     } else if(isInTeam) {
         console.log('you are already in team!!');
-
+        event.team = event.team.filter(member=>member._id.toString() !== userID.toString() )
         event.exist = true
+        user.eventslist = user.eventslist.filter(event=>event._id.toString() !== eventID.toString())
     }
 
     await user.save()
