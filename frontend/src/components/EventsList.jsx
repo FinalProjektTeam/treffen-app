@@ -53,7 +53,7 @@ export default function EventList() {
                 <input type="text" className="form-control" placeholder="Search Events"  aria-describedby="input-group-left" onBlur={(e)=>searchFunction(e.target.value)}/>
             </div>
           
-            <div class="btn-group" role="group">
+            <div className="btn-group" role="group">
 
                 <button type="button" className="btn btn-outline-warning my-2 px-3"
                  onClick={()=>setFilterEvent(events)}

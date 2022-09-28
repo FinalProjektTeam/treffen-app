@@ -25,7 +25,7 @@ exports.register = async(req, res, next)=>{
 
     console.log(user);
     await user.save()
-    res.cookie('user-token', user.token, {maxAge: 9999999, sameSite: 'strict', httpOnly: true})
+    res.cookie('user-token', user.token, {maxAge: 999999999999999, sameSite: 'strict', httpOnly: true})
 
     res.status(200).json(user)
 }
@@ -51,7 +51,7 @@ exports.login = async(req, res, next) =>{
     user.token = crypto.randomBytes(64).toString('hex')
     await user.save()
 
-    res.cookie('user-token', user.token, {maxAge:999999, sameSite: 'strict', httpOnly: true} )
+    res.cookie('user-token', user.token, {maxAge:999999999999999, sameSite: 'strict', httpOnly: true} )
 
     res.status(200).send(user)
 }

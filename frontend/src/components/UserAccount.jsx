@@ -51,25 +51,25 @@ export default function UserAccount() {
         </section>
 
         <div className="border m-3">
-        {userData.events && userData.events.length>0 ? <p className="border p-2 createdEv-div" key={Math.random()}>Created Events</p>: <p>You dont't have Events yet</p>}
+        {userData.events && userData.events.length>0 ? <p className="border p-2 createdEv-div">Created Events</p>: <p>You dont't have Events yet</p>}
         
           <ul className="sub-nav-list">
-              {userData.events && userData.events.map(event=><span><li key={event._id} className="sub-item"><Link to={"/events-list/"+event._id}>{event.title}</Link></li><li className="text-secondary">{event.datum}</li></span>)}  
+              {userData.events && userData.events.map(event=><span key={event._id}><li  className="sub-item"><Link to={"/events-list/"+event._id}>{event.title}</Link></li><li className="text-secondary">{event.datum}</li></span>)}  
           </ul>
         </div>
         <div className="border m-3">
-        {userData.eventslist && userData.eventslist.length>0 ? <p className="border p-2 joinedEv-div" key={Math.random()}>Joined Events</p>: <p>You didnt't join Events yet</p>}
+        {userData.eventslist && userData.eventslist.length>0 ? <p className="border p-2 joinedEv-div">Joined Events</p>: <p>You didnt't join Events yet</p>}
         
           <ul className="sub-nav-list">
-              {userData.eventslist && userData.eventslist.map(event=><span><li key={event._id} className="sub-item"><Link to={"/events-list/"+event._id}>{event.title}</Link></li><li className="text-secondary">{event.datum}</li></span>)}  
+              {userData.eventslist && userData.eventslist.map(event=><span key={event._id}><li  className="sub-item"><Link to={"/events-list/"+event._id}>{event.title}</Link></li><li className="text-secondary">{event.datum}</li></span>)}  
           </ul>
       </div>
 
       <div>
-        <Link to={"/create-event"}><button type="button" class="btn btn-outline-warning btn-lg">create new Event</button></Link>
+        <Link to={"/create-event"}><button type="button" className="btn btn-outline-warning btn-lg">create new Event</button></Link>
       </div>
       <div>
-        <Link to={"/events-list"}><button type="button" class="btn btn-outline-info btn-lg my-3">Explore Events</button></Link>
+        <Link to={"/events-list"}><button type="button" className="btn btn-outline-info btn-lg my-3">Explore Events</button></Link>
       </div>
        
     </div>

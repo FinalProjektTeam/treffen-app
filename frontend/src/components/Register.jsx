@@ -62,11 +62,11 @@ export default function Register() {
                 <label htmlFor="gender" className="m-2 form-label"><b>Geschlicht : </b></label>
                 <input className=" m-2 form-check-input" type="radio" name='gender'
                         value={gender} onClick={(e)=> setGender('Male')} />
-                        <label class="form-check-label" htmlFor="gender">Male</label>
+                        <label className="form-check-label" htmlFor="gender">Male</label>
 
                 <input className="m-2 form-check-input" type="radio" name='gender'
                         value={gender} onClick={(e)=> setGender('Female')} />
-                        <label class="form-check-label" htmlFor="gender">Female</label><br/>
+                        <label className="form-check-label" htmlFor="gender">Female</label><br/>
 
 
                 <label htmlFor="age" className="m-2 form-label"><b>Alter : </b></label>
