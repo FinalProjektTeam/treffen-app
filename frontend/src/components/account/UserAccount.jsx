@@ -12,6 +12,13 @@ export default function UserAccount() {
     const user = useUser()
     let [userData, setUserData] = useState({});
 
+    const [showInput, setShowInput] = useState(true)
+
+    const [firstName, setFirstName] = useState(userData.firstname)
+    const [lastName, setLastName] = useState(userData.lastname)
+    // const [updateAge, setUpdateAge] = useState('')
+    // const [updateImage, setUpdateImage] = useState('')
+
    
      useEffect(()=>{
         const url = "http://localhost:4000/user/"+id;
@@ -21,7 +28,6 @@ export default function UserAccount() {
                 const json = await response.json();
                 console.log("userData Obj", json);
                 setUserData(json)
-              
             } catch (error){
                 console.log("error", error);
             }
@@ -30,10 +36,11 @@ export default function UserAccount() {
     }, [id])
   
     const handleDeleteEvent = async(e)=>{
-
       e.preventDefault()
 
-      console.log(e.target.id)
+      const answer = window.confirm('Bist sicher ?')
+
+      if(!answer) return 
 
       const res = await fetch('http://localhost:4000/events',{
         method: 'DELETE',
@@ -52,6 +59,7 @@ export default function UserAccount() {
         console.log(result);
 
         const url = "http://localhost:4000/user/"+id;
+        
         const fetchData = async()=>{
             try{
                 const response = await fetch(url);
@@ -63,36 +71,56 @@ export default function UserAccount() {
                 console.log("error", error);
             }
         }
-        fetchData();
-
-        // if(res.status === 200){
-        //   console.log('delete successful');
-        //   fetch("http://localhost:4000/user/"+id, {
-        //     method: "GET",
-        //     credentials: 'include',
-        //     headers: {
-        //       "Content-Type": "application/json"
-        //     }
-        //   })
-        //   .then(async(response) =>{
-        //     const result = await response.json()
-        //     console.log(result);
-        //     setUserData(result)
-        //   })
-        //   .catch(err=>{
-        //     console.log(err);
-        //   })
-        // }
-        // else {
-        //   console.log('delete hat nicht geklappt!');
-        // }
-      
-
+      fetchData();
     }
 
-    const handleEditUser = ()=>{
-      alert('Edit')
+    const handleEditUser = async(e)=>{
+      e.preventDefault()
+
+      // alert(firstName)
+      // const formData = new FormData()
+      //   formData.append("firstname", firstName)
+        // formData.append("lastname", updateLast)
+        // formData.append("age", updateAge)
+        // formData.append("bild", updateImage)
+
+      const res = await fetch('http://localhost:4000/user',{
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+       
+        body: JSON.stringify({
+          firstname: firstName,
+          lastname: lastName
+        })
+      })
+
+      const result = await res.json()
+      console.log('RESULT : ',result);
+
+        console.log('RES : ',res);
+        // setUserData(result)
+
+        const url = `http://localhost:4000/user/${id}`
+
+        const fetchData = async ()=>{
+          try{
+            const response = await fetch(url)
+            const json = await response.json();
+            console.log("userData Obj", json);
+            setUserData(json)
+            setShowInput(!showInput)
+          }
+          catch(error) {
+            console.log(error);
+          }
+        }
+        fetchData()
+        
     }
+    
    
   return (
 
@@ -107,15 +135,26 @@ export default function UserAccount() {
           !userData.avatar && <img src={defaultAvatar} alt="avatar"/>
         } 
 
-         
-          <h2>Hallo {userData.firstname+' '+userData.lastname} </h2>
-          <button onClick={handleEditUser} >Edit</button>
+          <h1>{showInput?  'Welcome' : 'Change your name'}</h1>
+        { showInput && 
+           <h2 title="Change User name" >
+              Hallo {userData.firstname+' '+userData.lastname} 
+              <button onClick={()=> setShowInput(!showInput)} >Edit</button>
+          </h2> 
+        }
+
+        { !showInput &&  <>
+            <input type="text" value={firstName} placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)}/>
+            <input type="text" value={lastName} onChange={(e)=> setLastName(e.target.value)} placeholder='Last Name'/>
+
+            <button onClick={handleEditUser} >OK</button>
+          </>
+        }
       </div>
       <div className="events">
               <ul className="created-events">
                       { userData.events?.length > 0 ? 
-                            <h3>Created Events</h3>
-                            
+                            <h3>Created Events</h3> 
                             : 
                             <h3>You dont't have Events yet</h3>
                       }

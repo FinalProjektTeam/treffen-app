@@ -5,6 +5,7 @@ import "./loading.scss"
 export default function Loading() {
   return (
 <section className="loading-container">
+  <section className='world-container'>
   <div className="trigger"></div>
   <div className="trigger"></div>
   <div className="trigger"></div>
@@ -765,6 +766,9 @@ export default function Loading() {
       </div>
     </div>
   </div>
+  </section>
+  <h1>Searching..</h1>
+
 </section>
   )
 }

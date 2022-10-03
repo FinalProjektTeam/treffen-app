@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useUser from '../../hooks/useUser'
+import Loading from '../loading/Loading.jsx'
+import RunningMan from '../loading/RunningMan.jsx'
 import "./eventsList.scss"
 
 export default function EventList() {
@@ -20,7 +22,7 @@ export default function EventList() {
         setEvents(result)
         setTimeout(()=>{
           setReady(true)
-        }, 2000 )
+        }, 5000 )
         console.log('Events result is => ', result);
       } 
     })
@@ -53,7 +55,7 @@ export default function EventList() {
                 <h4> Title: {e.title}</h4>
                 <ul>
                   <li>Ort: {e.adresse}</li>
-                  {/* <li>Owner: {e.user.firstname+' '+e.user.lastname}</li> */}
+                  <li>Owner: {e.user.firstname+' '+e.user.lastname}</li>
                   <li>Category: {e.category}</li>
                   <li>Datum: {e.datum}</li>
                 </ul>
@@ -69,6 +71,6 @@ export default function EventList() {
   }
 
   return (
-    <h1>Loading..</h1>
+    <Loading/>
   )
 }

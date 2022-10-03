@@ -18,3 +18,9 @@ exports.login = [
 
     validator
 ]
+
+// exports.update = [
+//     body('firstname').exist().trim().withMessage('Dein Name darf nicht leer sein'),
+
+//     validator
+// ]

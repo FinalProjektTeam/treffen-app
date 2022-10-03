@@ -44,7 +44,7 @@ function App() {
                             element = {<RunningMan/>}/>
               </Routes>
              
-              </Navigation>
+            </Navigation>
         </div>
       </Router>
     </UserProvider>

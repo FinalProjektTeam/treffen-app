@@ -1,38 +1,46 @@
 section.loading-container{
-    background: #171819;
+    background: rgba(rgb(64, 42, 86), 0.9);
     height: 100vh;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     perspective: 400px;
+
+    > h1{
+      position: absolute;
+      bottom: 100px;
+    }
+
+    div {
+         transform-style: preserve-3d;
+         position: absolute;
+   }
+
+   > section.world-container{
+
+    position: relative;
+        display: grid;
+        grid-template-rows: repeat(20, 5vh);
+        grid-template-columns: repeat(20, 5vw);
+        transform-style: preserve-3d;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 400px;
+          height: 400px;
+          background: rgba(rgb(242, 78, 78), 0.8);
+          border-radius: 100%;
+          transform: translate(-50%, -50%);
+          box-shadow: 0 0 60px 50px rgba(#000, 1) inset;
+        }
+   }
+
   }
   
-//   div {
-//     transform-style: preserve-3d;
-//     position: absolute;
-//   }
-  
-//   .container {
-//     position: relative;
-//     display: grid;
-//     grid-template-rows: repeat(20, 5vh);
-//     grid-template-columns: repeat(20, 5vw);
-//     transform-style: preserve-3d;
-    
-//     &::before {
-//       content: '';
-//       position: absolute;
-//       top: 50%;
-//       left: 50%;
-//       width: 400px;
-//       height: 400px;
-//       background: rgba(#000, 0.8);
-//       border-radius: 100%;
-//       transform: translate(-50%, -50%);
-//       box-shadow: 0 0 60px 50px rgba(#000, 1) inset;
-//     }
-//   }
   
   .monitor {
     position: absolute;

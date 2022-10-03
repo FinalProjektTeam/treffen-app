@@ -21,7 +21,7 @@ exports.register = async(req, res, next)=>{
 
     console.log(user);
     await user.save()
-    res.cookie('user-token', user.token, {maxAge: 9999999, sameSite: 'strict', httpOnly: true})
+    res.cookie('user-token', user.token, {maxAge: 999999999999, sameSite: 'strict', httpOnly: true})
 
     res.status(200).json(user)
 }
@@ -47,7 +47,7 @@ exports.login = async(req, res, next) =>{
     user.token = crypto.randomBytes(64).toString('hex')
     await user.save()
 
-    res.cookie('user-token', user.token, {maxAge:999999, sameSite: 'strict', httpOnly: true} )
+    res.cookie('user-token', user.token, {maxAge:99999999999, sameSite: 'strict', httpOnly: true} )
 
     res.status(200).send(user)
 }
@@ -102,4 +102,21 @@ exports.getCurrentUser = async(req, res, next)=>{
     }
 
     res.status(200).json(user)
+}
+
+exports.updateUser = async(req, res, next)=>{
+    const {firstname, lastname} = req.body
+  
+    const user = req.user
+
+    console.log('USER is :  ', user);
+    console.log('firstname is: ', firstname);
+
+    console.log('lastname is: ', lastname);
+
+    user.firstname = firstname
+    user.lastname = lastname
+    
+    await user.save()
+    res.status(200).send(user)
 }

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import useUser from '../../hooks/useUser';
 import "./navigation.scss"
 import logo from "../../images/first-logo.png"
+import defaultAvatar from '../../images/avatar-maskulin.png'
 
 
 export default function Navigation(props) {
@@ -53,7 +54,7 @@ export default function Navigation(props) {
               {user.data && 
                   <div className='user-avatar' >
                       <Link to= {'/user/'+user.data._id}>
-                          <img src= {user.data.avatar} alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} />
+                          <img src= {user.data.avatar ? user.data.avatar : defaultAvatar} alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} />
                       </Link>
                   </div>
               }

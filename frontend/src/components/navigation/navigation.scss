@@ -2,22 +2,32 @@
 
     position: relative;
     height: 100%;
-    width: 100vw;
-
+    width: 100%;
+    z-index: 10;
+    
     .nav-container{
+        background-color: rgba(245, 245, 245, 0.5);
+        background-image: linear-gradient(to top, cyan, blue);
+        border-bottom: 20px solid whitesmoke;
 
         width: 100%;
         display: flex;
-
         justify-content: space-around;
         gap: 25px;
 
+        position: sticky;
+        top: 0;
+        > h2, > p{
+            align-self: center;
+        }
         .nav-buttons{
             display: flex;
             align-items: center;
             gap: 1rem;
+
+            
             .nav-button{
-                background-color: grey;
+                background-color: rgb(15, 15, 15, .5);
                 height: 2.5rem;
                 font-size: 1rem;
                 font-weight: bolder;
@@ -25,8 +35,14 @@
                 min-width: 5rem;
 
                 a{
-                    color: whitesmoke;
+                    color: white;
+                   
+
                     text-decoration: none;
+
+                    &:hover{
+                        transform: rotate(180deg);
+                    }
 
                 }
             }
@@ -35,11 +51,12 @@
 
     .components-body{
       min-height: 70vh;
-      background-color: grey;
+    //   background-color: grey;
+    z-index: 1;
     }
 
     footer{
-        background-color: darkslateblue;
+        background-color: rgb(47, 40, 92);
         color: whitesmoke;
         height: 20vh;
         margin-top: 2vh;

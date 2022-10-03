@@ -3,6 +3,7 @@ import "./running_man.scss"
 export default function RunningMan() {
   return (
     <section className='container-section'> 
+    <h1>Back Home</h1>
       <div className="paper_man_wrapper">
         <div className="paper_man">
 

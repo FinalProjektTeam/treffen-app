@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import {  useParams } from 'react-router-dom'
 import useUser from '../../hooks/useUser'
 import './event.scss'
+import defaultAvatar from "../../images/avatar-maskulin.png"
+
 
 export default function Event() {
     const {eventID} = useParams() 
@@ -13,7 +15,7 @@ export default function Event() {
     const [error, setError] = useState('')
     const [errors, setErrors] = useState([])
 
-    const [commentDeleted, setCommentDeleted] = useState(false)
+    // const [commentDeleted, setCommentDeleted] = useState(false)
     const [ commentError, setCommentError] = useState(false)
 
     const [userExist, setUserExist] = useState(false)
@@ -48,17 +50,31 @@ export default function Event() {
        
        if(res.status === 200){
             console.log(result);
-            // console.log('USER EXIST => ', result.exist);
 
             setUserExist(result.exist)
             if(!result.exist){
                 alert('Danke! dass du teilgenommen hast')
-            } else if(result.exist){
-                setTimeout(()=>{
-                    setUserExist(false)
-                }, 3000)
-            }
-            // setBackendComment(result)
+            } 
+            // else if(result.exist){
+            //     setTimeout(()=>{
+            //         setUserExist(false)
+            //     }, 3000)
+            // }
+            
+            fetch('http://localhost:4000/events/'+eventID, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+             })
+             .then(async(res)=>{
+                const result = await res.json()
+                console.log(result);
+                if(res.status === 200){
+                    setEvent(result)
+                }
+             })
        }
 
        else if(result.error){
@@ -89,7 +105,6 @@ export default function Event() {
         const result = await res.json()
 
         if(res.status === 200){
-            // setComment('')
             console.log('Comment is=> ',result);
 
              fetch('http://localhost:4000/events/'+eventID, {
@@ -136,8 +151,10 @@ export default function Event() {
 
         const result = await res.json()
 
+        console.log('look here', result);
+
         if(res.status === 200){
-            setEvent(result) 
+            setEvent(result)
             console.log(result);
             console.log("Comment deleted");
         }
@@ -151,9 +168,15 @@ export default function Event() {
 
         <div className="event-image">
           {event.bild &&  <img src={event.bild.replace("uploads/", "http://localhost:4000/")} alt="bild" />}
-        { user.data && <button onClick={handleJoinEvent} >Join</button>}
+        { user.data && <button onClick={handleJoinEvent} >
+        {
+            userExist ? "Telnehmen" : "Zurückgehen"
+        }
+            </button>
+        }
+   
         </div>
-            {userExist && <h1 style={{color:'orangered'}}>Du bist schon in Team!</h1>}
+            {userExist && <h1 style={{color:'orangered'}}>Du gehst wieder zurück!</h1>}
         <div className="description-map">
             <div className="info">
                 <ul>
@@ -195,7 +218,7 @@ export default function Event() {
                 {
                 event.comments?.map(comment=>(
                    comment && 
-                    <li key={comment._id}>{comment.comment} ==== {comment.user.lastname} 
+                    <li key={comment._id}>{comment.comment} ==== {comment.user.email} <img src={comment.user.avatar ?  comment.user.avatar : defaultAvatar } width='25px' />
                         <button id={comment._id} style={{marginLeft: "25px"}} onClick={handleDeleteComment} >X</button> 
                     
                     </li> 
