@@ -30,7 +30,6 @@ li{
     flex-direction: column;
     justify-content:space-around;
     align-items: center;
-    border: 1px solid black;
     background: rgb(247,247,203);
     background: linear-gradient(130deg, rgba(247,247,203,1) 0%, rgba(230,180,180,1) 43%, rgb(176, 194, 222) 100%);
     
@@ -47,7 +46,9 @@ li{
     background-color: #D4E3FC;
     box-shadow: 1px 1px 3px gray;
 }
-
+.nav-btn:hover{
+    background-color: rgba(247,247,203,1);
+}
 /*------------------------------HOME--------------------------------------*/
 
 .home-bg-img-div{

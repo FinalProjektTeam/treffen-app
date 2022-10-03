@@ -12,6 +12,7 @@ const app = express.Router()
 
 app.get( '/', controller.getEvents )
 app.post( '/', upload.single("eventBild"), auth , validation.newEvent, controller.addEvent )
+app.delete('/', auth , controller.deleteEvent)
 
 app.post('/join', auth, controller.joinEvent)
 

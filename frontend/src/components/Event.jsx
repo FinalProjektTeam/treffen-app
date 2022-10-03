@@ -53,12 +53,25 @@ export default function Event() {
 
             setUserExist(result.exist)
             if(!result.exist){
-                alert('Danke! dass du teilgenommen hast')
+                alert('𝙏𝙝𝙖𝙣𝙠𝙨 𝙛𝙤𝙧 𝙟𝙤𝙞𝙣𝙞𝙣𝙜 𝙩𝙝𝙞𝙨 𝙀𝙫𝙚𝙣𝙩 ❗')
             } else if(result.exist){
                 setTimeout(()=>{
                     setUserExist(false)
                 }, 3000)
             }
+            fetch('http://localhost:4000/events/'+eventID, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+             })
+             .then(async(res)=>{
+                const result = await res.json()
+                if(res.status === 200){
+                    setEvent(result)
+                }
+             })
        }
 
        
@@ -122,7 +135,8 @@ export default function Event() {
     const handleDeleteComment = async(e)=>{
         e.preventDefault()
         setError('')
-
+        const answer = window.confirm('𝘼𝙧𝙚 𝙮𝙤𝙪 𝙨𝙪𝙧𝙚 𝙩𝙤 𝙙𝙚𝙡𝙚𝙩𝙚 𝙮𝙤𝙪𝙧 𝙘𝙤𝙢𝙢𝙚𝙣𝙩 ❓')
+      if(!answer)return
         const res = await fetch('http://localhost:4000/comments', {
             method: 'DELETE',
             credentials: 'include',
@@ -136,7 +150,7 @@ export default function Event() {
         })
 
         const result = await res.json()
-
+        console.log('here',result );
         if(res.status === 200){
             setEvent(result) 
             console.log(result);
@@ -152,12 +166,12 @@ export default function Event() {
         {error && <h3 style={{color:'red'}}>{error}</h3> }
         {errors && <h3 style={{color:'red'}}>{error}</h3> }
 
-        <div className="event-image bg-warning bg-opacity-50">
+        <div className="event-image bg-warning bg-opacity-25">
             <img src={event.bild && event.bild.replace("uploads/","http://localhost:4000/")} alt="bild" />
-            {user.data && <button onClick={handleJoinEvent} >🇯​​​​​🇴​​​​​🇮​​​​​🇳​​​​​</button>}
+            {user.data && <button onClick={handleJoinEvent} > {userExist? ' 𝘂𝗻𝗷𝗼𝗶𝗻' :'🇯​​​​​🇴​​​​​🇮​​​​​🇳' } ​​​​​</button>}
         </div>
-            {userExist && <h1 style={{color:'orangered'}}>You are already in this Team!</h1>}
-            <h2 className='border w-50 p-2 m-auto my-3 text-primary bg-white'>Event Details</h2>
+            {userExist && <h1 style={{color:'orangered'}}>You aren't joining Event!</h1>}
+            <h2 className='border w-50 p-2 m-auto my-2 text-primary bg-white'>Event Details</h2>
             <div className="description-map">
                 <div className="info border mx-3 p-5 bg-warning bg-opacity-25">
                     <ul style={{fontSize:'1.3rem'}}>
@@ -168,8 +182,10 @@ export default function Event() {
                     </ul>
 
                     <div className="description border p-3 bg-white" style={{fontSize:'1.5rem'}}>
-                        <h4>Description</h4>
-                        <p className='text-secondary'>{event.description}</p>
+                        <details>
+                            <summary>Description</summary>
+                            <p className='text-secondary fs-6'>{event.description}</p>
+                        </details>
                     </div>
                 </div>
 
@@ -202,7 +218,7 @@ export default function Event() {
                         <div className='w-25'>
                         {comment.user._id === user.data?._id && <button id={comment._id} className='btn btn-outline-secondary' onClick={handleDeleteComment}>delete</button>}
                         </div>
-                        <div className="div w-25">
+                        <div className=" w-25">
                             <span className='text-danger'>{comment.user.firstname} </span>
                             <img src={comment.user.avatar} alt="userBild" style={{width:'50px',height:'50px', borderRadius:'50%'}} />
                         </div>
@@ -212,8 +228,8 @@ export default function Event() {
                 ))
                 }
             </ul>
-                <div class="spinner-grow text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                <div className="spinner-grow text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
                     
                 </div>
             {error && <h3 style={{color:'red'}}>{error}</h3> }
@@ -222,7 +238,7 @@ export default function Event() {
             {user.data &&<button className='btn nav-btn' onClick={handleAddComment}>Add Comment</button>}</div>
         </div>
         <div>
-            <Link to={"/events-list"}><button type="button" class="btn btn-info btn-lg my-3">Explore Events</button></Link>
+            <Link to={"/events-list"}><button type="button" className="btn btn-info btn-lg my-3">Explore Events</button></Link>
         </div>
     </div>
   )

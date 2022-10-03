@@ -8,7 +8,14 @@ import {Link} from 'react-router-dom'
 export default function UserAccount() {
     let {id} = useParams()
     const user = useUser()
-    let [userData, setUserData] = useState('');
+    const [userData, setUserData] = useState('');
+    const [updateFirst , setUpdateFirst] = useState('');
+    const [updateLast , setUpdateLast] = useState('');
+    const [updateAge , setUpdateAge] = useState('');
+    const [updateImage , setUpdateImage] = useState('');
+    const [showSuccess , setShowSuccess] = useState('false');
+
+
    
     useEffect(()=>{
         const url = "http://localhost:4000/user/"+id;
@@ -24,8 +31,61 @@ export default function UserAccount() {
         }
         fetchData();
     }, [id])
-     
     
+    const handleDeleteEvent = async(e)=>{
+      e.preventDefault()
+      const answer = window.confirm('𝘼𝙧𝙚 𝙮𝙤𝙪 𝙨𝙪𝙧𝙚 𝙩𝙤 𝙙𝙚𝙡𝙚𝙩𝙚 𝙀𝙫𝙚𝙣𝙩 ❓')
+      if(!answer)return
+
+      const res = await fetch('http://localhost:4000/events',{
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: e.target.id
+        })
+        })
+
+        console.log('response: ',res);
+        const result = await res.json()
+        console.log('delete success');
+        console.log(result);
+
+        const url = "http://localhost:4000/user/"+id;
+        const fetchData = async()=>{
+            try{
+                const response = await fetch(url);
+                const json = await response.json();
+                console.log("userData Obj", json);
+                setUserData(json)
+              
+            } catch (error){
+                console.log("error", error);
+            }
+        }
+        fetchData();
+      }
+
+      const handleUpdate = async e => {
+        e.preventDefault()
+        const status = await user.update({
+          updateFirst,
+          updateLast,
+          updateAge,
+          updateImage
+        })
+    
+        if(status === 200) {
+          setShowSuccess(true)
+      
+          setTimeout(() => {
+            setShowSuccess(false)
+          }, 4000)
+        }
+      }
+         
   return (
 
     <div className="container userAccount_div">
@@ -50,18 +110,24 @@ export default function UserAccount() {
 
         </section>
 
-        <div className="border m-3">
+        <div className="border m-3 ">
         {userData.events && userData.events.length>0 ? <p className="border p-2 createdEv-div">Created Events</p>: <p>You dont't have Events yet</p>}
         
           <ul className="sub-nav-list">
-              {userData.events && userData.events.map(event=><span key={event._id}><li  className="sub-item"><Link to={"/events-list/"+event._id}>{event.title}</Link></li><li className="text-secondary">{event.datum}</li></span>)}  
+              {userData.events && userData.events.map(event=><div key={event._id} className='p-2 my-2 d-flex justify-content-between align-item-start'>
+                <li  className="sub-item w-25"><Link to={"/events-list/"+event._id}>{event.title}</Link></li>
+                <li className="text-secondary w-25">{event.datum}</li>
+                <button id={event._id} className='btn btn-outline-secondary mx-3' onClick={handleDeleteEvent}>delete</button>
+              </div>)}  
           </ul>
         </div>
         <div className="border m-3">
         {userData.eventslist && userData.eventslist.length>0 ? <p className="border p-2 joinedEv-div">Joined Events</p>: <p>You didnt't join Events yet</p>}
         
           <ul className="sub-nav-list">
-              {userData.eventslist && userData.eventslist.map(event=><span key={event._id}><li  className="sub-item"><Link to={"/events-list/"+event._id}>{event.title}</Link></li><li className="text-secondary">{event.datum}</li></span>)}  
+              {userData.eventslist && userData.eventslist.map(event=><span key={event._id} className='p-2 my-2 d-flex justify-content-between align-item-start'>
+                <li  className="sub-item"><Link to={"/events-list/"+event._id}>{event.title}</Link></li>
+                <li className="text-secondary">{event.datum}</li></span>)}  
           </ul>
       </div>
 

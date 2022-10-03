@@ -74,7 +74,7 @@ export default function NewEvent() {
         <br />
         <input type="text" placeholder='Adresse' onBlur={e=>setAdresse(e.target.value)} />
         <br />
-        <input type="text" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
+        <input type="date" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
         <br />
         <label htmlFor="avatar" className="m-2 form-label"><b>Event Photo : </b></label>
         <input type="file" className="m-2 form-control w-50"
@@ -83,8 +83,6 @@ export default function NewEvent() {
         <input type="text" placeholder='write a description' onBlur={e=> setDescription(e.target.value)} />
 
         <br />
-
-
         <br />
 
         <button className='btn btn-outline-danger' type="submit">Create Event</button>

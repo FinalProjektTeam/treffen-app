@@ -5,7 +5,7 @@ require('express-async-errors')
 
 
 exports.getEvents = async(req, res, next) =>{
-    const events = await Event.find().populate('user')
+    const events = await Event.find().populate('user', '-token -password -__v')
 
     res.status(200).send(events)
 }
@@ -29,6 +29,7 @@ exports.addEvent = async(req, res, next)=>{
     // token kommt von auth middleware, so kennen wir den User
     event.user = user
     user.events.push(event._id)
+    user.eventslist.push(event._id)
 
     event.bild = req.file.path
 
@@ -39,7 +40,7 @@ exports.addEvent = async(req, res, next)=>{
 
 exports.getSingleEvent = async(req, res, next)=>{
     const {id} = req.params
-    const event = await Event.findById(id).populate('comments').populate('team').populate('user')
+    const event = await Event.findById(id).populate('comments').populate('team', '-token -password -__v').populate('user', '-token -password -__v')
 
     if(!event){
         const error = new Error('Event are not available anymore!!')
@@ -47,7 +48,7 @@ exports.getSingleEvent = async(req, res, next)=>{
         return next(error)
     }
  
-    await Promise.all( event.comments.map((e)=>e.populate('user')) )
+    await Promise.all( event.comments.map((e)=>e.populate('user', '-token -password -__v')) )
     await event.save()
 
     res.status(200).send(event)
@@ -68,7 +69,7 @@ exports.joinEvent = async(req,res,next)=>{
     }
     const eventID = req.body.id
 
-    const event = await Event.findById(eventID).populate('team').populate('user')
+    const event = await Event.findById(eventID).populate('team', '-token -password -__v').populate('user', '-token -password -__v')
 
     if(!event){
         const error = new Error('Event ID failed')
@@ -96,4 +97,24 @@ exports.joinEvent = async(req,res,next)=>{
     await event.save()
 
     res.status(200).send(event)
+}
+
+exports.deleteEvent = async (req,res,next)=>{
+
+    const event = await Event.findById(req.body.id)
+
+    const user = await User.findById(req.user._id)
+
+    if(!user){
+        const error = new Error('Authorization failed bro!')
+        error.status = 401
+        return next(error)
+    }
+
+    user.events = user.events.filter(e => e !== event._id)
+
+    await event.remove()
+    await user.save()
+
+    res.status(200).send(user)
 }
