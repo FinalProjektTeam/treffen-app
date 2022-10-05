@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 // import '../../Layout/components.css'
 import useUser from '../../hooks/useUser';
@@ -11,25 +11,35 @@ export default function Navigation(props) {
   const user = useUser()
   console.log(user);
 
+ 
   const handleLogout = async()=>{
     await user.logout()
   }
 
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+
   return (
     
       <div className='Navigation'>
-        <div className="nav-container">
-            <img src={logo} alt="logo" style={{width:'70px',height:'65px', borderRadius:'50%'}} />
+        <div className="nav-container top-nav" style={{backgroundImage: ` linear-gradient(to bottom, ${'#'+randomColor}, white 50%, black 90%) `}} >
+
+            <img src={logo} alt="logo" style={{width:'50px', borderRadius:'50%'}} onClick={()=> window.location.reload()} title='Change Color'/>
 
             <h2>Treffen App</h2>
 
-            {user.data && <p>Hallo {user.data.firstname}</p>}
+            {/* <div className="hamburger"> */}
+              <input id="menu-toggle" type="checkbox" />
+              <label className='menu-button-container' htmlFor="menu-toggle">
+                  <div className='menu-button'></div>
+              </label>
+            {/* </div> */}
 
+            <ul className='nav-buttons'>
 
-            <div className='nav-buttons'>
               <button className='nav-button'>
-                <Link to= {'/'}>🏠 Home</Link>
+                <Link to= {'/'}> Home</Link>
               </button>
+              {/* 🏠 */}
 
              {!user.data &&  <button className='nav-button'>
                 <Link to= {'/login'}>Login</Link>
@@ -46,27 +56,27 @@ export default function Navigation(props) {
                 </button>}
 
               {user.data && 
-                  <button className='nav-buttonn' onClick={handleLogout}>
+                  <button className='nav-button' onClick={handleLogout}>
                     <Link to= {'/login'}>Log out</Link>
                   </button>
               }
 
-              {user.data && 
+              {/* {user.data && 
                   <div className='user-avatar' >
                       <Link to= {'/user/'+user.data._id}>
                           <img src= {user.data.avatar ? user.data.avatar : defaultAvatar} alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} />
                       </Link>
                   </div>
-              }
+              } */}
 
-          </div>
+          </ul>
 
       </div>
       <div className="components-body">
           {props.children}
       </div>
 
-        <footer className="footer">
+        <footer className="footer" style={{backgroundImage: ` linear-gradient(to top,  black 20%, ${'#'+randomColor} 50%, white 90%) `, color: 'black', border:'solid 2px black'}}>
           Here comes FOOTER
         </footer>
     </div>

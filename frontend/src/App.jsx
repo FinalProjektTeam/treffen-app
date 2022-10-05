@@ -13,6 +13,7 @@ import Event from './components/event/Event';
 import NewEvent from './components/newEvent/NewEvent';
 import Loading from './components/loading/Loading';
 import RunningMan from './components/loading/RunningMan';
+import Messenger from './components/messenger/Messenger';
 
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
                             element = {<Loading/>}/>
                   <Route path = '/run' 
                             element = {<RunningMan/>}/>
+                  <Route path = '/messenger' 
+                            element = {<Messenger/>}/>   
               </Routes>
              
             </Navigation>

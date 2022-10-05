@@ -125,20 +125,23 @@ export default function UserAccount() {
   return (
 
     <div className="User-Account">
+
+      <Link to={'/messenger'} >Start a Chat</Link>
+
       <div className="avatar">
         {
-          userData.avatar && 
-          <img src={userData.avatar} alt="avatar" />
+          
+          <img src={userData.avatar ? userData.avatar : defaultAvatar} alt="avatar" />
         }
        
-        {
+        {/* {
           !userData.avatar && <img src={defaultAvatar} alt="avatar"/>
-        } 
+        }  */}
 
           <h1>{showInput?  'Welcome' : 'Change your name'}</h1>
         { showInput && 
            <h2 title="Change User name" >
-              Hallo {userData.firstname+' '+userData.lastname} 
+              Hallo {userData.gender === 'Male'? 'Mr':'Ms'} {userData.lastname} 
               <button onClick={()=> setShowInput(!showInput)} >Edit</button>
           </h2> 
         }
@@ -149,6 +152,19 @@ export default function UserAccount() {
 
             <button onClick={handleEditUser} >OK</button>
           </>
+        }
+
+        {userData && 
+            <div className="" style={{width:'50%', margin : 'auto', border:'2px solid'}}>
+                <p className="">{userData.firstname}'s Infos</p>
+                <div className="userInfos" style={{textAlign : 'start' , width:'50%' , margin : 'auto'}}>
+                    <li><b>Fullname : </b> <span className=''>{userData.firstname+' '+userData.lastname}</span></li>
+                    <li><b>Age : </b> <span className=''>{userData.age}</span></li>
+                    <li><b>Gender : </b> <span className=''>{userData.gender}</span></li>
+                    <li><b>Email : </b> <span className=''>{userData.email}</span></li>
+
+                </div>
+            </div>
         }
       </div>
       <div className="events">

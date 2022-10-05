@@ -19,6 +19,8 @@ export default function Event() {
     const [ commentError, setCommentError] = useState(false)
 
     const [userExist, setUserExist] = useState(false)
+    const [isFetching, setIsFetching] = useState(false)
+
  
     useEffect(()=>{
        fetch('http://localhost:4000/events/'+ eventID)
@@ -27,14 +29,22 @@ export default function Event() {
                 const result = await res.json()
                 setEvent(result)    
                 console.log('EVENT is => ',result);
+                setIsFetching(true)
+                // setUserExist('Hallo there')
+
             }
         })
         .catch((err)=> console.log(err) )
     }, [eventID])
 
     const handleJoinEvent = async() =>{
+
         setError('')
         setErrors([])
+        setUserExist(user.data.exist)
+        setIsFetching(false)
+
+
        const res = await fetch('http://localhost:4000/events/join', {
         method: 'POST',
         credentials: 'include',
@@ -49,9 +59,9 @@ export default function Event() {
        const result = await res.json()
        
        if(res.status === 200){
+           setUserExist(result.exist)
             console.log(result);
 
-            setUserExist(result.exist)
             if(!result.exist){
                 alert('Danke! dass du teilgenommen hast')
             } 
@@ -89,7 +99,7 @@ export default function Event() {
     const handleAddComment = async(e)=>{
         e.preventDefault()
         setError('')
-        setErrors('')
+        setErrors([])
 
         const res = await fetch('http://localhost:4000/comments', {
             method:'POST',
@@ -136,6 +146,10 @@ export default function Event() {
     const handleDeleteComment = async(e)=>{
         e.preventDefault()
         setError('')
+        setErrors([])
+
+        const answer = window.confirm('𝘼𝙧𝙚 𝙮𝙤𝙪 𝙨𝙪𝙧𝙚 𝙩𝙤 𝙙𝙚𝙡𝙚𝙩𝙚 𝙮𝙤𝙪𝙧 𝙘𝙤𝙢𝙢𝙚𝙣𝙩 ❓')
+        if(!answer)return
 
         const res = await fetch('http://localhost:4000/comments', {
             method: 'DELETE',
@@ -163,20 +177,20 @@ export default function Event() {
   return (
     <div className='Event'>
         <h1>{event.title}</h1>
-        {error && <h3 style={{color:'red'}}>{error}</h3> }
-        {errors && <div style={{color:'red'}}>{errors}</div> }
+        { error && <h3 style={{color:'red'}}>{error}</h3> }
+        { errors && <div style={{color:'red'}}>{errors}</div> }
 
         <div className="event-image">
-          {event.bild &&  <img src={event.bild.replace("uploads/", "http://localhost:4000/")} alt="bild" />}
+          {event.bild &&  <img src={event.bild.replace("uploads/", "http://localhost:4000/")} alt="bild" width={'500'} height={'300'}/>}
         { user.data && <button onClick={handleJoinEvent} >
         {
-            userExist ? "Telnehmen" : "Zurückgehen"
+          !isFetching ?  (userExist ? "Join" : "Cancel a Subscription") : 'Click to Join or Cancel a Subscription'
         }
             </button>
         }
    
         </div>
-            {userExist && <h1 style={{color:'orangered'}}>Du gehst wieder zurück!</h1>}
+            {/* {userExist && <h1 style={{color:'orangered'}}>Du gehst wieder zurück!</h1>} */}
         <div className="description-map">
             <div className="info">
                 <ul>

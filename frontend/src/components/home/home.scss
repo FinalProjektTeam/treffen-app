@@ -5,38 +5,55 @@
     background-image: url('../../../public/images/home-background.jpg');
     background-position: center;
     background-size: cover;
-    z-index: -1;
 
     .home-btn{
-
-        margin: 25rem auto 5rem auto;
+        margin: auto;
         padding: 1rem 2rem;
-        border-radius: 3rem;
+        border-radius: 3rem 10rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: clip;
 
-        
+        position: relative;
+        top: 30rem;
+        animation: slide 2s;
+        background-color: rgba(0, 0, 0, 0.202);
+        text-shadow: -5px -3px black;
+        transition: transform 1s ease-in-out .5s;
+
         &:hover{
-            // transform: rotate(90deg);
-            background-color: blue;
-
+            transform: scale(2);
+            transition: transform 1s ease-in-out .5s;
+            background-color: black;
         }
-
         a{
             text-decoration: double underline;
             color: goldenrod;
-
-            &:hover{
-                // transform: rotate(90deg);
-                background-color: blue;
-    
-            }
-        
             h1{
-                color: rgb(128, 121, 121);
+                color: white;
             }
         }
     }
- 
 }
+
+  @keyframes slide {
+    0% {
+      top: -10rem; background-color: blue; 
+    }
+    25%{
+        top: -10rem; background-color: green;
+        rotate: 90deg;
+    }
+    50% {
+      top: 10rem; background-color: purple;
+      rotate: 30deg;
+    }
+    75% {
+      top: 20rem; background-color: goldenrod;
+      rotate: -30deg;
+    }
+    100%{
+        top: 30rem; background-color: black;
+
+    }
+  }

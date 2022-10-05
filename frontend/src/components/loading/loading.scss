@@ -1,5 +1,5 @@
 section.loading-container{
-    background: rgba(rgb(64, 42, 86), 0.9);
+    // background: rgba(rgb(64, 42, 86), 0.9);
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -7,9 +7,17 @@ section.loading-container{
     align-items: center;
     perspective: 400px;
 
+    cursor:pointer;
+  
+    transition: 90deg 0.5s 0.1s,10% 0.5s,red 0.8s;
+    background: linear-gradient(90deg, white 10%, black 50%, rgb(54, 46, 109) 90%, black)110%;
+
     > h1{
       position: absolute;
       bottom: 100px;
+      background-color: white;
+      border-radius: 25px;
+      padding: 1rem;
     }
 
     div {

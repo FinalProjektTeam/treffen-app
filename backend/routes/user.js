@@ -14,6 +14,8 @@ app.route('/')
     .get( auth ,controller.getCurrentUser )
     .patch( auth , controller.updateUser)
 
+app.get('/all',  controller.getUsers)
+
 app.post('/register', upload.single("avatar") , validator.register , controller.register )
 app.post('/login', controller.login )
 app.post('/logout', auth,  controller.logout)

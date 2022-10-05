@@ -12,11 +12,14 @@ section.container-section {
 
 
   h1{
-    color: whitesmoke;
+    color: black;
+    text-shadow: 4px 4px 2px white, -4px -4px 2px white;
     background-color: rgba(162, 249, 107, 0.3);
     padding: 2rem;
     border-radius: 25px;
     margin-top: -750px;
+    letter-spacing: 1rem;
+    font-size: 2rem;
   }
   div{
       position: absolute;

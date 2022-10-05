@@ -1,18 +1,16 @@
 .Event{
-   background-color: lightblue;
+   background-color: whitesmoke;
 
     .event-image{
 
-        background-color: lightcyan;
-        height: 30vh;
-        width: 100%;
+        border: 2px solid;        
+        width: 90%;
         margin: 2rem auto;
         position: relative;
 
         button{
             padding: .5rem 1rem;
             border-radius: 3rem;
-            transform: translate(300%, 500%);
 
         }
 
@@ -48,7 +46,7 @@
 
         .map{
             background-color: lightblue;
-            width: 35rem;
+            width: 39rem;
             min-height: 20rem;
 
             .google-map{
