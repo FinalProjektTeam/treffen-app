@@ -5,14 +5,13 @@ require('express-async-errors')
 const validator = require('../lib/validators/user')
 
 const multer = require('multer')
-
 const app = express.Router()
 
 const upload = multer({dest: "uploads/"})
 
 app.route('/')
     .get( auth ,controller.getCurrentUser )
-    .patch( auth , controller.updateUser)
+    .patch( auth , upload.single("avatar") , controller.updateUser)
 
 app.get('/all',  controller.getUsers)
 

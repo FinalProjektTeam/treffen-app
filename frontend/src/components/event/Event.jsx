@@ -184,7 +184,7 @@ export default function Event() {
           {event.bild &&  <img src={event.bild.replace("uploads/", "http://localhost:4000/")} alt="bild" width={'500'} height={'300'}/>}
         { user.data && <button onClick={handleJoinEvent} >
         {
-          !isFetching ?  (userExist ? "Join" : "Cancel a Subscription") : 'Click to Join or Cancel a Subscription'
+          !isFetching ?  (userExist ? "Join" : "Leave event") : 'Click to Join or to leave Event'
         }
             </button>
         }

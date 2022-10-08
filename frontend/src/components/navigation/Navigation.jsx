@@ -16,12 +16,13 @@ export default function Navigation(props) {
     await user.logout()
   }
 
+  const [newColor, setNewColor] = useState('')
   const randomColor = Math.floor(Math.random()*16777215).toString(16);
 
   return (
     
       <div className='Navigation'>
-        <div className="nav-container top-nav" style={{backgroundImage: ` linear-gradient(to bottom, ${'#'+randomColor}, white 50%, black 90%) `}} >
+        <div className="nav-container top-nav" style={{backgroundColor: 'whitesmoke'}} >
 
             <img src={logo} alt="logo" style={{width:'50px', borderRadius:'50%'}} onClick={()=> window.location.reload()} title='Change Color'/>
 
@@ -76,7 +77,7 @@ export default function Navigation(props) {
           {props.children}
       </div>
 
-        <footer className="footer" style={{backgroundImage: ` linear-gradient(to top,  black 20%, ${'#'+randomColor} 50%, white 90%) `, color: 'black', border:'solid 2px black'}}>
+        <footer className="footer" style={{backgroundImage: ` linear-gradient(to top,  black 20%, ${'#'+newColor&&newColor} 50%, white 90%) `, color: 'black', border:'solid 2px black'}}>
           Here comes FOOTER
         </footer>
     </div>

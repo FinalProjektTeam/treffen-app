@@ -10,6 +10,8 @@ app.route('/')
     .get( auth , controller.readChat )
     .post( auth , controller.addChat )
 
+app.post('/set', auth , controller.setChat )
+
 
 
 module.exports = app

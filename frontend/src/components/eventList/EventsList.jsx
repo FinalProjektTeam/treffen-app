@@ -25,7 +25,7 @@ export default function EventList() {
       if(res.status === 200){
         const result = await res.json()
         setEvents(result)
-        setReady(false)
+        setFilterEvent(result)
         setTimeout(()=>{
           setReady(true)
         }, 2000 )
@@ -60,13 +60,13 @@ export default function EventList() {
 
         <h2 className='m-3 '>Discover our Events</h2>
 
-        <div className=''>
-          <div className="">
+        <div className='search-container'>
+          <div className="search-form">
               <span className="" id="input-group-left-example">🔎</span>
               <input type="text" className="" placeholder="Search Events"  aria-describedby="input-group-left" onBlur={(e)=>searchFunction(e.target.value)}/>
           </div>
         
-          <div className="" role="group">
+          <div className="search-buttons" role="group">
 
               <button type="button" className=""
                 onClick={()=>setFilterEvent(events)}

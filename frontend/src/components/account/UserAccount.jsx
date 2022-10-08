@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom'
 import "./account.scss"
 
 import defaultAvatar from "../../images/avatar-maskulin.png"
+import defaultAvatar2 from "../../images/avatar-feminin.jpg"
+
 
 export default function UserAccount() {
     let {id} = useParams()
@@ -14,10 +16,14 @@ export default function UserAccount() {
 
     const [showInput, setShowInput] = useState(true)
 
-    const [firstName, setFirstName] = useState(userData.firstname)
-    const [lastName, setLastName] = useState(userData.lastname)
-    // const [updateAge, setUpdateAge] = useState('')
-    // const [updateImage, setUpdateImage] = useState('')
+    const [firstname, setFirstName] = useState(userData.firstname)
+    const [lastname, setLastName] = useState(userData.lastname)
+    const [updateAge, setUpdateAge] = useState('')
+    const [updateGender, setUpdateGender] = useState('Male')
+
+    const [avatar, setAvatar] = useState('')
+    const [showSuccess , setShowSuccess] = useState('false');
+
 
    
      useEffect(()=>{
@@ -92,8 +98,11 @@ export default function UserAccount() {
         },
        
         body: JSON.stringify({
-          firstname: firstName,
-          lastname: lastName
+          firstname: firstname,
+          lastname: lastname,
+          age: updateAge,
+          gender: updateGender,
+          avatar: avatar
         })
       })
 
@@ -118,9 +127,31 @@ export default function UserAccount() {
           }
         }
         fetchData()
-        
+        setFirstName('')
+        setLastName('')
+        setUpdateAge('')
+        setUpdateGender('')
+        console.log('img: ', avatar);
     }
     
+    // const handleUpdate = async e => {
+    //   e.preventDefault()
+    //   const status = await user.update({
+    //     firstname,
+    //     lastname,
+    //     updateAge,
+    //     updateImage
+    //   })
+  
+    //   if(status === 200) {
+    //     setShowSuccess(true)
+    
+    //     setTimeout(() => {
+    //       setShowSuccess(false)
+    //     }, 4000)
+    //   }
+    // }
+       
    
   return (
 
@@ -131,43 +162,51 @@ export default function UserAccount() {
       <div className="avatar">
         {
           
-          <img src={userData.avatar ? userData.avatar : defaultAvatar} alt="avatar" />
+          <img src={userData.avatar ? userData.avatar : (userData.gender === 'Male'? defaultAvatar : defaultAvatar2)} alt="avatar" />
         }
-       
-        {/* {
-          !userData.avatar && <img src={defaultAvatar} alt="avatar"/>
-        }  */}
 
-          <h1>{showInput?  'Welcome' : 'Change your name'}</h1>
+          <h1>{showInput?  'Welcome' : 'Change Infos'}</h1>
         { showInput && 
            <h2 title="Change User name" >
-              Hallo {userData.gender === 'Male'? 'Mr':'Ms'} {userData.lastname} 
+              Hallo {userData.gender === 'Male'? 'Mr.':'Mrs.'} {userData.lastname} 
               <button onClick={()=> setShowInput(!showInput)} >Edit</button>
           </h2> 
         }
+        {!showInput && <button onClick={handleEditUser} >OK</button>}
 
-        { !showInput &&  <>
-            <input type="text" value={firstName} placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)}/>
-            <input type="text" value={lastName} onChange={(e)=> setLastName(e.target.value)} placeholder='Last Name'/>
+        {/* { !showInput &&  <>
+            <input type="text" value={firstname} placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)}/>
+            <input type="text" value={lastname} onChange={(e)=> setLastName(e.target.value)} placeholder='Last Name'/>
 
-            <button onClick={handleEditUser} >OK</button>
-          </>
-        }
+            </>
+        } */}
 
         {userData && 
             <div className="" style={{width:'50%', margin : 'auto', border:'2px solid'}}>
                 <p className="">{userData.firstname}'s Infos</p>
                 <div className="userInfos" style={{textAlign : 'start' , width:'50%' , margin : 'auto'}}>
-                    <li><b>Fullname : </b> <span className=''>{userData.firstname+' '+userData.lastname}</span></li>
-                    <li><b>Age : </b> <span className=''>{userData.age}</span></li>
-                    <li><b>Gender : </b> <span className=''>{userData.gender}</span></li>
+                    <li><b>Fullname : </b> 
+                         { showInput ?  
+                          <span className=''>{userData.firstname+' '+userData.lastname}</span>  :
+                          <>
+                           <input type="text" value={firstname} placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)}/>
+                           <input type="text" value={lastname} onChange={(e)=> setLastName(e.target.value)} placeholder='Last Name'/>
+                           </>}
+                    </li>
+                    <li><b>Age : </b> 
+                        { showInput ? <span className=''>{userData.age}</span>: <input type={'text'} value={updateAge} onChange={(e)=> setUpdateAge(e.target.value)}/>}
+                    </li>                       
+                         <li><b>Gender : </b> <span className=''>{userData.gender}</span></li>
                     <li><b>Email : </b> <span className=''>{userData.email}</span></li>
+                    <input type='file' accept='image/*' placeholder='Avatar...' onChange={e => setAvatar(e.target.files[0])}/>
+                    {avatar && <img src={avatar}/>}
 
                 </div>
             </div>
         }
       </div>
       <div className="events">
+        {/* <img src="" alt="" /> */}
               <ul className="created-events">
                       { userData.events?.length > 0 ? 
                             <h3>Created Events</h3> 

@@ -105,7 +105,7 @@ exports.getCurrentUser = async(req, res, next)=>{
 }
 
 exports.updateUser = async(req, res, next)=>{
-    const {firstname, lastname} = req.body
+    const {firstname, lastname, age, gender} = req.body
   
     const user = req.user
 
@@ -113,10 +113,23 @@ exports.updateUser = async(req, res, next)=>{
     console.log('firstname is: ', firstname);
 
     console.log('lastname is: ', lastname);
+    console.log('GENDER is: ', gender);
 
-    user.firstname = firstname
-    user.lastname = lastname
-    
+    user.firstname = firstname ? firstname : user.firstname
+    user.lastname = lastname ?lastname: user.lastname
+    user.age = age ? age : user.age
+    user.gender = gender ? gender : user.gender
+
+    console.log('REQ FILE: ', req.file);
+    if(req.file){
+        const filename = path.join(process.cwd(), req.file.path)
+        const buffer = await fs.readFile(filename);
+        const image = `data:${req.file.mimetype};base64,${buffer.toString("base64")}`;
+        user.avatar = image;
+        await fs.unlink(filename);
+    }
+
+
     await user.save()
-    res.status(200).send(user)
+    res.status(200).json(user)
 }

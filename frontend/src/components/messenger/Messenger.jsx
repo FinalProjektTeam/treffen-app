@@ -26,32 +26,42 @@ export default function Messenger() {
         })
       }, [] )
 
-      useEffect( ()=>{
-        // setReady(false)
-        fetch('http://localhost:4000/chat', {
-          method: 'GET',
-          credentials: 'include'
-        })
-        .then(async (res)=>{
-            console.log(friend);
-          if(res.status === 200){
-            const result = await res.json()
-            setChat(result)
-            console.log('Chat result is => ', result);
-          } 
-        })
-        .catch( (err)=>{
-            console.log(err);
-        })
-      }, [friend] )
+      // useEffect( ()=>{
+      //   // setReady(false)
+      //   fetch('http://localhost:4000/chat', {
+      //     method: 'GET',
+      //     credentials: 'include',
+      //   })
+      //   .then(async (res)=>{
+      //       console.log(friend);
+      //       if(res.status === 200){
+      //       const result = await res.json()
+      //       console.log(result);
+      //     } 
+      //   })
+      //   .catch( (err)=>{
+      //       console.log(err);
+      //   })
+      // }, [friend] )
 
-    //   const handleChate = async()=>{
-    //     const res = await fetch('http://localhost:4000/chat', {
-    //         method: 'GET',
-    //         credentials: 'include'
-    //     })
-    //   }
-    // const handleChate = async(e)=>{
+      const handleSetChat = async()=>{
+        const res = await fetch('http://localhost:4000/chat/set', {
+            method: 'post',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              friend: friend,
+          })
+        })
+        const result = await res.json()
+        if(res.status === 200){
+          setChat(result)
+          console.log('Chat result is => ', result);
+        } 
+      }
+    // const handleChat = async(e)=>{
     //     e.preventDefault()
     //     setFriend(e.target.id)
 
@@ -67,12 +77,10 @@ export default function Messenger() {
     //         }
     //     }
     //     setData()
-           
     //   }
 
     const handleSendMessage = async(e) =>{
         e.preventDefault()
-
       
        const res = await fetch('http://localhost:4000/chat', {
         method: 'POST',
@@ -85,8 +93,11 @@ export default function Messenger() {
             message: message
         })
        })
-
-       const result = await res.json()
+      const result = await res.json()
+       if(res.status === 200){
+         setChat(result)
+         console.log('Chat result is => ', result);
+       } 
     }
 
   return (
@@ -94,7 +105,7 @@ export default function Messenger() {
         <h1>Start a Chat</h1>
         <h3>{user.data.firstname} {user.data.lastname}</h3>
 
-        <ul>
+        <ul style={{position:"absolute" ,right: '3rem'}}>
             { users.map(e=> (
                 <li style={{border: '2px solid', width: '200px'}} key={e._id} >
                     <img src={e.avatar} alt="avatar-bild" width={'50'} />
@@ -102,15 +113,19 @@ export default function Messenger() {
                     <button id={e._id} onClick={(e)=> setFriend(e.target.id)}>
                         Chat
                     </button>
+
+                    <div>{e.messenger?.map((c)=> <h4 key={c._id}>{c.message}</h4>)}</div>
                 </li>
             )
         )}
         </ul>
 
-       { chat &&  <div className="chat">
+        <button oncklick={handleSetChat}>Super btn</button>
+
+       { chat &&  <div className="chat" style={{margin:"2rem"}}>
                 <h1>chat exist</h1>
                     <ul>
-                        {/* {chat.message.map(m=><li>{m}</li>)} */}
+                        {chat.message && chat.message.map(m=><li>{m}</li>)}
                     </ul>
             </div>
        }
