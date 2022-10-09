@@ -161,7 +161,6 @@ export default function UserAccount() {
 
       <div className="avatar">
         {
-          
           <img src={userData.avatar ? userData.avatar : (userData.gender === 'Male'? defaultAvatar : defaultAvatar2)} alt="avatar" />
         }
 
@@ -186,17 +185,20 @@ export default function UserAccount() {
                 <p className="">{userData.firstname}'s Infos</p>
                 <div className="userInfos" style={{textAlign : 'start' , width:'50%' , margin : 'auto'}}>
                     <li><b>Fullname : </b> 
-                         { showInput ?  
+                        { showInput ?  
                           <span className=''>{userData.firstname+' '+userData.lastname}</span>  :
                           <>
                            <input type="text" value={firstname} placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)}/>
                            <input type="text" value={lastname} onChange={(e)=> setLastName(e.target.value)} placeholder='Last Name'/>
-                           </>}
+                          </>
+                        }
                     </li>
                     <li><b>Age : </b> 
                         { showInput ? <span className=''>{userData.age}</span>: <input type={'text'} value={updateAge} onChange={(e)=> setUpdateAge(e.target.value)}/>}
                     </li>                       
-                         <li><b>Gender : </b> <span className=''>{userData.gender}</span></li>
+                    
+                    <li><b>Gender : </b> {showInput ? <span className=''> {userData.gender}</span>: <><label>Male</label> <input type="checkbox" onClick={(e)=>setUpdateGender('Male')} /> <label>Female</label> <input type="checkbox" onClick={(e)=>setUpdateGender('Female')} /></>} </li>
+
                     <li><b>Email : </b> <span className=''>{userData.email}</span></li>
                     <input type='file' accept='image/*' placeholder='Avatar...' onChange={e => setAvatar(e.target.files[0])}/>
                     {avatar && <img src={avatar}/>}

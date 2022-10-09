@@ -15,11 +15,18 @@ export default function Event() {
     const [error, setError] = useState('')
     const [errors, setErrors] = useState([])
 
+    const [title, setTitle] = useState(event.title)
+    const [datum, setDatum] = useState(event.datum)
+    const [category, setCategory] = useState(event.category)
+    const [description, setDescription] = useState(event.description)
+
     // const [commentDeleted, setCommentDeleted] = useState(false)
     const [ commentError, setCommentError] = useState(false)
 
     const [userExist, setUserExist] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
+
+    const [showInput, setShowInput] = useState(false)
 
  
     useEffect(()=>{
@@ -174,6 +181,49 @@ export default function Event() {
         }
     }
 
+    const handleUpdateEvent = async(e)=>{
+        e.preventDefault()
+
+        const res = await fetch('http://localhost:4000/events/'+eventID,{
+            method: "PATCH",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: title,
+                datum: datum,
+                category: category,
+                description: description
+            })
+        })
+
+        const result = await res.json()
+        if(res.status === 200){
+            console.log('Event is=> ',result);
+             fetch('http://localhost:4000/events/'+eventID, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+             })
+             .then(async(res)=>{
+                const result = await res.json()
+                console.log(result);
+                if(res.status === 200){
+                    setEvent(result)
+                }
+             })
+             setShowInput(false)
+        }
+        console.log('Updating Event: ',result);
+        setTitle('')
+        setDatum('')
+        setCategory('')
+        setDescription('')
+    }
+
   return (
     <div className='Event'>
         <h1>{event.title}</h1>
@@ -193,17 +243,51 @@ export default function Event() {
             {/* {userExist && <h1 style={{color:'orangered'}}>Du gehst wieder zurück!</h1>} */}
         <div className="description-map">
             <div className="info">
-                <ul>
-                    <li>Datum: {event.datum}</li>
-                    {event.user && <li>Owner: {event.user.firstname+' '+event.user.lastname}</li>}
+                {
+                  user.data && event.user &&  (user.data._id === event.user._id) && 
+                  showInput ?
+                  <button onClick={handleUpdateEvent} >Update</button>
+                  :
+                  <button onClick={()=>setShowInput(true)} >  Edit</button> 
+                }
+                <br />
+                {category} <br />
+               { showInput ?
+                   <>
+                        {/* <b>Owner: {event.user && event.user.firstname}</b> */}
+                    <label htmlFor="title">Title: </label>
+                    <input type="text" value={title} onChange={(e)=>setTitle(e.target.value)}/> <br/>
 
-                    <li>Category: {event.category}</li>
-                </ul>
+                    <label htmlFor="date">Date</label>
+                     <input type="date" value={datum} onChange={(e)=>setDatum(e.target.value)} placeholder=''/> <br />
+                     <label htmlFor="category">Category</label>
+                     <select
+                        defaultValue='Allgemein'
+                        onChange={(e)=>setCategory(e.target.value)}>    
+                        <option value="Allgemein">Allgemein</option>
+                        <option value="Erwachsene">Erwachsene</option>
+                        <option value="Kinder">Kinder</option>
+                    </select>
+                    <br />
+                     {/* <input type="text" value={category} onBlur={(e)=>setCategory(e.target.value)}/> <br/> */}
+                     <label htmlFor="description">Description: </label>
+                     <input type="text" value={description} onChange={(e)=>setDescription(e.target.value)}/>   
+                   </>
 
-                <div className="description">
+                    :
+                    <ul>
+                        <li>Datum: {event.datum}</li>
+                        {event.user && <li>Owner: {event.user.firstname+' '+event.user.lastname}</li>}
+
+                        <li>Category: {event.category}</li>
+                    </ul>
+               }
+
+              { !showInput &&  <div className="description">
                     <h4>Description</h4>
                     <p>{event.description}</p>
                 </div>
+              }
             </div>
 
             <div className="map">

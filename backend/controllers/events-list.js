@@ -126,3 +126,23 @@ exports.deleteEvent = async (req,res,next)=>{
 
     res.status(200).send(user)
 }
+
+exports.updateEvent = async(req,res,next)=>{
+    const {id} = req.params
+    const {title, datum, category, description} = req.body
+
+    const event = await Event.findById(id).populate('comments').populate('team', '-token -password -__v').populate('user', '-token -password -__v')
+
+    event.title = title ? title : event.title
+    event.datum = datum ? datum : event.datum
+    event.category = category ? category : event.category
+    event.description = description ? description : event.description
+
+    console.log(event);
+
+    await Promise.all( event.comments.map((e)=>e.populate('user', '-token -password -__v')) )
+
+    await event.save()
+
+    res.status(200).json(event)
+}
