@@ -36,7 +36,7 @@ exports.deleteComment = async(req, res, next)=>{
     const event = await Event.findById(req.body.event).populate('user', '-token -password -__v').populate('comments').populate('team', '-token -password -__v')
 
     if( !(comment.user._id.toString() === req.user._id.toString())){  
-        return res.status(201).send('Its not your comment')
+        return res.status(201).json('Its not your comment')
     } 
     
     event.comments.filter( e => e !== req.body.id )

@@ -1,32 +1,77 @@
 .Event{
    background-color: whitesmoke;
+   border: 5px solid;
 
-    .event-image{
+   > h1{
+    background-color: lightgray;
+    width: 20rem;
+    margin: 2rem auto;
+    border-radius: 10px;
+   }
+   > .event-image{
 
-        border: 2px solid;        
-        width: 90%;
+        border: 2px solid ;        
+        // width: min-content;
         margin: 2rem auto;
         position: relative;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(3,1fr);
+        // flex-flow: column nowrap;
+
+        > img{
+            // width: 500px;
+            max-width: 600px;
+            min-width: 400px;
+            width: min(100% - 15px, 900px) ;
+            margin-inline: auto;
+            height: 300px;
+            border: 2px solid gray;
+            // margin: 0 auto;
+            grid-area: 1/1/4/4;
+        }
 
         button{
             padding: .5rem 1rem;
             border-radius: 3rem;
+            margin: 2rem auto;
+
+            grid-area: 3/3/4/4;
         }
     }
 
     .description-map{
-
         background-color: whitesmoke;
-
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-
-        padding:3rem 2rem;
+        border: 10px solid lightgray;
+        padding:1rem 2rem;
 
         .info{
-            background-color: lightblue;
-            padding: 3rem 0;
+            background-color: lightgray
+            ;
+            padding: 1rem 0;
+            border: 5px solid lightgray;
+            height: fit-content;
+            justify-self: center;
+            align-self: center;
+            text-align: left;
+
+            > button{
+
+
+                &:hover{
+
+                }
+            }
+
+            > label{
+
+            }
+            > input{
+
+            }
 
             ul{
                 line-height: 2.5;
@@ -43,7 +88,6 @@
         }
 
         .map{
-            background-color: lightblue;
             width: 39rem;
             min-height: 20rem;
 

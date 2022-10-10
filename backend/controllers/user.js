@@ -129,7 +129,6 @@ exports.updateUser = async(req, res, next)=>{
         await fs.unlink(filename);
     }
 
-
     await user.save()
     res.status(200).json(user)
 }

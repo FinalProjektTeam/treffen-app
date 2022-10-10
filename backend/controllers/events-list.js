@@ -138,7 +138,7 @@ exports.updateEvent = async(req,res,next)=>{
     event.category = category ? category : event.category
     event.description = description ? description : event.description
 
-    console.log(event);
+    event.bild = req.file?.path
 
     await Promise.all( event.comments.map((e)=>e.populate('user', '-token -password -__v')) )
 

@@ -17,7 +17,7 @@ app.post('/join', auth, controller.joinEvent)
 
 app.get('/:id',  controller.getSingleEvent )
 
-app.patch('/:id',  controller.updateEvent )
+app.patch('/:id', upload.single("bild") , controller.updateEvent )
 
 
 

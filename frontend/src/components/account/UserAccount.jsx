@@ -22,8 +22,7 @@ export default function UserAccount() {
     const [updateGender, setUpdateGender] = useState('Male')
 
     const [avatar, setAvatar] = useState('')
-    const [showSuccess , setShowSuccess] = useState('false');
-
+    const [showSuccess , setShowSuccess] = useState(false);
 
    
      useEffect(()=>{
@@ -59,9 +58,8 @@ export default function UserAccount() {
         })
         })
 
-        console.log('response: ',res);
         const result = await res.json()
-        console.log('delete success');
+        console.log('Delete Success');
         console.log(result);
 
         const url = "http://localhost:4000/user/"+id;
@@ -72,7 +70,6 @@ export default function UserAccount() {
                 const json = await response.json();
                 console.log("userData Obj", json);
                 setUserData(json)
-              
             } catch (error){
                 console.log("error", error);
             }
@@ -83,34 +80,21 @@ export default function UserAccount() {
     const handleEditUser = async(e)=>{
       e.preventDefault()
 
-      // alert(firstName)
-      // const formData = new FormData()
-      //   formData.append("firstname", firstName)
-        // formData.append("lastname", updateLast)
-        // formData.append("age", updateAge)
-        // formData.append("bild", updateImage)
+      const formData = new FormData()
+        formData.append("firstname", firstname)
+        formData.append("lastname", lastname)
+        formData.append("age", updateAge)        
+        formData.append("gender", updateGender)
+        formData.append("avatar", avatar)
 
       const res = await fetch('http://localhost:4000/user',{
         method: 'PATCH',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-       
-        body: JSON.stringify({
-          firstname: firstname,
-          lastname: lastname,
-          age: updateAge,
-          gender: updateGender,
-          avatar: avatar
-        })
+  
+        body: formData
       })
 
       const result = await res.json()
-      console.log('RESULT : ',result);
-
-        console.log('RES : ',res);
-        // setUserData(result)
 
         const url = `http://localhost:4000/user/${id}`
 
@@ -126,33 +110,9 @@ export default function UserAccount() {
             console.log(error);
           }
         }
-        fetchData()
-        setFirstName('')
-        setLastName('')
-        setUpdateAge('')
-        setUpdateGender('')
-        console.log('img: ', avatar);
+        fetchData()       
     }
-    
-    // const handleUpdate = async e => {
-    //   e.preventDefault()
-    //   const status = await user.update({
-    //     firstname,
-    //     lastname,
-    //     updateAge,
-    //     updateImage
-    //   })
-  
-    //   if(status === 200) {
-    //     setShowSuccess(true)
-    
-    //     setTimeout(() => {
-    //       setShowSuccess(false)
-    //     }, 4000)
-    //   }
-    // }
        
-   
   return (
 
     <div className="User-Account">
@@ -172,13 +132,6 @@ export default function UserAccount() {
           </h2> 
         }
         {!showInput && <button onClick={handleEditUser} >OK</button>}
-
-        {/* { !showInput &&  <>
-            <input type="text" value={firstname} placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)}/>
-            <input type="text" value={lastname} onChange={(e)=> setLastName(e.target.value)} placeholder='Last Name'/>
-
-            </>
-        } */}
 
         {userData && 
             <div className="" style={{width:'50%', margin : 'auto', border:'2px solid'}}>
@@ -200,8 +153,13 @@ export default function UserAccount() {
                     <li><b>Gender : </b> {showInput ? <span className=''> {userData.gender}</span>: <><label>Male</label> <input type="checkbox" onClick={(e)=>setUpdateGender('Male')} /> <label>Female</label> <input type="checkbox" onClick={(e)=>setUpdateGender('Female')} /></>} </li>
 
                     <li><b>Email : </b> <span className=''>{userData.email}</span></li>
-                    <input type='file' accept='image/*' placeholder='Avatar...' onChange={e => setAvatar(e.target.files[0])}/>
-                    {avatar && <img src={avatar}/>}
+
+                    { !showInput ? 
+                        <input type='file' accept='image/*' placeholder='Avatar...' 
+                          onChange={e => setAvatar(e.target.files[0])}/>
+                        :
+                         <img src={userData.avatar}/>
+                    }
 
                 </div>
             </div>
