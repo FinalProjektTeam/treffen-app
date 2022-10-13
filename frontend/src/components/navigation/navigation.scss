@@ -1,14 +1,16 @@
 .Navigation {
+  font-family: sans-serif;
+
   position: relative;
   height: 100%;
   width: 100%;
-
+ 
   .nav-container {
     // background-color: rgba(245, 245, 245, 0.5);
     // background-image: linear-gradient(to top, cyan, blue);
-    border-bottom: 2px solid whitesmoke;
     z-index: 10;
     padding: 0.5rem;
+    // box-shadow: 2px 5px 15px blue;
 
     display: flex;
     justify-content: space-around;
@@ -35,7 +37,6 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      background-color: #00baf0;
       // background: linear-gradient(to left, #f46b45, #eea849);
       /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       color: #fff;
@@ -141,6 +142,14 @@
       align-self: center;
       color: black;
       text-decoration: underline double whitesmoke;
+      background: #95B0CF;
+
+      background: #A478CF;
+background: linear-gradient(to right, #A478CF 21%, #3E007D 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+
     }
     .nav-buttons {
       display: flex;
@@ -154,7 +163,6 @@
 
       > .nav-button,
       > a {
-        background-color: rgba(1, 0, 0, 0.391);
         font-size: 1rem;
         font-weight: bolder;
         padding: 0.5rem 0.5rem;
@@ -163,8 +171,8 @@
         color: white;
         text-decoration: none;
         white-space: nowrap;
-        border-radius: 30px 10px;
-        text-shadow: -2px -2px 2px black, -2px 2px black;
+        border-radius: .5rem;
+        // text-shadow: -2px -2px 2px black, -2px 2px black;
         @media (max-width: 769px) {
           // display: none;
 
@@ -173,13 +181,13 @@
 
         &:hover {
           transform: scale(1.5);
-          background-color: black;
+          // background-color: black;
         }
 
         a {
           display: inline-block;
           position: relative;
-          color: white;
+          color: black;
           text-decoration: none;
 
           &:after {
@@ -190,7 +198,7 @@
             height: 5px;
             bottom: -5px;
             left: 0;
-            background-color: goldenrod;
+            background-color: purple;
             transform-origin: bottom right;
             transition: transform 0.5s ease-out;
           }

@@ -16,7 +16,7 @@ app.route('/')
 app.get('/all',  controller.getUsers)
 
 app.post('/register', upload.single("avatar") , validator.register , controller.register )
-app.post('/login', controller.login )
+app.post('/login', validator.login, controller.login )
 app.post('/logout', auth,  controller.logout)
 
 app.get('/:id',  controller.getSingleUser)

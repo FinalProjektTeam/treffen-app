@@ -16,5 +16,4 @@ app.post('/set', auth , controller.setChat )
 
 module.exports = app
 
-// set Color onclick frontend
 // comments validator

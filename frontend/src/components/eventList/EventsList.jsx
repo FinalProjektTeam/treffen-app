@@ -4,6 +4,8 @@ import useUser from '../../hooks/useUser'
 import Loading from '../loading/Loading.jsx'
 import RunningMan from '../loading/RunningMan.jsx'
 import "./eventsList.scss"
+import noImage from "../../images/no-image.png"
+
 
 export default function EventList() {
   // const [events, setEvents] = useState([])
@@ -16,7 +18,7 @@ export default function EventList() {
   const [ready, setReady] = useState(true)
 
   useEffect( ()=>{
-    // setReady(false)
+    setReady(false)
     fetch('http://localhost:4000/events', {
       method: 'GET',
       credentials: 'include'
@@ -30,7 +32,6 @@ export default function EventList() {
           setReady(true)
         }, 2000 )
         console.log('Events result is => ', result);
-        
       } 
     })
   }, [] )
@@ -57,13 +58,12 @@ export default function EventList() {
             <Link to={'/create-event'}>Create new Event</Link>
           </button>
         }
-
         <h2 className='m-3 '>Discover our Events</h2>
 
         <div className='search-container'>
           <div className="search-form">
               <span className="" id="input-group-left-example">🔎</span>
-              <input type="text" className="" placeholder="Search Events"  aria-describedby="input-group-left" onBlur={(e)=>searchFunction(e.target.value)}/>
+              <input type="text" className="" placeholder="Search Events"  aria-describedby="input-group-left" onChange={(e)=>searchFunction(e.target.value)}/>
           </div>
         
           <div className="search-buttons" role="group">
@@ -85,15 +85,18 @@ export default function EventList() {
               >Erwachsene</button>
 
           </div>
-        </div>
+        </div>  
+        <hr />
 
         <div className="cards-list">          
           {
             filterEvent.map(e => (
               <div className="card" key={e._id} >
                 <div className='card-image'>
-                 { e.bild && 
-                    <img src={e.bild.replace("uploads/", "http://localhost:4000/")} alt="Event-Image" width={'300'} height='150' />
+                 { e.bild ? 
+                    <img src={e.bild.replace("uploads/", "http://localhost:4000/")} alt="Event-Image" />
+                    :
+                    <img src={noImage} alt="Not found!" />
                  }
                 </div>
                 <h4> Title: {e.title}</h4>

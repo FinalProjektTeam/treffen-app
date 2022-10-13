@@ -6,15 +6,15 @@ require('express-async-errors')
 
 exports.readChat = async (req, res, next)=>{
     const user = req.user
-    const {friend, message} = req.body
+    const {friendID, message} = req.body
 
     console.log('USer ID: ',user._id);
-    console.log('Friend id: ', friend);
+    console.log('Friend id: ', friendID);
     console.log('Message : ', message);
 
-
-
-    const chat = await Chat.findOne({me: user._id.toString(), friend: friend})
+    const chat = await Chat.findOne({me: user._id.toString(), friend: friendID}).populate('friend')
+    const friend = await User.findById(friendID)
+    chat.friend = friend
 
     // const friend = await User.findById(friendID)
 

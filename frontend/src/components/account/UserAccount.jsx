@@ -16,13 +16,14 @@ export default function UserAccount() {
 
     const [showInput, setShowInput] = useState(true)
 
-    const [firstname, setFirstName] = useState(userData.firstname)
-    const [lastname, setLastName] = useState(userData.lastname)
+    const [firstname, setFirstName] = useState("")
+    const [lastname, setLastName] = useState("")
     const [updateAge, setUpdateAge] = useState('')
     const [updateGender, setUpdateGender] = useState('Male')
 
     const [avatar, setAvatar] = useState('')
     const [showSuccess , setShowSuccess] = useState(false);
+
 
    
      useEffect(()=>{
@@ -43,7 +44,7 @@ export default function UserAccount() {
     const handleDeleteEvent = async(e)=>{
       e.preventDefault()
 
-      const answer = window.confirm('Bist sicher ?')
+      const answer = window.confirm('Bist du sicher ?')
 
       if(!answer) return 
 
@@ -119,49 +120,49 @@ export default function UserAccount() {
 
       <Link to={'/messenger'} >Start a Chat</Link>
 
-      <div className="avatar">
-        {
-          <img src={userData.avatar ? userData.avatar : (userData.gender === 'Male'? defaultAvatar : defaultAvatar2)} alt="avatar" />
-        }
+      <div className="user">
 
-          <h1>{showInput?  'Welcome' : 'Change Infos'}</h1>
-        { showInput && 
-           <h2 title="Change User name" >
-              Hallo {userData.gender === 'Male'? 'Mr.':'Mrs.'} {userData.lastname} 
-              <button onClick={()=> setShowInput(!showInput)} >Edit</button>
-          </h2> 
-        }
-        {!showInput && <button onClick={handleEditUser} >OK</button>}
+        <div className="avatar">
+          {
+            <img src={userData.avatar ? userData.avatar : (userData.gender === 'Male'? defaultAvatar : defaultAvatar2)} alt="avatar" />
+          }
+          <h2>
+            Hallo {userData.gender === 'Male'? 'Mr.':'Mrs.'} {userData.lastname} 
+          </h2>
+        </div>
 
         {userData && 
-            <div className="" style={{width:'50%', margin : 'auto', border:'2px solid'}}>
-                <p className="">{userData.firstname}'s Infos</p>
-                <div className="userInfos" style={{textAlign : 'start' , width:'50%' , margin : 'auto'}}>
-                    <li><b>Fullname : </b> 
-                        { showInput ?  
+            <div className="infos">
+              { showInput ?
+                  <button title="Change User name" onClick={()=> setShowInput(false)} >Edit</button>
+                  :
+                  <button onClick={handleEditUser} >Update</button>
+              }
+              <p className="">{userData.firstname}'s Info</p>
+              <ul className="user-infos">
+                  <li><b>Fullname : </b> 
+                      { showInput ?  
                           <span className=''>{userData.firstname+' '+userData.lastname}</span>  :
-                          <>
+                          <div className="input-name">
                            <input type="text" value={firstname} placeholder='First Name' onChange={(e)=> setFirstName(e.target.value)}/>
                            <input type="text" value={lastname} onChange={(e)=> setLastName(e.target.value)} placeholder='Last Name'/>
-                          </>
-                        }
+                          </div>
+                      }
                     </li>
                     <li><b>Age : </b> 
-                        { showInput ? <span className=''>{userData.age}</span>: <input type={'text'} value={updateAge} onChange={(e)=> setUpdateAge(e.target.value)}/>}
+                        { showInput ? <span className=''>{userData.age}</span>: <input type={'number'} value={updateAge} onChange={(e)=> setUpdateAge(e.target.value)}/>}
                     </li>                       
                     
                     <li><b>Gender : </b> {showInput ? <span className=''> {userData.gender}</span>: <><label>Male</label> <input type="checkbox" onClick={(e)=>setUpdateGender('Male')} /> <label>Female</label> <input type="checkbox" onClick={(e)=>setUpdateGender('Female')} /></>} </li>
 
                     <li><b>Email : </b> <span className=''>{userData.email}</span></li>
 
-                    { !showInput ? 
+                    { !showInput &&
                         <input type='file' accept='image/*' placeholder='Avatar...' 
                           onChange={e => setAvatar(e.target.files[0])}/>
-                        :
-                         <img src={userData.avatar}/>
                     }
 
-                </div>
+                </ul>
             </div>
         }
       </div>
@@ -181,6 +182,7 @@ export default function UserAccount() {
                             <li key={event._id} >
                                   <Link to={"/events-list/"+event._id} >{event.title}</Link>
                                   <p>{event.datum}</p>
+                                  <p>{event.adresse}</p>
                                   <button id={event._id} onClick={handleDeleteEvent}>Delete Event</button> 
                             </li>
                         )
@@ -195,6 +197,9 @@ export default function UserAccount() {
                         <li key={event._id}>
                             <Link to={"/events-list/"+event._id} >{event.title}</Link>
                             <p>{event.datum}</p>
+                            <p>{event.adresse}</p>
+                            <Link to={"/events-list/"+event._id} >See more..</Link>
+
                         </li>
                     )
               }
