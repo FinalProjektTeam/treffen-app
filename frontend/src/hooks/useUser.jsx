@@ -127,9 +127,40 @@ export function UserProvider (props){
                 }
                 setIsFetching(false)
 
-
                 return result                
             },
+            update: async (body) => {
+                setError('')
+                setIsFetching(true)
+                const formData = new FormData()
+                formData.append('firstname', body.firstname)
+                formData.append('lastname', body.lastname)
+                formData.append('age', body.updateAge)
+                formData.append('gender', body.updateGender)
+                formData.append('avatar', body.updateImage)
+          
+                const res = await fetch('http://localhost:4000/user', {
+                  method: 'PATCH',
+                  credentials: 'include',
+                  body: formData
+                })
+          
+                const result = await res.json()
+          
+                if(res.status === 200) {
+                  setUser(result)
+                }
+                else if (result.errors) {
+                  setError(result.errors[0].msg)
+                }
+                else if (result.error) {
+                  setError(result.error)
+                }
+          
+                setIsFetching(false)
+          
+                return res.status
+              },
 
             logout: async()=>{
                 await fetch('http://localhost:4000/user/logout' , {

@@ -4,7 +4,7 @@ const Comment = require('../models/Comment')
 require('express-async-errors')
 
 exports.getEvents = async(req, res, next) =>{
-    const events = await Event.find().populate('user')
+    const events = await Event.find().populate('user', '-token -password -__v')
     res.status(200).send(events)
 }
 
@@ -26,8 +26,10 @@ exports.addEvent = async(req, res, next)=>{
     event.team.push(userID)
     event.user = user
     user.events.push(event._id)
+    user.eventslist.push(event._id)
 
-    event.bild = req.file.path
+    console.log('REquest FILE:  ',req.file);
+    event.bild = req.file?.path
 
     await event.save()
     await user.save()
@@ -36,7 +38,7 @@ exports.addEvent = async(req, res, next)=>{
 
 exports.getSingleEvent = async(req, res, next)=>{
     const {id} = req.params
-    const event = await Event.findById(id).populate('comments').populate('team').populate('user')
+    const event = await Event.findById(id).populate('comments').populate('team', '-token -password -__v').populate('user', '-token -password -__v')
 
     if(!event){
         const error = new Error('Event are not available anymore!!')
@@ -44,15 +46,13 @@ exports.getSingleEvent = async(req, res, next)=>{
         return next(error)
     }
  
-    await Promise.all( event.comments.map((e)=>e.populate('user')) )
+    await Promise.all( event.comments.map((e)=>e.populate('user', '-token -password -__v')) )
     await event.save()
 
     res.status(200).send(event)
 }
 
-
 exports.joinEvent = async(req,res,next)=>{
-    
     const userID = req.user._id
     console.log(userID);
   
@@ -65,7 +65,7 @@ exports.joinEvent = async(req,res,next)=>{
     }
     const eventID = req.body.id
 
-    const event = await Event.findById(eventID).populate('team').populate('user')
+    const event = await Event.findById(eventID).populate('team', '-token -password -__v').populate('user', '-token -password -__v')
 
     if(!event){
         const error = new Error('Event ID failed')
@@ -85,8 +85,12 @@ exports.joinEvent = async(req,res,next)=>{
     } else if(isInTeam) {
         console.log('you are already in team!!');
 
-        // user.team.filter()
+        event.team = event.team.filter((member )=> member._id.toString() !== userID.toString())
+        user.eventslist = user.eventslist.filter(joinedEvent => joinedEvent._id.toString() !== eventID.toString())
         event.exist = true
+
+        
+        console.log('Event not joined');
     }
 
     await user.save()
@@ -107,13 +111,38 @@ exports.deleteEvent = async (req,res,next)=>{
         return next(error)
     }
 
-    console.log(event);
-    console.log(user);
+    console.log('User.Event',user.event);
+    console.log('User.Eventslist',user.eventslist);
 
-    user.events.filter(e => e !== event._id)
+    user.events = user.events.filter(e => e !== event._id)
+    user.eventslist = user.eventslist.filter(e => e !== event._id)
+
 
     await event.remove()
     await user.save()
 
+    console.log('Deleted Event: ',event);
+    console.log('Deleting Event in USER: ',user);
+
     res.status(200).send(user)
+}
+
+exports.updateEvent = async(req,res,next)=>{
+    const {id} = req.params
+    const {title, datum, category, description} = req.body
+
+    const event = await Event.findById(id).populate('comments').populate('team', '-token -password -__v').populate('user', '-token -password -__v')
+
+    event.title = title ? title : event.title
+    event.datum = datum ? datum : event.datum
+    event.category = category ? category : event.category
+    event.description = description ? description : event.description
+
+    event.bild = req.file?.path
+
+    await Promise.all( event.comments.map((e)=>e.populate('user', '-token -password -__v')) )
+
+    await event.save()
+
+    res.status(200).json(event)
 }
