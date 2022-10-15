@@ -54,13 +54,13 @@ exports.login = async(req, res, next) =>{
 
 exports.getUsers = async(req, res, next) =>{
     // const users = await User.find( {}, 'email token -_id')
-    const users = await User.find( )
+    const users = await User.find( ).populate('messenger')
     res.status(200).send(users)
 }
 
 exports.getSingleUser = async (req, res, next)=>{
     const {id} = req.params
-    const user = await User.findById(id).populate('events').populate('eventslist')
+    const user = await User.findById(id).populate('events').populate('eventslist').populate('messenger')
     if(!user){
         const error = new Error('User not found')
         error.status = 400

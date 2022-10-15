@@ -7,6 +7,9 @@
        margin: 2rem auto;
        border-radius: 10px;
        padding: 1rem;
+       background-color: white;
+       box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+
     }
 
     > h1.event-details{
@@ -20,6 +23,9 @@
         grid-template-columns: repeat(3,1fr);
         grid-template-rows: repeat(3,1fr);
         // flex-flow: column nowrap;
+        box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+        border-radius: 15px;
+
 
         > img{
             max-width: 800px;
@@ -41,6 +47,10 @@
             border-radius: 3rem;
             margin: 2rem auto;
             grid-area: 3/3/4/4;
+            box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+            border-radius: 15px;
+            background-color: white;
+            font: bolder 1.1rem -serif;
         }
     }
 
@@ -50,7 +60,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         padding:1rem 2rem;
-        @media (max-width: 1100px) {
+        @media (max-width: 1118px) {
             flex-flow: column nowrap;
             align-items: center;
             gap: 2rem;
@@ -64,6 +74,8 @@
         .info{
             background-color: white
             ;
+            box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+
             border-radius: 20px;
             padding: 1rem 2rem;
             justify-self: center;
@@ -112,13 +124,18 @@
 
         .map{
             width: 40rem;
-            min-height: 20rem;
+            min-height: 25rem;
             background-color: white;
             border-radius: 20px;
             padding: 1.5rem;
+            box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
 
             > .map-link{
                 margin: .5rem auto 1.5rem auto;
+
+                > span{
+                    font: bolder 1.5rem sans-serif;
+                }
             }
 
             .google-map{
@@ -129,6 +146,9 @@
                 iframe{
                     width: 80%;
                     height: 80%;
+                    min-height: 250px;
+                    box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+                    border-radius: 15px;
                 }
 
             }
@@ -147,6 +167,8 @@
             margin: 0 auto;
             max-width: max-content;
             border: 2px solid lightskyblue;
+            box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+
         }
         > ul{
             margin: 2rem auto 0 auto;
@@ -156,7 +178,8 @@
             background-color: white;
             padding: 2rem 3.5rem;
             border-radius: 15px;
-            border: 2px solid cornfl;
+            box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+
 
             > li{
 
@@ -180,6 +203,8 @@
             padding: 2rem 3.5rem;
             border-radius: 15px;
             border: 2px solid lightskyblue;
+            box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+
         }
 
         ul{
@@ -189,6 +214,8 @@
             overflow:auto;
             list-style: none;
             padding: 2rem 1rem;
+            box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
+            border-radius: 15px;
 
             li{
                 margin: .5rem auto;

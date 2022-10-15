@@ -1,0 +1,82 @@
+// Messenger Color Pink: #F15987
+// Messenger Color Blue: #566AFA
+
+.Messenger{
+    
+    > h1{
+        margin: 2rem auto;
+        background: linear-gradient(to left, #F15987 35%, blue 70%, purple 90%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    > .border {
+
+        max-width: fit-content;
+        padding: 1rem;
+        position: relative;
+        background: linear-gradient(to right, #F15987, purple);
+        padding: .5rem;
+        margin: 0 auto;
+
+        &:hover{
+            background: unset;
+            background-color: whitesmoke;
+        }
+
+        > h3{
+            background-color: #fff;
+            color: black;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: bolder;
+        }
+        > button{
+            background-color: #fff;
+            color: black;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            font-weight: bolder;
+
+            &:hover{
+                background: linear-gradient(to left, #F15987 35%, blue 70%, purple 90%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                transform: scale(1.5);
+                padding: 1rem;
+                background-color: whitesmoke;
+                cursor: pointer;
+
+              
+            }
+        }
+    }
+    > .users-list{
+        position: absolute;
+        right: 3rem;
+        top: 8rem;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1rem;
+        list-style-type: none;
+
+        > li{
+            border-bottom: 5px solid purple;
+            border-left: 5px solid purple;
+            padding: .5rem;
+        }
+    }
+
+    > .chat{
+
+        > .chat-list{
+
+            max-width: 20rem;
+
+            > li{
+
+            }
+        }
+    }
+}

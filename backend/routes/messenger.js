@@ -8,7 +8,7 @@ const app = express.Router()
 
 app.route('/')
     .get( auth , controller.readChat )
-    .post( auth , controller.addChat )
+    .post( auth , controller.startChat )
 
 app.post('/set', auth , controller.setChat )
 
