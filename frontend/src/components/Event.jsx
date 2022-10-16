@@ -93,7 +93,7 @@ export default function Event() {
             }, 3000)
        }
        else if(result.errors){
-        setErrors(result.errors.map(e=> <h3 style={{color:'red'}}>{e.msg}</h3>));
+        setErrors(result.errors.map(e=> <h3 style={{color:'red'}} key={Math.random()}>{e.msg}</h3>));
        }
     }
 
@@ -140,7 +140,7 @@ export default function Event() {
             console.log(result.error);
         }
         else if(result.errors){
-            setErrors(result.errors.map(e=><h2>{e.msg}</h2>))
+            setErrors(result.errors.map(e=><h2 key={Math.random()}>{e.msg}</h2>))
             console.log(result.errors);
         }
     }
@@ -246,15 +246,17 @@ export default function Event() {
                             {showInput? <input type="text" className='form-control my-2 w-75' value={description} onChange={(e)=>setDescription(e.target.value)}/>:<p className='text-secondary fs-6'>{event.description}</p>}
                         </details>
                     </div>
-                    {(user.data?._id === event.user?._id) &&
-                        showInput ?
-                        <button className='btn btn-outline-warning btn-lg mt-3' 
+                    
+                    {user.data?._id !== event.user?._id ? 
+                        (''):
+                        (showInput?
+                            <button className='btn btn-outline-warning btn-lg mt-3' 
                             onClick={handleUpdateEvent}>Done</button>
-                        :<button className='btn btn-outline-warning btn-lg mt-3' 
+                            :<button className='btn btn-outline-warning btn-lg mt-3' 
                             onClick={()=>{setShowInput(!showInput)
                             console.log('showInput now is :',showInput);
                             }}>Edit</button>
-                    }
+                        )}
 
 
                 </div>

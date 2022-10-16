@@ -39,45 +39,45 @@ export default function Register() {
   return (
     <div className="regist-bg-img-div">
       <div className="login-form">
-          <h2>Registration</h2>
+          <h2 className='container'>Registration</h2>
               <form onSubmit={handleSubmit} className="container">
 
-                <label htmlFor="email" className="m-2 form-label "><b>Email </b></label>
-                <input type="email" placeholder="Your Email" className="m-2 form-control w-75"
+                <label htmlFor="email" className="m-1 form-label "><b>Email </b></label>
+                <input type="email" placeholder="Your Email" className="m-1 form-control w-75"
                         value={email} onChange={(e)=> setEmail(e.target.value) } required/>
 
-                <label htmlFor="password" className="m-2 form-label"><b>Password </b></label>
-                <input type="password" placeholder="Password" className="m-2 form-control w-75"
+                <label htmlFor="password" className="m-1 form-label"><b>Password </b></label>
+                <input type="password" placeholder="Password" className="m-1 form-control w-75"
                         value={password} onChange={(e)=> setPassword(e.target.value)} required/>
 
-                <label htmlFor="firstname" className="m-2 form-label"><b>Vorname : </b></label>
-                <input type="text" placeholder="Firstname" className="m-2 form-control w-75"
+                <label htmlFor="firstname" className="m-1 form-label"><b>Vorname : </b></label>
+                <input type="text" placeholder="Firstname" className="m-1 form-control w-75"
                         value={firstname} onChange={(e)=> setFirstname(e.target.value)} required/>
 
-                <label htmlFor="lastname" className="m-2 form-label"><b>Nachname : </b></label>
-                <input type="text" placeholder="lastname" className="m-2 form-control w-75"
+                <label htmlFor="lastname" className="m-1 form-label"><b>Nachname : </b></label>
+                <input type="text" placeholder="lastname" className="m-1 form-control w-75"
                         value={lastname} onChange={(e)=> setLastname(e.target.value)} required/>
 
 
-                <label htmlFor="gender" className="m-2 form-label"><b>Geschlicht : </b></label>
-                <input className=" m-2 form-check-input" type="radio" name='gender'
+                <label htmlFor="gender" className="m-1 form-label"><b>Geschlicht : </b></label>
+                <input className=" m-1 form-check-input" type="radio" name='gender'
                         value={gender} onClick={(e)=> setGender('Male')} />
                         <label className="form-check-label" htmlFor="gender">Male</label>
 
-                <input className="m-2 form-check-input" type="radio" name='gender'
+                <input className="m-1 form-check-input" type="radio" name='gender'
                         value={gender} onClick={(e)=> setGender('Female')} />
                         <label className="form-check-label" htmlFor="gender">Female</label><br/>
 
 
-                <label htmlFor="age" className="m-2 form-label"><b>Alter : </b></label>
-                <input type="number" placeholder="Age" className="m-2 form-control w-75"
+                <label htmlFor="age" className="m-1 form-label"><b>Alter : </b></label>
+                <input type="number" placeholder="Age" className="m-1 form-control w-75"
                         onBlur={(e)=> setAge(e.target.value)} />
 
-                <label htmlFor="avatar" className="m-2 form-label"><b>Profilebild : </b></label>
-                <input type="file" className="m-2 form-control w-75"
+                <label htmlFor="avatar" className="m-1 form-label"><b>Profilebild : </b></label>
+                <input type="file" className="m-1 form-control w-75"
                         accept='image/*' onChange={(e)=> setAvatar(e.target.files[0])} />
             
-                <input type="submit" className="m-2 btn btn-warning"/>
+                <input type="submit" className="m-1 btn btn-warning"/>
             </form>
             <p className="m-3">haben Sie shoch ein Account ? <br/>
             <button className='btn btn-outline-dark m-3'><Link to= {'/login'}>zum Login</Link></button></p>
