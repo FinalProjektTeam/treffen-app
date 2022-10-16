@@ -2,6 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import '../Layout/components.css'
 import useUser from '../hooks/useUser';
+import logo from '../images/logoklein.png'
+
 
 
 export default function Navigation(props) {
@@ -14,10 +16,10 @@ export default function Navigation(props) {
     
       <div className='nav-component'>
         <div className="nav">
-            <img src="images/first-logo.png" alt="logo" style={{width:'70px',height:'65px', borderRadius:'50%'}} />
+            <img src={logo} alt="logo" style={{width:'70px',height:'65px', borderRadius:'50%'}} />
             <h4>𝕋𝕣𝕖𝕗𝕗𝕖𝕟 𝔸𝕡𝕡​​​​​</h4>
 
-            {user.data && <p>Hallo <span style={{color: 'violet'}}>{user.data.firstname}</span></p>}
+            {user.data && <p className='fs-5'>Hallo <span style={{color: 'purple'}}>{user.data.firstname}</span></p>}
           
             <div>
               <button className='btn nav-btn'>

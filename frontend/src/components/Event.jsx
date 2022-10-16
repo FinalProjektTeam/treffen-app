@@ -13,11 +13,16 @@ export default function Event() {
     const [error, setError] = useState('')
     const [errors, setErrors] = useState([])
 
-    const [commentDeleted, setCommentDeleted] = useState(false)
-    const [ commentError, setCommentError] = useState(false)
+    const [title, setTitle] = useState("")
+    const [datum, setDatum] = useState("")
+    const [category, setCategory] = useState("")
+    const [description, setDescription] = useState("")
+    //const [bild, setBild] = useState("")
 
     const [userExist, setUserExist] = useState(false)
+    const [isFetching, setIsFetching] = useState(false)
 
+    const [showInput, setShowInput] = useState(false)
  
     useEffect(()=>{
        fetch('http://localhost:4000/events/'+ eventID)
@@ -26,6 +31,7 @@ export default function Event() {
                 const result = await res.json()
                 setEvent(result)    
                 console.log('EVENT is => ',result);
+                setIsFetching(true)
             }
         })
         .catch((err)=>console.log(err))
@@ -34,6 +40,8 @@ export default function Event() {
     const handleJoinEvent = async() =>{
         setError('')
         setErrors([])
+        setUserExist(user.data.exist)
+        setIsFetching(false)
        const res = await fetch('http://localhost:4000/events/join', {
         method: 'POST',
         credentials: 'include',
@@ -48,17 +56,19 @@ export default function Event() {
        const result = await res.json()
        
        if(res.status === 200){
+            setUserExist(result.exist)
             console.log(result);
             // console.log('USER EXIST => ', result.exist);
 
             setUserExist(result.exist)
             if(!result.exist){
                 alert('𝙏𝙝𝙖𝙣𝙠𝙨 𝙛𝙤𝙧 𝙟𝙤𝙞𝙣𝙞𝙣𝙜 𝙩𝙝𝙞𝙨 𝙀𝙫𝙚𝙣𝙩 ❗')
-            } else if(result.exist){
-                setTimeout(()=>{
-                    setUserExist(false)
-                }, 3000)
-            }
+            } 
+            // else if(result.exist){
+            //     setTimeout(()=>{
+            //         setUserExist(false)
+            //     }, 3000)
+            // }
             fetch('http://localhost:4000/events/'+eventID, {
                 method: 'GET',
                 credentials: 'include',
@@ -78,6 +88,9 @@ export default function Event() {
        else if(result.error){
         console.log(result.error);
         setError(result.error)
+        setTimeout(()=>{
+            setError('')
+            }, 3000)
        }
        else if(result.errors){
         setErrors(result.errors.map(e=> <h3 style={{color:'red'}}>{e.msg}</h3>));
@@ -158,35 +171,92 @@ export default function Event() {
         }
 
     }
+    const handleUpdateEvent = async(e)=>{
+        e.preventDefault()
+        
+        const formData = new FormData()
+        formData.append("title", title)
+        formData.append("datum", datum)
+        formData.append("category", category)
+        formData.append("description", description)
+        //formData.append("bild", bild)
+
+        const res = await fetch('http://localhost:4000/events/'+eventID,{
+            method: "PATCH",
+            credentials: "include",
+            body: formData
+        })
+
+        const result = await res.json()
+        if(res.status === 200){
+            fetch('http://localhost:4000/events/'+eventID, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(async(res)=>{
+                const result = await res.json()
+                if(res.status === 200){
+                    setEvent(result)
+                }
+             })
             
+             setShowInput(false)
+        }
+        console.log('Updating Event: ',result);
+    }
 
   return (
     <div className='Event'>
-        <h1 className='my-3 text-danger text-opacity-75'>{event.title}</h1>
-        {error && <h3 style={{color:'red'}}>{error}</h3> }
-        {errors && <h3 style={{color:'red'}}>{error}</h3> }
+        <h1 className='my-3 text-danger text-opacity-75'>{showInput?<input  type="text" className='form-control my-2 m-auto text-primary w-50' placeholder='Edit the Date of Event' value={title} onChange={(e)=>setTitle(e.target.value)}  required />:event.title}</h1>
+            {error && <h3 style={{color:'red'}}>{error}</h3> }
+            {errors && <h3 style={{color:'red'}}>{error}</h3> }
 
         <div className="event-image bg-warning bg-opacity-25">
             <img src={event.bild && event.bild.replace("uploads/","http://localhost:4000/")} alt="bild" />
-            {user.data && <button onClick={handleJoinEvent} > {userExist? ' 𝘂𝗻𝗷𝗼𝗶𝗻' :'🇯​​​​​🇴​​​​​🇮​​​​​🇳' } ​​​​​</button>}
+            {user.data && <button onClick={handleJoinEvent} > 
+            {
+            !isFetching ? (userExist ? '🇯​​​​​🇴​​​​​🇮​​​​​🇳' : ' 𝘂𝗻𝗷𝗼𝗶𝗻') : 'Click to Join or to leave Event'
+            }​​​​​</button>}
         </div>
-            {userExist && <h1 style={{color:'orangered'}}>You aren't joining Event!</h1>}
+        
             <h2 className='border w-50 p-2 m-auto my-2 text-primary bg-white'>Event Details</h2>
             <div className="description-map">
                 <div className="info border mx-3 p-5 bg-warning bg-opacity-25">
                     <ul style={{fontSize:'1.3rem'}}>
-                    <li><b>Date :</b> <span className='text-primary'>{event.datum}</span></li>
+                        <li><b>Date :</b> {showInput?<input  type="date" className='form-control my-2 text-primary align-items-start' placeholder='Edit the Date of Event' value={datum} onChange={(e)=>setDatum(e.target.value)}  required />:<span className='text-primary'>{event.datum}</span>}</li>
+
                         {event.user && <li><b>Owner :</b> <span className='text-danger'>{event.user.firstname+' '+event.user.lastname}</span></li>}
 
-                        <li><b>Category :</b> <span className='text-success'>{event.category}</span></li>
+                        <li><b>Category :</b> {showInput? 
+                        <select className='form-select w-75 my-2 text-success'
+                            defaultValue='Allgemein '
+                            onChange={(e)=>setCategory(e.target.value)}>    
+                                        <option value="Allgemein">Allgemein</option>
+                                        <option value="Erwachsene">Erwachsene</option>
+                                        <option value="Kinder">Kinder</option>
+                        </select>: <span className='text-success'>{event.category}</span>}</li>
                     </ul>
 
                     <div className="description border p-3 bg-white" style={{fontSize:'1.5rem'}}>
                         <details>
                             <summary>Description</summary>
-                            <p className='text-secondary fs-6'>{event.description}</p>
+                            {showInput? <input type="text" className='form-control my-2 w-75' value={description} onChange={(e)=>setDescription(e.target.value)}/>:<p className='text-secondary fs-6'>{event.description}</p>}
                         </details>
                     </div>
+                    {(user.data?._id === event.user?._id) &&
+                        showInput ?
+                        <button className='btn btn-outline-warning btn-lg mt-3' 
+                            onClick={handleUpdateEvent}>Done</button>
+                        :<button className='btn btn-outline-warning btn-lg mt-3' 
+                            onClick={()=>{setShowInput(!showInput)
+                            console.log('showInput now is :',showInput);
+                            }}>Edit</button>
+                    }
+
+
                 </div>
 
                 <div className="map">
@@ -241,5 +311,7 @@ export default function Event() {
             <Link to={"/events-list"}><button type="button" className="btn btn-info btn-lg my-3">Explore Events</button></Link>
         </div>
     </div>
+    
+    
   )
 }

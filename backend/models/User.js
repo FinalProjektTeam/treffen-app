@@ -1,3 +1,4 @@
+
 const {Schema, model, SchemaTypes} = require('mongoose')
 
 const userSchema = Schema({
@@ -22,6 +23,11 @@ const userSchema = Schema({
         ref: 'Event'
     }],
     token: {type: String},
+
+    messenger: [{
+        type: SchemaTypes.ObjectId,
+        ref: 'Chat'
+    }]
 })
 
 // userSchema.methods.toJSON = function(){

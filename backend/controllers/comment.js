@@ -6,7 +6,6 @@ exports.createComment = async(req, res, next)=>{
     const comment = await new Comment(req.body).populate('user', '-token -password -__v')
     comment.user = req.user
 
-    // await comment.populate('user')
     
     if(!comment.user){
         const error = new Error('user not found!')
@@ -17,7 +16,7 @@ exports.createComment = async(req, res, next)=>{
     const event = await Event.findById(comment.event).populate('comments').populate('user', '-token -password -__v')
 
     if(!event){
-        const error = new Error('Event is not avaiable anymore!')
+        const error = new Error('Event is no more available !')
         error.status = 400
         return next(error)
     }

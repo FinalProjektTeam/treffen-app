@@ -9,13 +9,15 @@ export default function UserAccount() {
     let {id} = useParams()
     const user = useUser()
     const [userData, setUserData] = useState('');
-    const [updateFirst , setUpdateFirst] = useState('');
-    const [updateLast , setUpdateLast] = useState('');
-    const [updateAge , setUpdateAge] = useState('');
-    const [updateImage , setUpdateImage] = useState('');
-    const [showSuccess , setShowSuccess] = useState('false');
+    const [showInput, setShowInput] = useState(true)
 
+    const [firstname, setFirstName] = useState("")
+    const [lastname, setLastName] = useState("")
+    const [updateAge, setUpdateAge] = useState('')
+    const [updateGender, setUpdateGender] = useState('Male')
 
+    const [avatar, setAvatar] = useState('')
+    const [showSuccess , setShowSuccess] = useState(false);
    
     useEffect(()=>{
         const url = "http://localhost:4000/user/"+id;
@@ -68,28 +70,47 @@ export default function UserAccount() {
         fetchData();
       }
 
-      const handleUpdate = async e => {
+      const handleEditUser = async(e)=>{
         e.preventDefault()
-        const status = await user.update({
-          updateFirst,
-          updateLast,
-          updateAge,
-          updateImage
-        })
+  
+        const formData = new FormData()
+          formData.append("firstname", firstname)
+          formData.append("lastname", lastname)
+          formData.append("age", updateAge)        
+          formData.append("gender", updateGender)
+          formData.append("avatar", avatar)
+  
+        const res = await fetch('http://localhost:4000/user',{
+          method: 'PATCH',
+          credentials: 'include',
     
-        if(status === 200) {
-          setShowSuccess(true)
-      
-          setTimeout(() => {
-            setShowSuccess(false)
-          }, 4000)
-        }
+          body: formData
+        })
+  
+        const result = await res.json()
+  
+          const url = `http://localhost:4000/user/${id}`
+  
+          const fetchData = async ()=>{
+            try{
+              const response = await fetch(url)
+              const json = await response.json();
+              console.log("userData Obj", json);
+              setUserData(json)
+              setShowInput(!showInput)
+            }
+            catch(error) {
+              console.log(error);
+            }
+          }
+          fetchData()       
       }
+
          
   return (
 
     <div className="container userAccount_div">
-        <section className="p-4 d-flex justify-content-around align-items-center" style={{width:'70%', margin : 'auto'}}>
+       <section className="p-4 d-flex justify-content-around align-items-center" style={{width:'70%', margin : 'auto'}}>
           <div className="m-3">
           {userData.avatar && 
             <img src={userData.avatar} alt="avatar" className="p-3 avatar_img" />

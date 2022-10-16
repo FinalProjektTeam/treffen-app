@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import logo from '../images/Logo.png'
 
 export default function NewEvent() {
 
@@ -57,47 +58,60 @@ export default function NewEvent() {
   
 
   return (
-    <div>NewEvent
+    <div >
+         <p className='my-3 text-danger text-opacity-75 fs-2'>Create new Event</p>
+        <section className='d-flex justify-content-evenly p-3'>
+        <div className='bg-light border p-2 w-50 m-2'>
+            <form className='m-auto' onSubmit={handleNewEvent}>
+                <label className="m-2 form-label"><b>Category : </b></label>
+                <select className='form-select my-2 m-auto w-75 text-primary fs-5'
+                defaultValue='Allgemein' onChange={handleCategory}>    
+                    <option value="Allgemein">Allgemein</option>
+                    <option value="Erwachsene">Erwachsene</option>
+                    <option value="Kinder">Kinder</option>
+                </select>
+                <br />
 
-    <form onSubmit={handleNewEvent}>
-        <select
-            defaultValue='Allgemein'
-            onChange={handleCategory}
-        >    
-            <option value="Allgemein">Allgemein</option>
-            <option value="Erwachsene">Erwachsene</option>
-            <option value="Kinder">Kinder</option>
-        </select>
-        <br />
+                <input type="text" className="my-2 m-auto form-control w-75 fs-5 text-danger" placeholder='Title' onBlur={e=>setTitle(e.target.value)} />
+                <br />
+                <input type="text" className="my-2 m-auto text-secondary form-control w-75 fs-5" placeholder='Adresse' onBlur={e=>setAdresse(e.target.value)} />
+                <br />
+                <input type="date" className="my-2 m-auto form-control w-75 fs-5 text-success" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
+                <br />
+                <input type="text" className="my-2 m-auto text-secondary form-control w-75 fs-5" placeholder='write a description' onBlur={e=> setDescription(e.target.value)} />
 
-        <input type="text" placeholder='Title' onBlur={e=>setTitle(e.target.value)} />
-        <br />
-        <input type="text" placeholder='Adresse' onBlur={e=>setAdresse(e.target.value)} />
-        <br />
-        <input type="date" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
-        <br />
-        <label htmlFor="avatar" className="m-2 form-label"><b>Event Photo : </b></label>
-        <input type="file" className="m-2 form-control w-50"
-                        accept='image/*' onChange={(e)=> setEventBild(e.target.files[0])} />
-        <br />
-        <input type="text" placeholder='write a description' onBlur={e=> setDescription(e.target.value)} />
-
-        <br />
-        <br />
-
-        <button className='btn btn-outline-danger' type="submit">Create Event</button>
-    </form>
+                <label htmlFor="avatar" className="m-2 form-label"><b>Event Photo : </b></label>
+                <input type="file" className="m-2 m-auto form-control w-75"
+                                accept='image/*' onChange={(e)=> setEventBild(e.target.files[0])} />
+                
+                <button className='btn btn-outline-danger my-4' type="submit">Create Event</button>
+            </form>
 
 
-    <h2>{title+'\n'+adresse+'\n'+ datum} </h2>
+        
+        </div>
+        <div className='border p-3 w-50 m-2'>
+            <p className='my-3 text-warning fs-2 border w-75 m-auto bg-light'>preview</p>
 
+            {category ? <p className='my-3 text-primary text-opacity-75 fs-3'>🔹 Category : {category}</p> : <p className='my-3 text-secondary text-opacity-25 fs-3'></p>}
 
-    <h3>Category: {category}</h3>
+            {title ? <p className='my-3 text-danger text-opacity-75 fs-3'>{title}</p> : <p className='my-3 text-secondary text-opacity-25 fs-3'>🔸 Title of Event</p>}
 
+            {adresse ? <p className='my-3 text-dark text-opacity-50 fs-3'>{adresse}</p> : <p className='my-3 text-secondary text-opacity-25 fs-3'>🔹 Address of Event</p>}
 
-        {error && <h1 style={{color: 'red'}} >{error}</h1>}
-        {errors && <h1 style={{color: 'red'}} >{errors}</h1>}
+            {datum ? <p className='my-3 text-success text-opacity-75 fs-3'>{datum}</p> : <p className='my-3 text-secondary text-opacity-25 fs-3'>🔸 Date of Event</p>}
 
+            {description ? <div className='border p-2 m-auto my-3 text-secondary w-75 bg-light'>{description}</div> : <p className='my-3 text-secondary text-opacity-25 fs-3'>🔹 Description</p> }
+
+            
+            <img src={logo} className='h-50 w-50' alt="Event-Bg"></img>
+
+                     
+            {error && <h1 style={{color: 'red'}} >{error}</h1>}
+            {errors && <h1 style={{color: 'red'}} >{errors}</h1>}
+
+        </div>
+        </section>
     </div>
   )
 }

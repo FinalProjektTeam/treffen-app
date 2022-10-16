@@ -12,17 +12,14 @@ exports.register = async(req, res, next)=>{
     user.token = crypto.randomBytes(64).toString('hex')
 
     if(req.file){
-                const filename = path.join(process.cwd(), req.file.path)
+        const filename = path.join(process.cwd(), req.file.path)
         const buffer = await fs.readFile(filename);
         const image = `data:${req.file.mimetype};base64,${buffer.toString("base64")}`;
         user.avatar = image;
         await fs.unlink(filename);
 
     }
-    console.log(req.file);
-    console.log(req.avatar);
-
-
+    
     console.log(user);
     await user.save()
     res.cookie('user-token', user.token, {maxAge: 999999999999999, sameSite: 'strict', httpOnly: true})
@@ -35,7 +32,7 @@ exports.login = async(req, res, next) =>{
     const user = await User.findOne().where('email').equals(email)
 
     if(!user){
-        const error = new Error('Falsche E-Mail adresse!')
+        const error = new Error('wrong E-Mail address!')
         error.status = 400
         return next(error)
     }
@@ -43,7 +40,7 @@ exports.login = async(req, res, next) =>{
     const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
     if(!isPasswordCorrect){
-        const error = new Error('Dein Passwort stimmt nicht!!')
+        const error = new Error('wrong password!')
         error.status = 400
         return next(error)
     }
@@ -64,7 +61,7 @@ exports.getUsers = async(req, res, next) =>{
 
 exports.getSingleUser = async (req, res, next)=>{
     const {id} = req.params
-    const user = await User.findById(id).populate('events').populate('eventslist')
+    const user = await User.findById(id).populate('events', '-token -password -__v').populate('eventslist', '-token -password -__v')
     if(!user){
         const error = new Error('User not found')
         error.status = 400
@@ -107,23 +104,39 @@ exports.getCurrentUser = async(req, res, next)=>{
 
     res.status(200).json(user)
 }
-
-/** @type {import("express").RequestHandler} */
-exports.updateUser = async (req, res) => {
-    const {name} = req.body
+exports.updateUser = async(req, res, next)=>{
+    const {firstname, lastname} = req.body
   
     const user = req.user
-    user.name = name
-  
-    if(req.file) {
-      const filename = path.join(process.cwd(), req.file.path)
-          const buffer = await fs.readFile(filename);
-          const image = `data:${req.file.mimetype};base64,${buffer.toString("base64")}`;
-          user.profileImage = image;
-          await fs.unlink(filename);
-    }
-  
+
+    console.log('USER is :  ', user);
+    console.log('firstname is: ', firstname);
+
+    console.log('lastname is: ', lastname);
+
+    user.firstname = firstname
+    user.lastname = lastname
+    
     await user.save()
-  
     res.status(200).send(user)
-  }
+}
+
+// /** @type {import("express").RequestHandler} */
+// exports.updateUser = async (req, res) => {
+//     const {name} = req.body
+  
+//     const user = req.user
+//     user.name = name
+  
+//     if(req.file) {
+//       const filename = path.join(process.cwd(), req.file.path)
+//           const buffer = await fs.readFile(filename);
+//           const image = `data:${req.file.mimetype};base64,${buffer.toString("base64")}`;
+//           user.profileImage = image;
+//           await fs.unlink(filename);
+//     }
+  
+//     await user.save()
+  
+//     res.status(200).send(user)
+//   }

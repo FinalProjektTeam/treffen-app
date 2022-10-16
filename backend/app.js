@@ -24,6 +24,7 @@ app.options('*', cors(corsConfig))
 app.use('/user', require('./routes/user'))
 app.use('/events', require('./routes/events-list') )
 app.use('/comments', require('./routes/comment'))
+
 app.use(express.static('uploads'))
 
 app.post('/drop-database', async(req, res, next)=>{
@@ -32,7 +33,7 @@ app.post('/drop-database', async(req, res, next)=>{
 })
 
 app.use( (req, res, next)=>{
-    const error = new Error('Falsche URL!')
+    const error = new Error('wrong URL!')
     error.status = 404
     return next(error)
 })
