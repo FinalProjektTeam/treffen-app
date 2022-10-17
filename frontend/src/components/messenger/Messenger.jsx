@@ -7,7 +7,7 @@ import defaultAvatar1 from "../../images/avatar-feminin.jpg"
 
 export default function Messenger() {
     const user = useUser()
-
+    const [userData, setUserData] = useState({})
     const [ users, setUsers] = useState([])
     const [ friend, setFriend] = useState('')
     const [message, setMessage] = useState('')
@@ -26,31 +26,34 @@ export default function Messenger() {
           credentials: 'include'
         })
         .then(async res=>{
-            const result = await res.json()
           if(res.status === 200){
+            const result = await res.json()
             setUsers(result)
             console.log('Users result is => ', result);
+            console.log('Users DATA are => ', user.data);
+
           } 
         })
       }, [] )
 
-      // useEffect( ()=>{
-      //   // setReady(false)
-      //   fetch('http://localhost:4000/chat', {
-      //     method: 'GET',
-      //     credentials: 'include',
-      //   })
-      //   .then(async (res)=>{
-      //       console.log("Friend ID",friend);
-      //       const result = await res.json()
-      //       console.log('EFFECT CHAT =>: ',result);
-      //     //   if(res.status === 200){
-      //     // } 
-      //   })
-      //   .catch( (err)=>{
-      //       console.log(err);
-      //   })
-      // }, [friend] )
+      useEffect( ()=>{
+        // setReady(false)
+        fetch('http://localhost:4000/chat?chatID='+chatID, {
+          method: 'GET',
+          credentials: 'include',
+        })
+        .then(async (res)=>{
+            console.log("Friend ID",friend);
+            if(res.status === 200){
+              const result = await res.json()
+              console.log('EFFECT CHAT =>: ',result);
+              setChat(result)
+            } 
+        })
+        .catch( (err)=>{
+            console.log(err);
+        })
+      }, [chatID] )
 
       const handleSetChat = async(e)=>{
         console.log('es KLAPPT');
@@ -64,9 +67,9 @@ export default function Messenger() {
               friend: friend,
           })
         })
-        const result = await res.json()
-        console.log('Chat result is => ', result);
         if(res.status === 200){
+          const result = await res.json()
+          console.log('Chat result is => ', result);
           setChat(result)
           setChatID(result._id)
           setHideChatForm(true)
@@ -105,18 +108,68 @@ export default function Messenger() {
             message: message
         })
        })
-      const result = await res.json()
-      console.log('LAST Chat result is => ', result);
        if(res.status === 200){
+         const result = await res.json()
+         console.log('LAST Chat result is => ', result);
          setChat(result)
+         setMessage("")
+
+         fetch('http://localhost:4000/chat?chatID='+chatID, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
+      .then(async(res)=>{
+          const result = await res.json()
+          if(res.status === 200){
+              setChat(result)
+              setChatID(result._id)
+              setHideChatForm(true)
+
+          }
+       })
+
        } 
-       setMessage("")
+    }
+
+    const handleNotification = async(e)=>{
+
+      const res = await fetch('http://localhost:4000/user/notification', {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+     
+       })
+
+       const result = await res.json()
+       if(res.status === 200){
+
+          console.log('NOTIFICATION',user);
+          window.location.reload()
+          
+            // const url = "http://localhost:4000/user/"+user.data._id;
+            // const fetchData = async()=>{
+            //     try{
+            //         const response = await fetch(url);
+            //         const json = await response.json();
+            //         console.log("userData Obj", json);
+            //         setUserData(json)
+            //     } catch (error){
+            //         console.log("error", error);
+            //     }
+            // }
+            // fetchData();
+       }
     }
 
   return (
     <div className='Messenger'>
         <h1 className='h3'>
-            Have Fun {user.data.gender === "Male"?'Mr. ':"Mrs. "}
+            Have Fun &nbsp;
             {user.data.firstname} {user.data.lastname}
         </h1>
         {friendName && <h1>Chatting with: {friendName}</h1>}
@@ -150,12 +203,16 @@ export default function Messenger() {
         )}
         </ul>
 
+        {user.data.notification && <h1 onClick={handleNotification}>You got new Message| From: {user.data.chatting?.firstname}</h1>}
+        {!user.data.notification && <h1>No Notification</h1>}
+
        { chat &&  <div className="chat" style={{margin:"2rem"}}>
                 <h1>Chat exist</h1>
                     <ul className='chat-list'>
                         {chat.messages  && 
                             chat.messages.map(m=>
                                 <li key={m._id} style={ {textAlign: (m.user.email === user.data.email?'left': 'right')} }>
+                                    <img src={m.user.avatar? m.user.avatar : (m.user.gender === 'Male' ? defaultAvatar : defaultAvatar1 ) } />
                                     {m.user?.firstname} said: <br/>
                                     {m.message} <hr/>
                                 </li>
@@ -172,9 +229,6 @@ export default function Messenger() {
             <br />
             <button onClick={handleStartChat}>Send</button>
         </form>}
-       {/* <h1>{friend.firstname}</h1> */}
-
-
     </div>
   )
 }

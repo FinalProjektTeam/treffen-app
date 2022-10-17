@@ -28,7 +28,7 @@ exports.register = async(req, res, next)=>{
 
 exports.login = async(req, res, next) =>{
     const {email, password} = req.body
-    const user = await User.findOne().where('email').equals(email)
+    const user = await User.findOne().where('email').equals(email).populate('chatting')
 
     if(!user){
         const error = new Error('Falsche E-Mail adresse!')
@@ -95,7 +95,7 @@ exports.getCurrentUser = async(req, res, next)=>{
         return res.status(200).json(null)
     }
 
-    const user = await User.findOne().where('token').equals(token)
+    const user = await User.findOne().where('token').equals(token).populate('chatting')
     if(!user){
         console.log('user failed');
         return res.status(200).json(null)
@@ -131,4 +131,16 @@ exports.updateUser = async(req, res, next)=>{
 
     await user.save()
     res.status(200).json(user)
+}
+
+exports.notification = async (req,res, next)=>{
+
+    const user = await User.findById(req.user._id)
+
+    user.notification = false
+    console.log(user);
+
+    await user.save()
+
+    res.status(200).send(user)
 }

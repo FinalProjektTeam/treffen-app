@@ -3,8 +3,10 @@ import {Link} from 'react-router-dom'
 // import '../../Layout/components.css'
 import useUser from '../../hooks/useUser';
 import "./navigation.scss"
-import logo from "../../images/first-logo.png"
+import logo from "../../images/Logoklein.png"
 import defaultAvatar from '../../images/avatar-maskulin.png'
+import defaultAvatar1 from '../../images/avatar-feminin.jpg'
+
 
 
 export default function Navigation(props) {
@@ -24,7 +26,7 @@ export default function Navigation(props) {
       <div className='Navigation'>
         <div className="nav-container top-nav" style={{backgroundColor: 'whitesmoke'}} >
 
-            <img src={logo} alt="logo" style={{width:'50px', borderRadius:'50%'}} onClick={()=> window.location.reload()} title='Change Color'/>
+            <img src={logo} alt="logo" style={{width:'50px', borderRadius:'50%'}} title='App Logo'/>
 
             <h2>Treffen App</h2>
 
@@ -53,7 +55,7 @@ export default function Navigation(props) {
 
              {user.data && 
                 <button className='nav-button'>
-                  <Link to= {'/user/'+user.data._id}>User Account</Link>
+                  <Link to= {'/user/'+user.data._id}>Account</Link>
                 </button>}
 
               {user.data && 
@@ -62,13 +64,13 @@ export default function Navigation(props) {
                   </button>
               }
 
-              {/* {user.data && 
-                  <div className='user-avatar' >
+              {user.data && 
+                  <button className='user-avatar' >
                       <Link to= {'/user/'+user.data._id}>
-                          <img src= {user.data.avatar ? user.data.avatar : defaultAvatar} alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} />
+                          <img src= {user.data.avatar ? user.data.avatar : (user.data.gender ==='Male'? defaultAvatar: defaultAvatar1)} alt="profilePhoto" style={{width:'40px',height:'40px' , borderRadius: '50%'}} />
                       </Link>
-                  </div>
-              } */}
+                  </button>
+              }
 
           </ul>
 

@@ -25,11 +25,15 @@
       list-style-type: none;
       margin: 0;
       padding: 0;
+      background-color: whitesmoke;
+
     }
 
     .nav-buttons > .nav-button {
       margin: 0 1rem;
       overflow: hidden;
+      border: 2px solid lightgray;
+      height: 30px;
     }
 
     &.top-nav {
@@ -101,15 +105,15 @@
       }
       .nav-buttons {
         position: absolute;
-        top: 0;
+        top: 20px;
         margin: 1rem auto ;
         // right: 0;
         flex-direction: column;
         width: 70%;
-        transform: translate(18%, 50%);
+        transform: translate(18%, 35%);
         justify-content: center;
         align-items: center;
-        border-radius: 100px 200px;
+        // border-radius: 100px 200px;
       }
       #menu-toggle ~ .nav-buttons .nav-button {
         height: 0;
@@ -131,10 +135,14 @@
         margin: 0;
         padding: 0.5em 0;
         width: 100%;
+
+        
       }
-      .nav-buttons > .nav-button:not(:last-child) {
-        border-bottom: 1px solid rgb(115, 39, 39);
+     
+      .nav-buttons > button.user-avatar{
+        display: none;
       }
+      
     }
 
     > h2,

@@ -204,14 +204,12 @@ export default function Event() {
             fetch('http://localhost:4000/events/'+eventID, {
                 method: 'GET',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+               
             })
             .then(async(res)=>{
-                const result = await res.json()
+                const resu = await res.json()
                 if(res.status === 200){
-                    setEvent(result)
+                    setEvent(resu)
                 }
              })
              setShowInput(false)
@@ -237,29 +235,34 @@ export default function Event() {
             }
             </button>
         }
-   
         </div>
-            <br />
-            <hr />
+            <br/>
+            <hr/>
             <h1 className='event-details'>Event Details</h1>
         <div className="description-map">
             <div className="info">
                 {
-                  user.data && event.user &&  (user.data._id === event.user._id) && 
+                  user.data && event.user &&  (user.data._id === event.user._id) &&
                 (  showInput ?
                   <button onClick={handleUpdateEvent} >Update</button>
                   :
                   <button onClick={()=>setShowInput(!showInput)} >  Edit</button> 
                 )
                 }
-                <br /> <br />
                { showInput ?
-                   <>
+                   <div className='update-event'>
+                    <div className="part">
+
                     <label htmlFor="title">Title: </label>
-                    <input type="text" value={title} onChange={(e)=>setTitle(e.target.value)}/> <br/>
+                    <input type="text" value={title} onChange={(e)=>setTitle(e.target.value)}/> 
+                    </div>
+                    <div className="part">
 
                     <label htmlFor="date">Date: </label>
-                     <input type="date" value={datum} onChange={(e)=>setDatum(e.target.value)} placeholder=''/> <br />
+                     <input type="date" value={datum} onChange={(e)=>setDatum(e.target.value)} placeholder=''/>
+                    </div>
+                    <div className="part">
+
                      <label htmlFor="category">Category: </label>
                      <select
                         defaultValue='Allgemein'
@@ -267,26 +270,30 @@ export default function Event() {
                         <option value="Allgemein">Allgemein</option>
                         <option value="Erwachsene">Erwachsene</option>
                         <option value="Kinder">Kinder</option>
-                    </select>
+                     </select>
+                    </div>
                     <br />
+                    <div className="part">
+
                      <label htmlFor="description">Description: </label>
                      <input type="text" value={description} onChange={(e)=>setDescription(e.target.value)}/>   
-                     <br />
+                    </div>
+                     <div className="part">
+
                      <label htmlFor="image">New Image: </label>
                      <input type="file" accept='image/*' onBlur={(e)=>setBild(e.target.files[0])} />
-                   </>
+                     </div>
+                   </div>
                     :
                     <ul>
                         <li>Datum: {event.datum}</li>
                         {event.user && <li>Owner: {event.user.firstname+' '+event.user.lastname}</li>}
                         <li>Category: {event.category}</li>
                         <li>
-                        { !showInput &&  
                         <details>
                             <summary>Description</summary>
                             <p>{event.description}</p>
                         </details>
-                        }
                         </li>
                     </ul>
                }
@@ -315,7 +322,7 @@ export default function Event() {
                      { event.team && event.team.length>0 ? 
                      event.team.map((member)=><li key={member._id}>{member.firstname+' '+member.lastname}</li>)
                      :
-                      <p>Be the first who will join this event .</p>}
+                     <p>Be the first who will join this event .</p>}
                 </ul>
         </div>
         <hr />

@@ -21,5 +21,7 @@ app.post('/logout', auth,  controller.logout)
 
 app.get('/:id',  controller.getSingleUser)
 
+app.patch('/notification',auth , controller.notification )
+
 
 module.exports = app

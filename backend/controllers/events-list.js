@@ -138,11 +138,14 @@ exports.updateEvent = async(req,res,next)=>{
     event.category = category ? category : event.category
     event.description = description ? description : event.description
 
-    event.bild = req.file?.path
+    if(req.file?.path ){
+
+        event.bild = req.file?.path
+    }
 
     await Promise.all( event.comments.map((e)=>e.populate('user', '-token -password -__v')) )
 
     await event.save()
 
-    res.status(200).json(event)
+    res.status(200).send(event)
 }

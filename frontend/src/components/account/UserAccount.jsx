@@ -166,6 +166,9 @@ export default function UserAccount() {
             </div>
         }
       </div>
+
+      {userData.notification && <h1>You got new Message</h1>}
+      
       <div className="events">
         {/* <img src="" alt="" /> */}
               <ul className="created-events">
@@ -211,7 +214,7 @@ export default function UserAccount() {
             <button>Create new Event</button>
         </Link>
       </div>
-      <div>
+      <div className="explore-events">
         <Link to={"/events-list"}>
             <button>Explore Events</button>
         </Link>
