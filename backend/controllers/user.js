@@ -28,7 +28,7 @@ exports.register = async(req, res, next)=>{
 
 exports.login = async(req, res, next) =>{
     const {email, password} = req.body
-    const user = await User.findOne().where('email').equals(email).populate('chatting')
+    const user = await User.findOne().where('email').equals(email).populate('messenger').populate('chatting')
 
     if(!user){
         const error = new Error('Falsche E-Mail adresse!')
@@ -54,13 +54,13 @@ exports.login = async(req, res, next) =>{
 
 exports.getUsers = async(req, res, next) =>{
     // const users = await User.find( {}, 'email token -_id')
-    const users = await User.find( ).populate('messenger')
+    const users = await User.find( ).populate('messenger').populate('chatting')
     res.status(200).send(users)
 }
 
 exports.getSingleUser = async (req, res, next)=>{
     const {id} = req.params
-    const user = await User.findById(id).populate('events').populate('eventslist').populate('messenger')
+    const user = await User.findById(id).populate('events').populate('eventslist').populate('messenger').populate('chatting')
     if(!user){
         const error = new Error('User not found')
         error.status = 400
@@ -95,7 +95,7 @@ exports.getCurrentUser = async(req, res, next)=>{
         return res.status(200).json(null)
     }
 
-    const user = await User.findOne().where('token').equals(token).populate('chatting')
+    const user = await User.findOne().where('token').equals(token).populate('messenger').populate('chatting')
     if(!user){
         console.log('user failed');
         return res.status(200).json(null)

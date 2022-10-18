@@ -30,14 +30,14 @@ export default function Messenger() {
             const result = await res.json()
             setUsers(result)
             console.log('Users result is => ', result);
-            console.log('Users DATA are => ', user.data);
-
+            console.log('User DATA ===> ', user.data);
           } 
         })
       }, [] )
 
       useEffect( ()=>{
         // setReady(false)
+        console.log('friendID',friend);
         fetch('http://localhost:4000/chat?chatID='+chatID, {
           method: 'GET',
           credentials: 'include',
@@ -46,7 +46,7 @@ export default function Messenger() {
             console.log("Friend ID",friend);
             if(res.status === 200){
               const result = await res.json()
-              console.log('EFFECT CHAT =>: ',result);
+              console.log('EFFECT Read CHAT =>: ',result);
               setChat(result)
             } 
         })
@@ -55,8 +55,9 @@ export default function Messenger() {
         })
       }, [chatID] )
 
+
       const handleSetChat = async(e)=>{
-        console.log('es KLAPPT');
+        console.log('SetChat KLAPPT');
         const res = await fetch('http://localhost:4000/chat/set', {
             method: 'POST',
             credentials: 'include',
@@ -69,7 +70,7 @@ export default function Messenger() {
         })
         if(res.status === 200){
           const result = await res.json()
-          console.log('Chat result is => ', result);
+          console.log('Set Chat result ==> ', result);
           setChat(result)
           setChatID(result._id)
           setHideChatForm(true)
@@ -93,7 +94,7 @@ export default function Messenger() {
     //     setData()
     //   }
 
-    const handleStartChat = async(e) =>{
+    const handleSendMessage = async(e) =>{
         e.preventDefault()
       
        const res = await fetch('http://localhost:4000/chat', {
@@ -110,7 +111,7 @@ export default function Messenger() {
        })
        if(res.status === 200){
          const result = await res.json()
-         console.log('LAST Chat result is => ', result);
+         console.log('Send Message result  ==> ', result);
          setChat(result)
          setMessage("")
 
@@ -149,20 +150,20 @@ export default function Messenger() {
        if(res.status === 200){
 
           console.log('NOTIFICATION',user);
-          window.location.reload()
+          // window.location.reload()
           
-            // const url = "http://localhost:4000/user/"+user.data._id;
-            // const fetchData = async()=>{
-            //     try{
-            //         const response = await fetch(url);
-            //         const json = await response.json();
-            //         console.log("userData Obj", json);
-            //         setUserData(json)
-            //     } catch (error){
-            //         console.log("error", error);
-            //     }
-            // }
-            // fetchData();
+            const url = "http://localhost:4000/user/"+user.data._id;
+            const fetchData = async()=>{
+                try{
+                    const response = await fetch(url);
+                    const json = await response.json();
+                    console.log("userData Obj", json);
+                    setUserData(json)
+                } catch (error){
+                    console.log("error", error);
+                }
+            }
+            fetchData();
        }
     }
 
@@ -172,12 +173,12 @@ export default function Messenger() {
             Have Fun &nbsp;
             {user.data.firstname} {user.data.lastname}
         </h1>
-        {friendName && <h1>Chatting with: {friendName}</h1>}
+        {friendName && <><h1>Chatting with: {friendName}</h1>
 
-        { friendName && <div className="border">
+       <div className="border">
         {/* <h3>Start a Chat</h3> */}
-            <button onClick={handleSetChat}>Start a Chat</button>
-        </div>}
+            <button onClick={handleSetChat}>Set a Chat</button>
+        </div></>}
 
         {/* { chat.friend &&  <h3>Chatting with: {chat.friend?.firstname} {chat.friend?.lastname}</h3>} */}
 
@@ -188,7 +189,9 @@ export default function Messenger() {
                     <img src={e.avatar? e.avatar : (e.gender === "Male"?defaultAvatar: defaultAvatar1 )} alt="avatar-bild" width={'50'} />
 
                     <p>{e.email}</p>
+                    <p>{e.name}</p>
                     <button id={e._id} onClick={(event)=>{
+                      event.preventDefault()
                       setFriend(event.target.id)
                       setFriendName(e.firstname+' '+e.lastname)
                       setChat('')
@@ -203,8 +206,15 @@ export default function Messenger() {
         )}
         </ul>
 
-        {user.data.notification && <h1 onClick={handleNotification}>You got new Message| From: {user.data.chatting?.firstname}</h1>}
+        {
+          user.data.notification && 
+            <h1 onClick={handleNotification}>
+              You have got a new Message| From: {user.data.chatting?.firstname}
+            </h1>
+        }
         {!user.data.notification && <h1>No Notification</h1>}
+
+        {/* {user.data.notification && <h1>You have got a new Message from: {user.data.chatting.firstname+' '+user.data.chatting.lastname}</h1>} */}
 
        { chat &&  <div className="chat" style={{margin:"2rem"}}>
                 <h1>Chat exist</h1>
@@ -227,7 +237,7 @@ export default function Messenger() {
 
             <input type="text" value={message} onChange={(e)=>setMessage(e.target.value)} />
             <br />
-            <button onClick={handleStartChat}>Send</button>
+            <button onClick={handleSendMessage}>Send</button>
         </form>}
     </div>
   )

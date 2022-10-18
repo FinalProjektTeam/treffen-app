@@ -19,7 +19,7 @@ export default function UserAccount() {
     const [firstname, setFirstName] = useState("")
     const [lastname, setLastName] = useState("")
     const [updateAge, setUpdateAge] = useState('')
-    const [updateGender, setUpdateGender] = useState('Male')
+    const [updateGender, setUpdateGender] = useState('')
 
     const [avatar, setAvatar] = useState('')
     const [showSuccess , setShowSuccess] = useState(false);
@@ -167,7 +167,7 @@ export default function UserAccount() {
         }
       </div>
 
-      {userData.notification && <h1>You got new Message</h1>}
+      {userData.notification && <h1>You have got a new Message from: {userData.chatting?.firstname+' '+userData.chatting?.lastname}</h1>}
       
       <div className="events">
         {/* <img src="" alt="" /> */}
