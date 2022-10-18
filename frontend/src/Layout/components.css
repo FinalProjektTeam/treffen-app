@@ -145,19 +145,16 @@ html, body{
     gap: 20px;
     margin: 50px 25px;
 }
-
 .card{
     width: 300px;
     padding: 0 25px;
 }
-
 .card-image{
     padding: 70px;
     background-color: cornflowerblue;
     margin-bottom: 25px;
     margin-top: 15px;
 }
-
 .card > ul{
     text-align: left;
     margin-top: 20px;
@@ -184,9 +181,7 @@ html, body{
     background-color: whitesmoke;
     padding: 10px 0;
 }
-
 .map{
     padding: 50px;
     background-color: goldenrod;
-
 } */

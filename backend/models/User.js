@@ -26,7 +26,10 @@ const userSchema = Schema({
     messenger: [{
         type: SchemaTypes.ObjectId,
         ref: 'Chat'
-    }]
+    }],
+    notification:  {type: Boolean},
+    chatting: {type: SchemaTypes.ObjectId, ref: 'User'}
+
 })
 
 // userSchema.methods.toJSON = function(){

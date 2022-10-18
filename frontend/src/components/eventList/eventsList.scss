@@ -17,10 +17,10 @@
         transition: transform 1s ease-in-out .5s;
         text-shadow: -1px -1px 1px white;
         border: none;
-        border-bottom: 5px solid blue;
+        border-bottom: 5px solid purple;
 
         &:hover{
-            transform: scale(2);
+            transform: scale(1.5);
             transition: transform 1s ease-in-out .5s;
         }
         a{
@@ -65,8 +65,10 @@
                 background-color: white;
                 border: 2px solid blue;
                 cursor: pointer;
+                font-weight: bolder;
                 &:hover{
-                    transform: scale(1.5);
+                    transform: scale(1.3);
+                    color: blue;
                 }
             }
 
@@ -110,12 +112,18 @@
                 padding: .8rem 1.5rem;
                 margin: 1rem auto;
                 border-radius: .5rem;
+                border: none;
+                &:hover{
+                    border: 1px solid blue;
+
+                }
                 a{
                     text-decoration: none;
                     color: black;
-                }
-                &:hover{
-                    transform: scale(1.5);
+                    &:hover{
+                        font-weight: bolder;
+                        color: blue;
+                    }
                 }
             }
         }
