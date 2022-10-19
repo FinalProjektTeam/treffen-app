@@ -22,11 +22,14 @@ export default function Navigation(props) {
   return (
     
       <div className='Navigation'>
-        <div className="nav-container top-nav" style={{backgroundColor: 'whitesmoke'}} >
+        <div className="nav-container top-nav" >
 
-            <img src={logo} alt="logo" style={{width:'50px', borderRadius:'50%'}} onClick={()=> window.location.reload()} title='Change Color'/>
-
-            <h2>Treffen App</h2>
+            <img src={logo} alt="logo" style={{width:'60px'}} onClick={()=> window.location.reload()} /*title='Change Color'*//>
+            
+            <div>
+            <h2>Treffen</h2>
+            <h3>Spannende Neue Erfahrungen</h3>
+            </div>
 
             {/* <div className="hamburger"> */}
               <input id="menu-toggle" type="checkbox" />
@@ -37,17 +40,17 @@ export default function Navigation(props) {
 
             <ul className='nav-buttons'>
 
-              <button className='nav-button'>
+             {/* <button className='nav-button'>
                 <Link to= {'/'}> Home</Link>
-              </button>
+              </button>*/}
               {/* 🏠 */}
 
-             {!user.data &&  <button className='nav-button'>
+             {!user.data &&  <button className='nav-button nav-button-one'>
                 <Link to= {'/login'}>Login</Link>
               </button>}
 
            
-              <button className='nav-button'>
+              <button className='nav-button nav-button-two'>
                 <Link to= {'/events-list'}>Explore Events</Link>
               </button>
 
@@ -78,7 +81,18 @@ export default function Navigation(props) {
       </div>
 
         <footer className="footer" style={{backgroundImage: ` linear-gradient(to top,  black 20%, ${'#'+newColor&&newColor} 50%, white 90%) `, color: 'black', border:'solid 2px black'}}>
-          Here comes FOOTER
+        <p className='text-secondary'>Folgen Sie uns auf Social Media</p>
+            <a className='m-2' href="https://facebook.com" target="_blank">
+            <img src='https://cdn-icons-png.flaticon.com/512/4494/4494475.png' alt="logo" style={{width:'30px',height:'30px', margin:'5px'}} /></a>
+      
+            <a className='m-2' href="https://twitter.com" target="_blank">
+            <img src='https://cdn-icons-png.flaticon.com/512/4494/4494477.png' alt="logo" style={{width:'30px',height:'30px', margin:'5px'}} /></a>
+      
+            <a className='m-2' href="https://instagram.com" target="_blank">
+            <img src='https://cdn-icons-png.flaticon.com/512/2111/2111463.png' alt="logo" style={{width:'30px',height:'30px', margin:'5px'}} /></a>
+      
+            <a className='m-2' href="https://linkedin.com" target="_blank">
+            <img src='https://cdn-icons-png.flaticon.com/512/3536/3536505.png' alt="logo" style={{width:'30px',height:'30px', margin:'5px'}} /></a>
         </footer>
     </div>
   )

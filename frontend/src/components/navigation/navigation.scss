@@ -1,39 +1,79 @@
 .Navigation {
-  font-family: sans-serif;
+  font-family: 'Aeonik pro', sans-serif;
 
   position: relative;
   height: 100%;
   width: 100%;
  
   .nav-container {
-    // background-color: rgba(245, 245, 245, 0.5);
-    // background-image: linear-gradient(to top, cyan, blue);
-    z-index: 10;
+    z-index: 1000;
     padding: 0.5rem;
-    // box-shadow: 2px 5px 15px blue;
-
     display: flex;
-    justify-content: space-around;
-    gap: 25px;
+    justify-content: space-around; 
+    gap: 25px;   
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    right: 0%;
+    bottom: auto;
+    height: 100px;
+    background-color: #fff /*whitesmoke*/;
+    box-shadow: 0 1px 12px 2px rgb(215 219 225 / 25%);
 
-    position: sticky;
-    top: 0;
+
 
     .nav-buttons {
-      display: flex;
+      /*display: flex;
       flex-direction: row;
       list-style-type: none;
       margin: 0;
       padding: 0;
-      background-color: whitesmoke;
+      background-color: whitesmoke;*/
+      
 
     }
 
+    h3{
+      color: rgb(36, 36, 36);
+      text-transform: uppercase;
+      text-align-last: center;
+    }
+
     .nav-buttons > .nav-button {
-      margin: 0 1rem;
+      /*margin: 0 1rem;
       overflow: hidden;
       border: 2px solid lightgray;
-      height: 30px;
+      height: 30px;*/
+      margin-right: 1rem;
+      padding: 6px 16px;
+      border-style: solid;
+      border-width: 4px;
+      /*border-color: rgb(246, 113, 226);*/
+      border-radius: 50px;
+      background-color: transparent;
+      color: #1f1d49;
+    }
+
+    .nav-button-one {
+      margin-right: 1rem;
+      padding: 6px 16px;
+      border-style: solid;
+      border-width: 4px;
+      border-color: rgb(246, 113, 226);
+      border-radius: 50px;
+      background-color: transparent;
+      color: #1f1d49;
+    }
+
+    .nav-button-two {
+      margin-right: 1rem;
+      padding: 6px 16px;
+      border-style: solid;
+      border-width: 4px;
+      border-color: rgb(54, 108, 246);
+      border-radius: 50px;
+      background-color: transparent;
+      color: #1f1d49;
     }
 
     &.top-nav {
@@ -145,20 +185,18 @@
       
     }
 
-    > h2,
-    > p {
+    h2 {
+      font-weight: bolder;
       align-self: center;
       color: black;
       text-decoration: underline double whitesmoke;
       background: #95B0CF;
-
-      background: #A478CF;
-background: linear-gradient(to right, #A478CF 21%, #3E007D 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-
-
+      /*background: #A478CF;*/
+      background: linear-gradient(to right, #A478CF 21%, #3E007D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
+
     .nav-buttons {
       display: flex;
       align-items: center;
