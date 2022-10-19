@@ -1,0 +1,44 @@
+.Login {
+    background-image: url('login.jpg');
+  
+  .register-form {
+    margin: 1rem 0;
+  
+    .register-container {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1.5rem auto;
+        gap: .5rem;
+  
+      .element {
+        display: flex;
+        justify-content: center;
+        gap: .5rem;
+        margin: 0 auto;
+        
+        &:nth-last-child(3){
+            background-color: whitesmoke;
+        }
+  
+        .label {
+            width: 90px;
+            text-align: left;
+        }
+  
+        .input {
+        }
+      }
+  
+      .submit{
+        margin: 2rem 0;
+        padding: 20px 30px;
+      }
+    }
+  }
+  .para-login{
+  
+    margin: 2rem auto;
+  }
+  }

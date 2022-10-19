@@ -65,39 +65,39 @@ export default function Register() {
                 </div>
 
                 <div className="element">
-                        <label htmlFor="firstname" className="label">Vorname : </label>
+                        <label htmlFor="firstname" className="label">First Name : </label>
                         <input type="text" placeholder="Firstname" className="input"
                         value={firstname} onChange={(e)=> setFirstname(e.target.value)} />
                 </div>
 
                 <div className="element">
-                        <label htmlFor="lastname" className="label">Nachname :</label>
-                        <input type="text" placeholder="lastname" className="input"
+                        <label htmlFor="lastname" className="label">Last Name :</label>
+                        <input type="text" placeholder="Lastname" className="input"
                         value={lastname} onChange={(e)=> setLastname(e.target.value)} />
                 </div>
 
                 <div className="element">
-                        <label htmlFor="age" className="label">Alter : </label>
+                        <label htmlFor="age" className="label">Age: </label>
                         <input type="number" placeholder="Age" className="input"
                         onBlur={(e)=> setAge(e.target.value)} />
                 </div>
 
                 <div className="element">
-                        <label htmlFor="gender" className="label">Geschlicht : </label>
+                        <label htmlFor="gender" className="label">Gender: </label>
 
                         <div className="gender">
                                 <input className="input" type="radio" name='gender' value={gender} onClick={(e)=> setGender('Male')} />
-                                <label className="label" htmlFor="gender">Male</label>
+                                <label className="label" htmlFor="gender"> Male</label>
                         </div>
 
                         <div className="gender">
                                 <input className="input" type="radio" name='gender' value={gender} onClick={(e)=> setGender('Female')} />
-                                <label className="label" htmlFor="gender">Female</label><br/>
+                                <label className="label" htmlFor="gender"> Female</label><br/>
                         </div>
                 </div>
 
                 <div className="element">                        
-                        <label htmlFor="avatar" className="label">Profilebild : </label>
+                        <label htmlFor="avatar" className="label">ProfilePhoto: </label>
                         <input type="file" className="input"
                         accept='image/*' onChange={(e)=> setAvatar(e.target.files[0])} />
                 </div>
@@ -106,9 +106,9 @@ export default function Register() {
             </form>
 
             <div className="para-login">
-                <p>haben Sie shoch einen Account ?</p> 
+                <p>Do you have an account?</p> 
                 <button className='login-btn'>
-                        <Link to= {'/login'}>zum Login</Link>
+                        <Link to= {'/login'}>Login</Link>
                 </button>
             </div>
 
