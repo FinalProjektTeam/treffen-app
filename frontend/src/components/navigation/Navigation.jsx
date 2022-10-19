@@ -24,7 +24,7 @@ export default function Navigation(props) {
       <div className='Navigation'>
         <div className="nav-container top-nav" >
 
-            <img src={logo} alt="logo" style={{width:'60px'}} onClick={()=> window.location.reload()} /*title='Change Color'*//>
+            <img src={logo} alt="logo" style={{width:'60px'}} onClick={()=> window.open('/')/*location.reload()*/} /*title='Change Color'*//>
             
             <div>
             <h2>Treffen</h2>

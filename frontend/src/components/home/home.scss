@@ -10,6 +10,7 @@
       margin: auto;
       padding: 1rem 2rem;
       border-radius: 1.2rem;
+      border-color: blue;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: clip;
@@ -17,20 +18,20 @@
       position: relative;
       top: 30rem;
       animation: slide 2s;
-      background-color: rgba(0, 0, 0, 0.202);
-      text-shadow: -5px -3px black;
+      background-color: rgba(5, 119, 249, 0.39);
+      text-shadow: -5px -3px rgb(0, 6, 53);
       transition: transform 1s ease-in-out .5s;
 
       &:hover{
           transform: scale(2);
           transition: transform 1s ease-in-out .5s;
-          background-color: black;
+          background-color: rgb(5, 30, 143);
       }
       a{
           text-decoration: double underline;
-          color: goldenrod;
+          color: rgb(32, 150, 218);
           h1{
-              color: white;
+              color: rgb(241, 151, 235);
           }
       }
   }
@@ -38,10 +39,10 @@
 
 @keyframes slide {
   0% {
-    top: -10rem; background-color: blue; 
+    top: -10rem; background-color: rgb(247, 0, 255); 
   }
   25%{
-      top: -10rem; background-color: green;
+      top: -10rem; background-color: rgb(145, 15, 160);
       rotate: 90deg;
   }
   50% {
@@ -49,11 +50,11 @@
     rotate: 30deg;
   }
   75% {
-    top: 20rem; background-color: goldenrod;
+    top: 20rem; background-color: rgb(38, 52, 247);
     rotate: -30deg;
   }
   100%{
-      top: 30rem; background-color: black;
+      top: 30rem; background-color: rgb(19, 4, 99);
 
   }
 }

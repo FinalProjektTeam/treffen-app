@@ -770,7 +770,7 @@ export default function Loading() {
     </div>
   </div>
   </section>
-  <h1>Searching..</h1>
+  <h1>Searching...</h1>
 
 </section>
   )

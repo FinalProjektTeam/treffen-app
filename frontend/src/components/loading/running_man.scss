@@ -2,7 +2,8 @@ $crazy: 0.2;
 
 section.container-section {
   // background:  url('../../../src/images/leute.png');
-  background-color: black;
+  /*background-color: black;*/
+  background-image: url('paint.jpg') ;
   height: 150vh;
   overflow: hidden;
   display: flex;
@@ -13,19 +14,19 @@ section.container-section {
 
 
   h1{
-    color: black;
-    text-shadow: 4px 4px 2px white, -4px -4px 2px white;
-    background-color: rgba(162, 249, 107, 0.3);
+    color: rgb(15, 2, 74);
+    text-shadow: 4px 4px 2px rgb(245, 55, 252)/*, -4px -4px 2px white*/;
+    /*background-color: rgba(162, 249, 107, 0.3);
     padding: 2rem;
-    border-radius: 25px;
+    border-radius: 25px;*/
     margin-top: -750px;
     letter-spacing: 1rem;
-    font-size: 2rem;
+    font-size: 3rem;
   }
   div{
       position: absolute;
       transform-style: preserve-3d;
-      border: 2px solid lightgreen;
+      /*border: 2px solid lightgreen;*/
       
   }
 }
@@ -41,7 +42,7 @@ section.container-section {
 
 
   .part {
-    background: rgba(108, 0, 141, 0.708);
+    background: rgba(5, 13, 74, 0.708);
 
     backface-visibility: hidden;
     &::before {
@@ -49,7 +50,7 @@ section.container-section {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgb(84, 244, 56, .5);
+      background: rgba(255, 35, 207, 0.687);
       transform: rotateY(180deg);
       backface-visibility: hidden;
     }
