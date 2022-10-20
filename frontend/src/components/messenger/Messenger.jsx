@@ -134,20 +134,20 @@ export default function Messenger() {
        if(res.status === 200){
 
           console.log('NOTIFICATION',user);
-          // window.location.reload()
+          window.location.reload()
           
-            const url = "http://localhost:4000/user/"+user.data._id;
-            const fetchData = async()=>{
-                try{
-                    const response = await fetch(url);
-                    const json = await response.json();
-                    console.log("userData Obj", json);
-                    setUserData(json)
-                } catch (error){
-                    console.log("error", error);
-                }
-            }
-            fetchData();
+            // const url = "http://localhost:4000/user/"+user.data._id;
+            // const fetchData = async()=>{
+            //     try{
+            //         const response = await fetch(url);
+            //         const json = await response.json();
+            //         console.log("userData Obj", json);
+            //         setUserData(json)
+            //     } catch (error){
+            //         console.log("error", error);
+            //     }
+            // }
+            // fetchData();
        }
     }
 
@@ -158,9 +158,20 @@ export default function Messenger() {
             
             {user.data.firstname} {user.data.lastname} &nbsp; CHAT
         </h1>
-       { friendImage && <img src={friendImage} alt="Friend image"/>}
+
+        {
+          user.data.notification && 
+            <h1 title='Remove Notification' onClick={handleNotification}>
+                <ion-icon name="notifications"></ion-icon>              
+                New Message from: {user.data.chatting?.firstname+' '+user.data.chatting?.lastname}
+            </h1>
+        }
+
+        <div className="friendImage">
+            { friendImage && <img src={friendImage} alt="Friend image"/>}
+        </div>
         {friendName && 
-          <div className="border">
+          <div className="start-chat">
             <button onClick={handleSetChat}>Start Chat with: {friendName}</button>
         </div>}
 
@@ -174,46 +185,52 @@ export default function Messenger() {
                   setChat('')
                   setHideChatForm(false)
                   setFriendImage(e.avatar)
-                } }
-                >
+                } }>
                     <img src={e.avatar? e.avatar : (e.gender === "Male"?defaultAvatar: defaultAvatar1 )} alt="avatar-bild" id={e._id} onClick={(event)=>{
                         setFriend(event.target.id)
                      }} />
+
                     <p id={e._id} onClick={(event)=>{
                         setFriend(event.target.id)
-                     }} >{e.firstname} {e.lastname}</p>
-                   
-                    {/* <div>{e.messenger?.messages.map((c)=> <h4 >{c.message}</h4>)}</div> */}
+                     }} >{e.firstname} {e.lastname}</p>    
                 </li>
             )
         )}
         </ul>
 
-        {
-          user.data.notification && 
-            <h1 title='Remove Notification' onClick={handleNotification}>
-              New Message from: {user.data.chatting?.firstname+' '+user.data.chatting?.lastname}
-            </h1>
-        }
-
        { chat.messages &&  <div className="chat" style={{margin:"2rem"}}>
                     <ul className='chat-list'>
                         {chat.messages  && 
                             chat.messages.map(m=>
-                                <li key={m._id} style={ {textAlign:
-                                               (m.user.email === user.data.email ? 'left': 'right') } }>
-                                    <img src={m.user.avatar ? m.user.avatar : (m.user.gender === 'Male' ? defaultAvatar : defaultAvatar1 ) } />
-                                    {m.message} <hr/>
+                                <li key={m._id} style={ 
+                                  {textAlign: (m.user.email === user.data.email ? 'left': 'right')} 
+                                }>
+                                  {(m.user.email === user.data.email)?
+                                    <div>
+                                      <img  src={m.user.avatar ? m.user.avatar : (m.user.gender === 'Male' ? defaultAvatar : defaultAvatar1 ) } />
+                                      <span className='time' style={{textAlign:'left'}} >{m.createdAt.slice(11,16)}</span>
+                                        <span className='message' style={{backgroundColor:'#78E08F'}} >{m.message}</span> 
+                                    </div>
+                                    :
+                                    <div>
+                                        <span className='time' style={{textAlign:'right'}}>{m.createdAt.slice(11,16)}</span>
+                                        <span className='message' style={{backgroundColor:'#82CCDD'}}>{m.message}</span> 
+
+                                      <img src={m.user.avatar ? m.user.avatar : (m.user.gender === 'Male' ? defaultAvatar : defaultAvatar1 ) } />
+                                    </div>
+                                }
                                 </li>
                             )
                         }
                     </ul>
-                    {hideChatForm && <form className='chat-form'  onClick={handleSendMessage} >
-                         <label htmlFor="text">chatting</label>
+                    {hideChatForm && <form className='chat-form'   >
              
-                         <input type="text" value={message} onChange={(event)=>setMessage(event.target.value)} />
-                         <br />
-                         <button type='submit'>Send</button>
+                         <input type="text" value={message} onChange={(event)=>setMessage(event.target.value)} placeholder='Type your message...'/>
+              
+                         <button onClick={handleSendMessage} >
+                          <ion-icon name="send"></ion-icon>
+                         </button>
+                        
                      </form>}
             </div>
        }

@@ -222,6 +222,11 @@ export default function UserAccount() {
             <button>Explore Events</button>
         </Link>
       </div>
+      <div className="explore-events">
+        <Link to={"/fire"}>
+            <button>Fire</button>
+        </Link>
+      </div>
        
     </div>
   )

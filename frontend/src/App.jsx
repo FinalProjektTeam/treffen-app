@@ -14,6 +14,7 @@ import NewEvent from './components/newEvent/NewEvent';
 import Loading from './components/loading/Loading';
 import RunningMan from './components/loading/RunningMan';
 import Messenger from './components/messenger/Messenger';
+import Fire from './components/loading/Fire';
 
 
 function App() {
@@ -44,7 +45,9 @@ function App() {
                   <Route path = '/run' 
                             element = {<RunningMan/>}/>
                   <Route path = '/messenger' 
-                            element = {<Messenger/>}/>   
+                            element = {<Messenger/>}/>
+                  <Route path = '/fire' 
+                            element = {<Fire/>}/>   
               </Routes>
              
             </Navigation>

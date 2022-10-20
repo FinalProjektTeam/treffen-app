@@ -120,17 +120,16 @@
         margin: 2rem auto;
 
         > .created-events, >.joined-events{
-
+            border: 2px solid lightgray;
             list-style-type: none;
             margin: 2rem;
             // box-shadow: 15px 8px 15px black, -7.5px -4px 15px gray;
             border-radius: 20px;
-            border: 5px solid lightgray;
             > h3{
-                // background: linear-gradient(to left,  #3E007D 10%, darkblue 50%, purple 70%, #e7e4e9 90%);
+                background: linear-gradient(to left, white -10% , #7F7FD6 30%, rgb(145, 234, 228) 70%, white 120%);
                 // background: linear-gradient(130deg, white 0%, rgba(230,180,180,1) 43%, rgb(176, 194, 222) 70%) ;
-                background:  linear-gradient(to left,  #3E007D 10%, darkblue 50%, purple 70%, #e7e4e9 90%);
-                color: white;
+                // background:  linear-gradient(to left,  #3E007D 10%, darkblue 50%, purple 70%, #e7e4e9 90%);
+                color: black;
                 padding: 1rem 0;
                 border-radius: 20px;
                 max-width: 100%;
@@ -143,7 +142,6 @@
                 min-height: 5rem;
                 align-items: center;
                 padding: 0 3rem;
-                
                 > a{
                     text-decoration: none;
                     font-weight: bolder;
