@@ -65,13 +65,13 @@ export default function Register() {
                 </div>
 
                 <div className="element">
-                        <label htmlFor="firstname" className="label">First Name : </label>
+                        <label htmlFor="firstname" className="label">First Name: </label>
                         <input type="text" placeholder="Firstname" className="input"
                         value={firstname} onChange={(e)=> setFirstname(e.target.value)} />
                 </div>
 
                 <div className="element">
-                        <label htmlFor="lastname" className="label">Last Name :</label>
+                        <label htmlFor="lastname" className="label">Last Name:</label>
                         <input type="text" placeholder="Lastname" className="input"
                         value={lastname} onChange={(e)=> setLastname(e.target.value)} />
                 </div>

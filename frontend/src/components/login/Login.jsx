@@ -3,6 +3,7 @@ import React , {useState} from "react";
 import {Link} from 'react-router-dom'
 import useUser from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
+import "./Login.scss"
 
 
 export default function Login() {
@@ -31,7 +32,7 @@ export default function Login() {
       }
 
   return (
-    <div className="login-bg-img-div ">
+    <div className="login">
         <div className="login-form">
           <h2>Login</h2>
 
@@ -39,19 +40,22 @@ export default function Login() {
 
             <form onSubmit={handleSubmit} className="login-container">
 
+            <div className="element">
                 <label htmlFor="email" className="m-2 form-label "><b>Email </b></label><br/>
                 <input type="email" placeholder="Your Email" className="m-2 form-control w-75"
                         value={email} onChange={(e)=> setEmail(e.target.value)} /><br/>
-
+            </div>
+            <div className="element">
                 <label htmlFor="password" className="m-2 form-label"><b>Password </b></label><br/>
                 <input type="password" placeholder="Password" className="m-2 form-control w-75"
                         value={password} onChange={(e)=> setPassword(e.target.value)} /><br/>
-            
-                <input type="submit" className="m-2 btn btn-outline-warning"/>
+            </div>
+                <input type="submit" className="submit"/>
             </form>
-            <p className="m-3">haben Sie noch kein Account ? <br/>
-            <button className='btn btn-outline-secondary m-3'><Link to= {'/register'}>zum Registration</Link></button></p>
-
+            <div className="para-regiter">
+              <p className="m-3">haben Sie noch kein Account ? <br/>
+              <button className='register-btn'><Link to= {'/register'}>Registration</Link></button></p>
+            </div>
                {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
                { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>*- {e.msg}</h4>)}</h3>}
 
