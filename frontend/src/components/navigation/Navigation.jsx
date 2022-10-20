@@ -24,7 +24,7 @@ export default function Navigation(props) {
       <div className='Navigation'>
         <div className="nav-container top-nav" >
 
-            <img src={logo} alt="logo" style={{width:'60px'}} onClick={()=> window.open('/')/*location.reload()*/} /*title='Change Color'*//>
+            <img src={logo} alt="logo" style={{width:'60px'}} onClick={()=> window.open('/','_self')/*location.reload()*/} /*title='Change Color'*//>
             
             <div>
             <h2>Treffen</h2>
@@ -80,8 +80,9 @@ export default function Navigation(props) {
           {props.children}
       </div>
 
-        <footer className="footer" style={{backgroundImage: ` linear-gradient(to top,  black 20%, ${'#'+newColor&&newColor} 50%, white 90%) `, color: 'black', border:'solid 2px black'}}>
+        <footer className="footer" /*style={{backgroundImage: ` linear-gradient(to top,  black 20%, ${'#'+newColor&&newColor} 50%, white 90%) `, color: 'black', border:'solid 2px black'}}*/>
         <p className='text-secondary'>Folgen Sie uns auf Social Media</p>
+        <div className='social'>
             <a className='m-2' href="https://facebook.com" target="_blank">
             <img src='https://cdn-icons-png.flaticon.com/512/4494/4494475.png' alt="logo" style={{width:'30px',height:'30px', margin:'5px'}} /></a>
       
@@ -93,6 +94,7 @@ export default function Navigation(props) {
       
             <a className='m-2' href="https://linkedin.com" target="_blank">
             <img src='https://cdn-icons-png.flaticon.com/512/3536/3536505.png' alt="logo" style={{width:'30px',height:'30px', margin:'5px'}} /></a>
+          </div>
         </footer>
     </div>
   )
