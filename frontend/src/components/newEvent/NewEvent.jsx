@@ -74,7 +74,7 @@ export default function NewEvent() {
         <br />
         <input type="text" placeholder='Adresse' onBlur={e=>setAdresse(e.target.value)} />
         <br />
-        <input type="text" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
+        <input type="date" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
         <br />
         {/* <input type="file" accept='image/*' placeholder='Bild' onChange={(e)=> setEventBild(e.target.files[0])} /> */}
         <input type="file" accept='image/*' onChange={(e)=> setEventBild(e.target.files[0])} />

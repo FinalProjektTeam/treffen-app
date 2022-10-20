@@ -118,7 +118,7 @@ export default function UserAccount() {
 
     <div className="User-Account">
 
-      <Link to={'/messenger'} >Start a Chat</Link>
+      
 
       <div className="user">
 
@@ -127,7 +127,7 @@ export default function UserAccount() {
             <img src={userData.avatar ? userData.avatar : (userData.gender === 'Male'? defaultAvatar : defaultAvatar2)} alt="avatar" />
           }
           <h2>
-            Hallo {userData.gender === 'Male'? 'Mr.':'Mrs.'} {userData.lastname} 
+            Hello {userData.gender === 'Male'? 'Mr.':'Mrs.'} {userData.lastname} 
           </h2>
         </div>
 
@@ -155,34 +155,38 @@ export default function UserAccount() {
                     
                     <li><b>Gender : </b> {showInput ? <span className=''> {userData.gender}</span>: <><label>Male</label> <input type="checkbox" onClick={(e)=>setUpdateGender('Male')} /> <label>Female</label> <input type="checkbox" onClick={(e)=>setUpdateGender('Female')} /></>} </li>
 
-                    <li><b>Email : </b> <span className=''>{userData.email}</span></li>
+                    <li><b>E-Mail : </b> <span className=''>{userData.email}</span></li>
 
                     { !showInput &&
                         <input type='file' accept='image/*' placeholder='Avatar...' 
                           onChange={e => setAvatar(e.target.files[0])}/>
                     }
-
                 </ul>
             </div>
         }
       </div>
 
-      {userData.notification && <h1>You have got a new Message from: {userData.chatting?.firstname+' '+userData.chatting?.lastname}</h1>}
+      {userData.notification && <h1>New Message from: {userData.chatting?.firstname+' '+userData.chatting?.lastname}</h1>}
       
+      <div className="chat-link">
+
+        <Link to={'/messenger'} style={{marginTop:'200px'}} >Chat</Link>
+      </div>
+
       <div className="events">
         {/* <img src="" alt="" /> */}
               <ul className="created-events">
                       { userData.events?.length > 0 ? 
                             <h3>Created Events</h3> 
                             : 
-                            <h3>You dont't have Events yet</h3>
+                            <h3>You don't have Events yet</h3>
                       }
 
                     { 
                       userData.events && 
                         userData.events.map((event)=>
                           event &&
-                            <li key={event._id} >
+                            <li key={event._id} title='Go to the Event'>
                                   <Link to={"/events-list/"+event._id} >{event.title}</Link>
                                   <p>{event.datum}</p>
                                   <p>{event.adresse}</p>
@@ -202,7 +206,6 @@ export default function UserAccount() {
                             <p>{event.datum}</p>
                             <p>{event.adresse}</p>
                             <Link to={"/events-list/"+event._id} >See more..</Link>
-
                         </li>
                     )
               }

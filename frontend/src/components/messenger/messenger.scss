@@ -1,13 +1,34 @@
 // Messenger Color Pink: #F15987
 // Messenger Color Blue: #566AFA
 
+// purple #7F7FD6
+// terquas rgb(145, 234, 228)
 .Messenger{
+    background-color: rgba(0, 0, 0, 0.85);
+    min-height: 140vh;
+    padding-top: 2rem;
+
     
+    > img{
+        width: 250px;
+        height: 250px;
+        margin: 4rem auto;
+        border-radius: 50%;
+        // border: 2px solid white;
+        box-shadow: 5px 5px 10px white,-5px -5px 10px white;
+    }
     > h1{
-        margin: 2rem auto;
         background: linear-gradient(to left, #F15987 35%, blue 70%, purple 90%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        > img{
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+        }
     }
     > .border {
 
@@ -16,11 +37,10 @@
         position: relative;
         background: linear-gradient(to right, #F15987, purple);
         padding: .5rem;
-        margin: 0 auto;
+        margin: 2rem auto;
 
         &:hover{
             background: unset;
-            background-color: whitesmoke;
         }
 
         > h3{
@@ -38,6 +58,7 @@
             border-radius: 15px;
             font-size: 1.5rem;
             font-weight: bolder;
+            
 
             &:hover{
                 background: linear-gradient(to left, #F15987 35%, blue 70%, purple 90%);
@@ -60,26 +81,79 @@
         flex-flow: column nowrap;
         gap: 1rem;
         list-style-type: none;
+        border: 2px solid black;
+        overflow: auto;
+        width: 300px;
+        min-width: fit-content;
+        min-height: fit-content;
+        max-height: 40%;
+        background: linear-gradient(to right, #7F7FD6, rgb(145, 234, 228));
+        border-radius: 5px;
 
         > li{
             border-bottom: 5px solid purple;
-            border-left: 5px solid purple;
             padding: .5rem;
+            width: 90%;
+            height: 100px;
+            display: flex;
+            justify-content:  space-between;
+            flex-flow: row-reverse nowrap;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            color: white;
+            font-weight: bolder;
+            font-size: 1.2rem;
+
+            > img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: 5px double white;
+            }
+            > p{
+                cursor:zoom-in;
+            }
+            
+
         }
     }
 
     > .chat{
+        border: 2px solid black;
+        width: 50%;
+        height: 50%;
+        margin: 0 auto;
+        transform: translate(45%, 25%);
+        border-radius: 5px;
 
+        background: linear-gradient(to left, #7F7FD6, rgb(145, 234, 228));
+        box-shadow: -3px -3px 10px whitesmoke, 3px 3px 10px whitesmoke; 
         > .chat-list{
+            list-style-type: none;
+            max-height: 300px;
+            overflow: auto;
 
-            max-width: 20rem;
 
             > li{
+                margin: 2rem auto;
 
                 > img{
                     width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
                 }
+            }
+        }
 
+        > .chat-form{
+    
+            margin-top: 2rem;
+            background-color: transparent;
+    
+            > input{
+                background-color: transparent;
+                opacity: .5;
             }
         }
     }

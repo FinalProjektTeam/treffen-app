@@ -25,16 +25,17 @@ exports.setChat = async (req, res, next)=>{
     const user = await User.findById(req.user._id.toString())
     console.log('USER REQ: ',user.firstname);
 
-    let chat = await Chat.findOne({ $or: [ { participants: {$elemMatch:{$eq: friend}} } , { participants: {$elemMatch:{$eq: user._id}}} ] }).populate('messages.user').populate('participants')
+    // let chat = await Chat.findOne({ $or: [ { participants: {$elemMatch:{$eq: friend}} } , { participants: {$elemMatch:{$eq: user._id.toString()}}} ] }).populate('messages.user').populate('participants')
 
+    // PersonModel.find({ favoriteFood : { $all : ["sushi", "bananas"] }, ...})
+
+    let chat = await Chat.findOne({participants: { $all: [friend, user._id.toString()] } }).populate('messages.user').populate('participants')
 
     if(!chat){
         chat  = await new Chat()
-
         chat.participants = [friend, user._id.toString()]
         chat.messages.push({message:'Chat Started', user: user._id})
         console.log('look here', chat);
-       
     }
 
     // here
@@ -77,7 +78,8 @@ exports.sendMessage = async(req,res,next) =>{
     const userReceive = await User.findById(receivers[0]._id.toString());
 
     userReceive.notification = true
-    //here
+    
+    // Message From =>
     userReceive.chatting = user._id
 
     userReceive.messenger.push(chat._id)
