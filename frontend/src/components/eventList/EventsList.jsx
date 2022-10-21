@@ -8,8 +8,7 @@ import noImage from "../../images/no-image.png"
 
 
 export default function EventList() {
-  // const [events, setEvents] = useState([])
-  // const [ready, setReady] = useState(false)
+
   const user = useUser()
 
   const [filterEvent, setFilterEvent] = useState([])

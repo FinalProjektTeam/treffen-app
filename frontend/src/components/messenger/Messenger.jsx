@@ -3,6 +3,7 @@ import useUser from '../../hooks/useUser'
 import "./messenger.scss"
 import defaultAvatar from "../../images/avatar-maskulin.png"
 import defaultAvatar1 from "../../images/avatar-feminin.jpg"
+import Fire from '../loading/Fire'
 
 
 export default function Messenger() {
@@ -11,6 +12,8 @@ export default function Messenger() {
     const [ users, setUsers] = useState([])
     const [ friend, setFriend] = useState('')
     const [message, setMessage] = useState('')
+
+    const [ready, setReady] = useState(true)
 
     const [chat, setChat] = useState({})
     const [chatID, setChatID] = useState("")
@@ -29,10 +32,14 @@ export default function Messenger() {
         })
         .then(async res=>{
           if(res.status === 200){
+            setReady(false)
             const result = await res.json()
             setUsers(result)
             console.log('Users result is => ', result);
             console.log('User DATA ===> ', user.data);
+            setTimeout(() => {
+              setReady(true)
+            }, 8000);
           } 
         })
       }, [] )
@@ -149,6 +156,10 @@ export default function Messenger() {
             // }
             // fetchData();
        }
+    }
+
+    if(!ready){
+      return <Fire/>
     }
 
   return (
