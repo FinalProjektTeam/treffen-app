@@ -1,0 +1,81 @@
+.Login{
+
+    > .login-form{
+
+
+        > fieldset{
+            max-width: 60%;
+            margin: 2rem auto;
+            text-align: center;
+            border-radius: 15px;
+            border: 1px lightgray solid;
+            background-color: white;
+            > legend{
+                color: blue;
+                font-size: 2rem;
+            }
+            > form{
+                display: grid;
+                place-items: center;
+                gap: 2rem;
+                margin: 2rem auto;
+
+                > input{
+
+                    font-size: 1.5rem;
+                    padding: 1rem 2rem;
+                }
+
+                > button{
+                    padding: .8rem 1.5rem;
+                    margin: 1rem auto;
+                    border-radius: .5rem;
+                    border: none;
+                    font-size: 1.3rem;
+                    cursor: pointer;
+                    font-weight: bolder;
+                    border: 1px solid blue;
+                    background-color: white;
+                    
+                    &:hover{
+                        color: blue;
+                        text-decoration: underline black;
+                    }
+                }
+
+            }
+        }
+
+        > .register-link{
+            margin: 5rem auto;
+            border: 1px lightgray solid;
+            border-radius: 15px;
+            width: fit-content;
+            padding:1rem 2rem;
+            background-color: white;
+            > p{
+                display: inline;
+                text-decoration: underline 2px blue;
+                font-size: 1.3rem;
+               
+            }
+            > button{
+                padding: .8rem 1.5rem;
+                margin: 1rem auto;
+                border-radius: .5rem;
+                border: none;
+                font-size: 1.3rem;
+                background-color: white;
+                > a{
+                    text-decoration: none;
+                    color: blue;
+                    font-weight: bolder;
+                    &:hover{
+                        text-decoration: underline 1px blue;
+                    }
+                }
+              
+            }
+        }
+    }
+}

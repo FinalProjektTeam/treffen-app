@@ -1,0 +1,70 @@
+.NewEvent{
+    width: 100%;
+    background-color: white;
+
+    > h1{
+        margin: 2rem auto;
+    }
+    > section{
+        display: flex;
+        justify-content: space-evenly;
+        border: 2px solid black;
+        padding: 4rem 0;
+
+      @media (max-width: 904px){
+
+        flex-flow: column;
+        justify-content: center;
+
+      }
+        > form{
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 1rem;
+            margin-top: 3rem;
+            
+            > input, select{
+                margin: .5rem auto;
+                font-size: 1.5rem;
+                min-width: 20rem;
+
+                &[type=file]{
+                    max-width: 100px;
+                }
+            }
+
+            > button{
+                width: fit-content;
+                margin: 2rem auto;
+                padding: 2rem 3rem;
+                font-size: 2rem;
+                background-color: white;
+                border-left: 2px solid blue;
+                border-right: solid purple;
+                border-top: solid purple;
+                border-bottom: solid blue;
+                cursor: pointer;
+                &::first-letter{
+                    color: rgb(4, 4, 218);
+                }
+                
+
+            }
+
+        }
+
+        > .event-info{
+
+           
+
+            > p{
+                margin: 1.5rem auto;
+                font-size: 1.5rem;
+
+                 &:nth-child(1){
+                    text-decoration: underline 2px blue;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,97 @@
+
+.Fire{
+
+    margin: 0;
+    padding: 0;
+
+    > section{
+        height: 100vh;
+        background: #000;
+        overflow: hidden;
+
+        > video{
+            object-fit: cover;
+            width: 100%;
+        }
+        > h1{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            color: blue;
+            position: absolute;
+            top:50%;
+            transform: translateY(-50%);   
+            text-align: center;
+            font-size: 9rem;
+            font-family: arial black;
+            cursor: default;
+            
+            > span{
+                display: inline-block;
+                animation: animate 5s linear forwards;
+
+                &:nth-child(1){
+                    color: red;
+                    opacity: 0;
+                    animation-delay: 1s;
+                }
+                &:nth-child(2){
+                    color: blue;
+                    opacity: 0;
+                    animation-delay: 3s;
+                }
+                &:nth-child(3){
+                    color: blue;
+                    opacity: 0;
+                    animation-delay: 3.5s;
+                }
+                &:nth-child(4){
+                    color: blue;
+                    opacity: 0;
+                    animation-delay: 4s;
+                }
+                &:nth-child(5){
+                    color: blue;
+                    opacity: 0;
+                    animation-delay: 4s;
+                }
+                &:nth-child(6){
+                    color: blue;
+                    opacity: 0;
+                    animation-delay: 4.5s;
+                }
+                &:nth-child(8){
+                    color: red;
+                    opacity: 0;
+                    animation-delay: 1s;
+                }
+
+                &:nth-child(9){
+                    color: blue;
+                    opacity: 0;
+                    animation-delay: 5s;
+                }
+
+                &:nth-child(10){
+                    color: blue;
+                    opacity: 0;
+                    animation-delay: 5s;
+                }
+            }
+        }
+    }
+
+    @keyframes animate{
+        0%{
+            opacity: 0;
+            transform: rotateY(90deg);
+            filter: blur(10px);
+        }
+        100%{
+            opacity: 1;
+            transform: rotateY(0deg);
+            filter: blur(0);
+        }
+    }
+}
+

@@ -31,7 +31,7 @@ exports.login = async(req, res, next) =>{
     const user = await User.findOne().where('email').equals(email).populate('messenger').populate('chatting')
 
     if(!user){
-        const error = new Error('Falsche E-Mail adresse!')
+        const error = new Error('Wrong E-Mail address !')
         error.status = 400
         return next(error)
     }
@@ -39,7 +39,7 @@ exports.login = async(req, res, next) =>{
     const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
     if(!isPasswordCorrect){
-        const error = new Error('Dein Passwort stimmt nicht!!')
+        const error = new Error('Wrong password!')
         error.status = 400
         return next(error)
     }

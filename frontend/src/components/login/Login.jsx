@@ -3,12 +3,13 @@ import React , {useState} from "react";
 import {Link} from 'react-router-dom'
 import useUser from '../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
+import './login.scss'
 
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password , setPassword] = useState('');
-    const [eingeloggt , setEingeloggt] = useState(false);
+    const [eingeloggt , setEingeloggt] = useState(Boolean);
 
     const user = useUser()
     const navigate = useNavigate()
@@ -31,29 +32,28 @@ export default function Login() {
       }
 
   return (
-    <div className="login-bg-img-div ">
+    <div className="Login">
         <div className="login-form">
-          <h2>Login</h2>
+        <fieldset>
+          <legend>Sign in</legend>
+          <form onSubmit={handleSubmit}>
+                <input type="email" placeholder="E-Mail" value={email} 
+                onChange={(e)=> setEmail(e.target.value)} />
+                <input type="password" placeholder="Password" value={password} 
+                onChange={(e)=> setPassword(e.target.value)} />
+                <button type="submit">Log in</button>
+          </form>
+        </fieldset>
+        <div className="register-link">
+            <p className="">Don't have an account?</p>
 
-          {!eingeloggt && <h3>you have to registrate</h3>}
-
-            <form onSubmit={handleSubmit} className="login-container">
-
-                <label htmlFor="email" className="m-2 form-label "><b>Email </b></label><br/>
-                <input type="email" placeholder="Your Email" className="m-2 form-control w-75"
-                        value={email} onChange={(e)=> setEmail(e.target.value)} /><br/>
-
-                <label htmlFor="password" className="m-2 form-label"><b>Password </b></label><br/>
-                <input type="password" placeholder="Password" className="m-2 form-control w-75"
-                        value={password} onChange={(e)=> setPassword(e.target.value)} /><br/>
-            
-                <input type="submit" className="m-2 btn btn-outline-warning"/>
-            </form>
-            <p className="m-3">haben Sie noch kein Account ? <br/>
-            <button className='btn btn-outline-secondary m-3'><Link to= {'/register'}>zum Registration</Link></button></p>
+            <button>
+              <Link to= {'/register'}>Sign up</Link>
+            </button>
+        </div>
 
                {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
-               { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>*- {e.msg}</h4>)}</h3>}
+               { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>{e.msg}</h4>)}</h3>}
 
         </div>
     </div>

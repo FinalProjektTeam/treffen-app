@@ -108,7 +108,7 @@ export default function EventList() {
                 <button>{ user.data ?
                   <Link to={'/events-list/'+e._id} title='' >See more.. </Link>
                 :
-                <Link to={'/login'} title='Go to LOGIN site'>You musst Login first </Link>
+                <Link to={'/login'} title='Go to LOGIN site'>Sign in to see more.. </Link>
                 }
                 </button>
               </div>

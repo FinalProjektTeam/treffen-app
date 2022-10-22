@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import './new-event.scss'
+import logo from '../../images/Logo.png'
+
 
 export default function NewEvent() {
 
@@ -57,50 +60,52 @@ export default function NewEvent() {
   
 
   return (
-    <div>NewEvent
+    <div className='NewEvent'>
+        <h1>Create new event</h1>
 
-    <form onSubmit={handleNewEvent}>
-        <select
-            defaultValue='Allgemein'
-            onChange={handleCategory}
-        >    
-            <option value="Allgemein">Allgemein</option>
-            <option value="Erwachsene">Erwachsene</option>
-            <option value="Kinder">Kinder</option>
-        </select>
-        <br />
+        <section>
 
-        <input type="text" placeholder='Title' onBlur={e=>setTitle(e.target.value)} />
-        <br />
-        <input type="text" placeholder='Adresse' onBlur={e=>setAdresse(e.target.value)} />
-        <br />
-        <input type="date" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
-        <br />
-        {/* <input type="file" accept='image/*' placeholder='Bild' onChange={(e)=> setEventBild(e.target.files[0])} /> */}
-        <input type="file" accept='image/*' onChange={(e)=> setEventBild(e.target.files[0])} />
-        <br />
-        <input type="text" placeholder='write a description' onBlur={e=> setDescription(e.target.value)} />
+            <form onSubmit={handleNewEvent}>
+                <select
+                    defaultValue='Allgemein'
+                    onChange={handleCategory}
+                    >    
+                    <option value="Allgemein">Allgemein</option>
+                    <option value="Erwachsene">Erwachsene</option>
+                    <option value="Kinder">Kinder</option>
+                </select>
 
-        <br />
+                <input type="text" placeholder='Title' onBlur={e=>setTitle(e.target.value)} />
+                <input type="text" placeholder='Adresse' onBlur={e=>setAdresse(e.target.value)} />
+                <input type="date" placeholder='Datum' onBlur={e=>setDatum(e.target.value)} />
+                {/* <input type="file" accept='image/*' placeholder='Bild' onChange={(e)=> setEventBild(e.target.files[0])} /> */}
+                <input type="file" accept='image/*' onChange={(e)=> setEventBild(e.target.files[0])} />
+                <input type="text" placeholder='write a description' onBlur={e=> setDescription(e.target.value)} />
 
+                <button type="submit">Create</button>
+            </form>
 
-        <br />
-{/* 
-        <label for="birthdaytime">Birthday (date and time):</label>
-        <input type="datetime-local" id="birthdaytime" name="birthdaytime"/> */}
+            <div className="event-info">
+                <p className=''>Preview</p>
 
-        <button type="submit">Create Event</button>
-    </form>
+                {category ? <p className=''>🔹 Category : {category}</p> : <p className=''></p>}
 
+                {title ? <p className=''>{title}</p> : <p className=''>🔸 Title of Event</p>}
 
-    <h1>{title+' '+adresse+' '+ datum} </h1>
+                {adresse ? <p className=''>{adresse}</p> : <p className=''>🔹 Address of Event</p>}
 
+                {datum ? <p className=''>{datum}</p> : <p className=''>🔸 Date of Event</p>}
 
-    <h2>Category: {category}</h2>
+                {description ? <div className=''>{description}</div> : <p className=''>🔹 Description</p> }
 
+                <img src={logo} className='' alt="Event-Bg"></img>
+            </div>
+
+    </section>
 
         {error && <h1 style={{color: 'red'}} >{error}</h1>}
         {errors && <div style={{color: 'red'}} >{errors}</div>}
+
 
     </div>
   )

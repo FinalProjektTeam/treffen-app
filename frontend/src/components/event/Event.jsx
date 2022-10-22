@@ -348,12 +348,17 @@ export default function Event() {
                 ))
                 }
             </ul>
+
+            <div className="create-comment">
+                <input type="text" value={comment} onChange={(e)=> setComment(e.target.value)} placeholder='Write a comment'/>
+                <button onClick={handleAddComment}>
+                    <ion-icon name="send"></ion-icon>
+                </button>
+            </div>
+            
+            {commentError && <h3 style={{color: 'red'}}>You can't delete others Comment!</h3>}
             {error && <h3 style={{color:'red'}}>{error}</h3> }
             {errors && <div style={{color:'red'}}>{errors}</div> }
-
-            {commentError && <h3 style={{color: 'red'}}>You can't delete others Comment!</h3>}
-            <input type="text" value={comment} onChange={(e)=> setComment(e.target.value)} placeholder='Write a comment'/>
-            <button onClick={handleAddComment}>Add Comment</button>
         </div>
     </div>
   )

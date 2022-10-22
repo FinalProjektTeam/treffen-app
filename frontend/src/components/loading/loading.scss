@@ -10,7 +10,7 @@ section.loading-container{
     cursor:pointer;
   
     transition: 90deg 0.5s 0.1s,10% 0.5s,red 0.8s;
-    background: linear-gradient(90deg, white 10%, black 50%, rgb(54, 46, 109) 90%, black)110%;
+    background: linear-gradient(90deg, black 0%, rgb(67, 0, 67) 25%, black 50%, rgb(54, 46, 109) 90%, black)110%;
 
     > h1{
       position: absolute;
