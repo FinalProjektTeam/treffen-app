@@ -28,7 +28,7 @@ export default function Navigation(props) {
             
             <div>
             <h2>Treffen</h2>
-            <h3>Spannende Neue Erfahrungen</h3>
+            <h4>EXCITING NEW EXPERIENCES</h4>
             </div>
 
             {/* <div className="hamburger"> */}
@@ -55,12 +55,12 @@ export default function Navigation(props) {
               </button>
 
              {user.data && 
-                <button className='nav-button'>
+                <button className='nav-button nav-button-three'>
                   <Link to= {'/user/'+user.data._id}>User Account</Link>
                 </button>}
 
               {user.data && 
-                  <button className='nav-button' onClick={handleLogout}>
+                  <button className='nav-button nav-button-one' onClick={handleLogout}>
                     <Link to= {'/login'}>Log out</Link>
                   </button>
               }

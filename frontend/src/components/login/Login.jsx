@@ -41,13 +41,13 @@ export default function Login() {
             <form onSubmit={handleSubmit} className="login-container">
 
             <div className="element">
-                <label htmlFor="email" className="m-2 form-label "><b>Email </b></label><br/>
-                <input type="email" placeholder="Your Email" className="m-2 form-control w-75"
+                <label htmlFor="email" className="m-2 label "><b>Email </b></label><br/>
+                <input type="email" placeholder="Your Email" className="m-2 input"
                         value={email} onChange={(e)=> setEmail(e.target.value)} /><br/>
             </div>
             <div className="element">
-                <label htmlFor="password" className="m-2 form-label"><b>Password </b></label><br/>
-                <input type="password" placeholder="Password" className="m-2 form-control w-75"
+                <label htmlFor="password" className="m-2 label"><b>Password </b></label><br/>
+                <input type="password" placeholder="Password" className="m-2 input"
                         value={password} onChange={(e)=> setPassword(e.target.value)} /><br/>
             </div>
                 <input type="submit" className="submit"/>
