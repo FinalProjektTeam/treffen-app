@@ -231,7 +231,7 @@ export default function Event() {
           }
         { user.data && <button onClick={handleJoinEvent} >
             {
-            !isFetching ?  (userExist ? "Join" : "Leave event") : 'Click to Join or to leave Event'
+            !isFetching ?  (userExist ? "Join" : "Leave event") : 'Click to Join or leave Event'
             }
             </button>
         }

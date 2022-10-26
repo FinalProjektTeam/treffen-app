@@ -1,7 +1,7 @@
 .Login{
-
+    background-color: white;
+    padding: 2rem 0;
     > .login-form{
-
 
         > fieldset{
             max-width: 60%;
@@ -21,7 +21,6 @@
                 margin: 2rem auto;
 
                 > input{
-
                     font-size: 1.5rem;
                     padding: 1rem 2rem;
                 }
@@ -42,7 +41,6 @@
                         text-decoration: underline black;
                     }
                 }
-
             }
         }
 
@@ -57,7 +55,6 @@
                 display: inline;
                 text-decoration: underline 2px blue;
                 font-size: 1.3rem;
-               
             }
             > button{
                 padding: .8rem 1.5rem;
@@ -74,7 +71,6 @@
                         text-decoration: underline 1px blue;
                     }
                 }
-              
             }
         }
     }

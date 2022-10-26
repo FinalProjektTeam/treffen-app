@@ -23,11 +23,8 @@ exports.readChat = async (req, res, next)=>{
 exports.setChat = async (req, res, next)=>{
     const {friend} = req.body
     const user = await User.findById(req.user._id.toString())
-    console.log('USER REQ: ',user.firstname);
 
     // let chat = await Chat.findOne({ $or: [ { participants: {$elemMatch:{$eq: friend}} } , { participants: {$elemMatch:{$eq: user._id.toString()}}} ] }).populate('messages.user').populate('participants')
-
-    // PersonModel.find({ favoriteFood : { $all : ["sushi", "bananas"] }, ...})
 
     let chat = await Chat.findOne({participants: { $all: [friend, user._id.toString()] } }).populate('messages.user').populate('participants')
 
@@ -51,24 +48,28 @@ exports.setChat = async (req, res, next)=>{
 
 exports.sendMessage = async(req,res,next) =>{
 
-    const {friend, chatID, message} = req.body
+    const { chatID, message} = req.body
     const user = await User.findById(req.user._id)
 
     const chat = await Chat.findById(chatID).populate('participants').populate('messages.user')
 
     if(!chat){
-        const error = new Error('Chat went wrong')
+        const error = new Error('Chat went wrong!')
         error.status = 400
         return next(error)
     }
     if(!user){
-        const error = new Error('User not found')
+        const error = new Error('User not found!')
+        error.status = 400
+        return next(error)
+    }
+    if(!message){
+        const error = new Error('Type something..')
         error.status = 400
         return next(error)
     }
 
     chat.messages.push({user:user, message: message})
-
 
     console.log('Haupt USER', user._id);
 

@@ -44,16 +44,19 @@ export default function Login() {
                 <button type="submit">Log in</button>
           </form>
         </fieldset>
+
+        {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
+        { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>{e.msg}</h4>)}</h3>}
+
         <div className="register-link">
-            <p className="">Don't have an account?</p>
+            <p >Don't have an account?</p>
 
             <button>
               <Link to= {'/register'}>Sign up</Link>
             </button>
         </div>
 
-               {user.error && <h3 style={{color:'red'}} >{user.error}</h3>}
-               { user.errors && <h3 style={{color:'red'}}>{user.errors.map(e=> <h4 key={e.param}>{e.msg}</h4>)}</h3>}
+             
 
         </div>
     </div>

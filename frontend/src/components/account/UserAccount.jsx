@@ -217,16 +217,16 @@ export default function UserAccount() {
             <button>Create new Event</button>
         </Link>
       </div>
-      <div className="explore-events">
+      {/* <div className="explore-events">
         <Link to={"/events-list"}>
             <button>Explore Events</button>
         </Link>
-      </div>
-      <div className="explore-events">
+      </div> */}
+      {/* <div className="Loading-Fire">
         <Link to={"/fire"}>
             <button>Fire</button>
         </Link>
-      </div>
+      </div> */}
        
     </div>
   )

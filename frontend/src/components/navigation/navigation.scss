@@ -229,9 +229,40 @@ background: linear-gradient(to right, #A478CF 21%, #3E007D 100%);
   }
 
   footer {
-    color: whitesmoke;
-    height: 20vh;
+    background-color: #3E4242;
+    height:20vh;
     margin-top: 2vh;
-    width: 100%;
+    width: 98%;
+    color: white;
+    display: flex;
+    justify-content: space-around  ;
+    gap: 5rem;
+    align-items: center;
+    padding: 1rem 2rem;
+
+    >.left{
+      font-size: .8rem;
+      margin-top: 2rem;
+      margin-left: -7rem;
+      
+      > h1{
+      }
+      > ul{
+        align-self: center;
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+        margin-bottom: 2rem;
+      }
+    }
+
+    > .right{
+      > ul{
+        display: flex;
+        gap: 2rem;
+        list-style-type: none;
+        font-size: 1.2rem;
+      }
+    }
   }
 }

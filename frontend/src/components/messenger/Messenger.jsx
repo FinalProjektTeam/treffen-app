@@ -22,6 +22,7 @@ export default function Messenger() {
     const [ friendImage, setFriendImage] = useState('')
 
     const [hideChatForm, setHideChatForm] = useState(false)
+    const [error, setError] = useState('')
 
     
     useEffect( ()=>{
@@ -88,6 +89,7 @@ export default function Messenger() {
 
     const handleSendMessage = async(e) =>{
         e.preventDefault()
+        setError('')
       
        const res = await fetch('http://localhost:4000/chat', {
         method: 'POST',
@@ -113,17 +115,22 @@ export default function Messenger() {
           headers: {
               'Content-Type': 'application/json'
           }
-      })
-      .then(async(res)=>{
-          const result = await res.json()
-          if(res.status === 200){
-              setChat(result)
-              setChatID(result._id)
-              setHideChatForm(true)
-          }
-       })
-
+        })
+        .then(async(res)=>{
+            const result = await res.json()
+            if(res.status === 200){
+                setChat(result)
+                setChatID(result._id)
+                setHideChatForm(true)
+            }
+        })
        } 
+       else if(res.error){
+        setError(res.error)
+       }
+       else if(res.errors){
+        setError(res.errors[0].msg)
+       }
     }
 
     const handleNotification = async(e)=>{
@@ -158,9 +165,9 @@ export default function Messenger() {
        }
     }
 
-    if(!ready){
-      return <Fire/>
-    }
+    // if(!ready){
+    //   return <Fire/>
+    // }
 
   return (
     <div className='Messenger'>
@@ -243,6 +250,7 @@ export default function Messenger() {
                          </button>
                         
                      </form>}
+                     {error && <p style={{color: 'red'}}> {error} </p>}
             </div>
        }
 

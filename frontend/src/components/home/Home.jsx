@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
-import RunningMan from '../loading/RunningMan'
+import Fire from '../loading/Fire'
 import "./home.scss"
 
 export default function Home() {
@@ -9,11 +9,11 @@ export default function Home() {
 
   setTimeout(() => {
     setReady(true)
-  }, 3000);
+  }, 8000);
 
-  if(!ready){
-    return <RunningMan/>
-  }
+     if(!ready){
+      return <Fire/>
+    }
   return (
     <div className='Home'>
       <button className='home-btn'>

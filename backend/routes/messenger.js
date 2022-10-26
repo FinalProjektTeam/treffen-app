@@ -7,13 +7,10 @@ const validator = require('../lib/validators/messenger')
 const app = express.Router()
 
 app.route('/')
-    .get( auth , controller.readChat )
-    .post( auth , controller.sendMessage )
+    .get( auth , controller.readChat)
+    .post( auth , validator.message, controller.sendMessage)
 
-app.post('/set', auth , controller.setChat )
-
+app.post('/set', auth , controller.setChat)
 
 
 module.exports = app
-
-// comments validator

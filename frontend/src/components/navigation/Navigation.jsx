@@ -79,8 +79,43 @@ export default function Navigation(props) {
           {props.children}
       </div>
 
-        <footer className="footer" style={{backgroundImage: ` linear-gradient(to top,  black 20%, ${'#'+newColor&&newColor} 50%, white 90%) `, color: 'black', border:'solid 2px black'}}>
-          Here comes FOOTER
+        <footer className="footer" >
+            <h2>TREFFEN APP</h2>
+          <div className="left">
+            <ul>
+              <li>Employer</li>
+              <li>Employee</li>
+              <li>Blog</li>
+            </ul>
+            <ul>
+              <li>Terms</li>
+              <li>Privacy policy</li>
+              <li>Imprint</li>
+            </ul>
+          </div>
+
+          <div className="right">
+            <ul>
+              <li>
+                <ion-icon name="logo-facebook"></ion-icon>
+              </li>
+              <li>
+                <ion-icon name="logo-instagram"></ion-icon>
+              </li>
+              <li>
+                <ion-icon name="logo-youtube"></ion-icon>
+              </li>
+              <li>
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </li>
+              <li>
+                <ion-icon name="logo-xing"></ion-icon>
+              </li>
+              <li>
+                <ion-icon name="logo-twitter"></ion-icon>
+              </li>
+            </ul>
+          </div>
         </footer>
     </div>
   )
